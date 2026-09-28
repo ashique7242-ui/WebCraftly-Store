@@ -366,11 +366,35 @@
           <span class="material-symbols-outlined text-[22px]">favorite</span>
         </button>
 
-        <!-- Auto-detected Region Indicator (Strictly USD ($) globally, no currency switcher) -->
-        <div id="countryRegionBadge" title="Detected Region (All marketplace items strictly billed in USD $)" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 text-xs font-heading font-semibold text-[#003441] border border-slate-200 shadow-sm select-none">
-          <span id="navCountryFlag" class="text-base leading-none">🇺🇸</span>
-          <span id="navCountryCode" class="tracking-wide">US · USD ($)</span>
-          <span id="navAgeBadge" class="hidden text-[10px] px-1 rounded bg-slate-100 text-slate-600 font-mono font-normal"></span>
+        <!-- Sleek Market / Region Dropdown (Defaults to US market, strictly USD ($)) -->
+        <div class="relative inline-flex items-center" id="marketDropdownContainer">
+          <button type="button"
+                  id="marketDropdownBtn"
+                  onclick="toggleMarketDropdown(event);"
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  aria-label="Select market region (Billed in USD)"
+                  title="Market Region (All products strictly billed in USD $)"
+                  class="h-10 px-3 rounded-full flex items-center gap-1.5 bg-white/80 hover:bg-white text-xs font-heading font-semibold text-[#003441] border border-slate-200/90 shadow-sm hover:shadow transition-all focus:outline-none cursor-pointer group">
+            <span id="navCountryFlag" class="text-base leading-none select-none">🇺🇸</span>
+            <span class="tracking-wide text-xs font-bold text-[#003441]">USD</span>
+            <span class="material-symbols-outlined text-[16px] text-slate-400 group-hover:text-[#003441] transition-transform duration-200" id="marketDropdownChevron">expand_more</span>
+          </button>
+
+          <!-- Dropdown Menu Panel -->
+          <div id="marketDropdownMenu"
+               class="hidden absolute right-0 top-12 w-52 bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl border border-slate-200/90 py-1.5 z-50 transition-all origin-top-right animate-in fade-in zoom-in-95 duration-150">
+            <div class="px-3 py-2 border-b border-slate-100 flex items-center justify-between">
+              <span class="text-[10px] font-heading font-bold uppercase tracking-wider text-slate-400">Market Region</span>
+              <span class="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">USD ($) Locked</span>
+            </div>
+            <div class="max-h-60 overflow-y-auto py-1 space-y-0.5" id="marketRegionList">
+              <!-- Dynamically populated / interactive market items -->
+            </div>
+            <div class="px-3 py-1.5 border-t border-slate-100 bg-slate-50/80 rounded-b-2xl">
+              <p class="text-[10px] text-slate-500 leading-tight">All marketplace checkouts are processed strictly in USD ($).</p>
+            </div>
+          </div>
         </div>
 
         <!-- Log In / Log Out & User State -->
@@ -1996,26 +2020,103 @@
 
     function updateCountryBadgeUI() {
       const flagEl = document.getElementById('navCountryFlag');
-      const codeEl = document.getElementById('navCountryCode');
-      const ageEl = document.getElementById('navAgeBadge');
-
       const activeCountry = (currentUser && currentUser.countryCode) ? currentUser : userLocation;
-      if (flagEl) flagEl.textContent = activeCountry.flag || '🇺🇸';
-      if (codeEl) codeEl.textContent = `${activeCountry.countryCode || 'US'} · USD ($)`;
-
-      if (ageEl) {
-        if (activeCountry.age) {
-          ageEl.textContent = `${activeCountry.age}y`;
-          ageEl.classList.remove('hidden');
-        } else {
-          ageEl.classList.add('hidden');
-        }
+      if (flagEl) {
+        flagEl.textContent = activeCountry.flag || '🇺🇸';
       }
+
+      // Sync active state in dropdown list
+      renderMarketDropdownList(activeCountry.countryCode || 'US');
 
       const checkoutBuyerRegion = document.getElementById('checkoutBuyerRegion');
       if (checkoutBuyerRegion) {
         checkoutBuyerRegion.innerHTML = `${activeCountry.flag || '🌐'} ${activeCountry.countryName || 'Global'} <span class="text-slate-400 font-normal">· Billed in USD ($)</span>`;
       }
+    }
+
+    function toggleMarketDropdown(e) {
+      if (e) e.stopPropagation();
+      const menu = document.getElementById('marketDropdownMenu');
+      const chevron = document.getElementById('marketDropdownChevron');
+      const btn = document.getElementById('marketDropdownBtn');
+      if (!menu) return;
+
+      const isHidden = menu.classList.contains('hidden');
+      if (isHidden) {
+        const activeCountry = (currentUser && currentUser.countryCode) ? currentUser : userLocation;
+        renderMarketDropdownList(activeCountry.countryCode || 'US');
+        menu.classList.remove('hidden');
+        if (chevron) chevron.style.transform = 'rotate(180deg)';
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+      } else {
+        closeMarketDropdown();
+      }
+    }
+
+    function closeMarketDropdown() {
+      const menu = document.getElementById('marketDropdownMenu');
+      const chevron = document.getElementById('marketDropdownChevron');
+      const btn = document.getElementById('marketDropdownBtn');
+      if (menu && !menu.classList.contains('hidden')) {
+        menu.classList.add('hidden');
+        if (chevron) chevron.style.transform = 'rotate(0deg)';
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    function renderMarketDropdownList(activeCode) {
+      const listContainer = document.getElementById('marketRegionList');
+      if (!listContainer) return;
+
+      listContainer.innerHTML = '';
+      Object.keys(COUNTRY_DATA).forEach(code => {
+        const item = COUNTRY_DATA[code];
+        const isSelected = (code === activeCode);
+        const optBtn = document.createElement('button');
+        optBtn.type = 'button';
+        optBtn.className = `w-full px-3 py-2 text-left flex items-center justify-between rounded-xl text-xs font-heading transition-colors ${
+          isSelected 
+            ? 'bg-orange-50/80 text-[#003441] font-bold' 
+            : 'text-[#40484b] hover:bg-slate-100 hover:text-[#003441] font-medium'
+        }`;
+        optBtn.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="text-base leading-none select-none">${item.flag}</span>
+            <span class="truncate">${item.name}</span>
+          </div>
+          <div class="flex items-center gap-1.5 flex-shrink-0">
+            <span class="text-[11px] font-mono text-slate-400">USD</span>
+            ${isSelected ? '<span class="material-symbols-outlined text-[16px] text-[#EA580C]">check</span>' : ''}
+          </div>
+        `;
+        optBtn.onclick = (e) => {
+          e.stopPropagation();
+          selectMarketRegion(code);
+        };
+        listContainer.appendChild(optBtn);
+      });
+    }
+
+    function selectMarketRegion(code) {
+      const data = COUNTRY_DATA[code] || COUNTRY_DATA['US'];
+      userLocation.countryCode = data.code;
+      userLocation.countryName = data.name;
+      userLocation.flag = data.flag;
+      userLocation.autoDetected = false;
+      saveLocationState();
+
+      if (currentUser) {
+        currentUser.countryCode = data.code;
+        currentUser.countryName = data.name;
+        currentUser.flag = data.flag;
+        currentUser.currency = 'USD';
+        saveUserState();
+        updateAuthUI();
+      }
+
+      updateCountryBadgeUI();
+      closeMarketDropdown();
+      showToast(`Market region set to ${data.name} · All prices in USD ($)`);
     }
 
     function saveLocationState() {
@@ -3448,6 +3549,14 @@
           }
         });
       }
+
+      // Close market dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        const dropdownContainer = document.getElementById('marketDropdownContainer');
+        if (dropdownContainer && !dropdownContainer.contains(e.target)) {
+          closeMarketDropdown();
+        }
+      });
     });
   </script>
 </body>
