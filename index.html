@@ -168,9 +168,32 @@
     .frosted-card:hover {
       background: #ffffff;
       transform: translateY(-4px);
-      border-color: rgba(56, 189, 248, 0.6);
+      border-color: rgba(0, 0, 0, 0.1);
       box-shadow: 0 20px 40px -8px rgba(11, 62, 75, 0.12),
                   0 8px 16px -2px rgba(2, 132, 199, 0.08);
+    }
+
+    /* Luxury-Tech Stripe-Inspired Marketplace Card */
+    .marketplace-card {
+      position: relative;
+      background: #ffffff;
+      border-radius: 1.25rem;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02),
+                  0 6px 16px -2px rgba(0, 0, 0, 0.04);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.28s ease;
+    }
+    .marketplace-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 0 20px 32px -8px rgba(0, 0, 0, 0.08),
+                  0 8px 16px -4px rgba(0, 0, 0, 0.03);
     }
 
     /* Hero glass pills & surfaces */
@@ -210,44 +233,60 @@
       scrollbar-width: none;
     }
 
-    /* High-Energy CTA Button with Orange Glow & Micro-Interactions */
-    @keyframes ctaOrangePulse {
-      0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 4px 14px rgba(255, 102, 0, 0.4);
-      }
-      50% {
-        transform: scale(1.02);
-        box-shadow: 0 6px 20px rgba(255, 102, 0, 0.58), 0 0 0 4px rgba(255, 102, 0, 0.12);
-      }
-    }
+    /* High-Energy Luxury CTA Button with Innovation Orange & Glossy Shine */
+    .btn-luxury-cta,
     .btn-energetic {
       position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.4rem;
-      background: linear-gradient(135deg, #FF8533 0%, #FF6600 100%);
+      gap: 0.45rem;
+      background: linear-gradient(135deg, #FF8533 0%, #FF6600 60%, #E65100 100%);
       box-shadow: 0 4px 14px rgba(255, 102, 0, 0.4);
       color: #ffffff;
       font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
       font-weight: 700;
-      letter-spacing: -0.02em;
+      font-size: 0.8125rem;
+      padding: 0.65rem 1.15rem;
       border-radius: 0.75rem;
       overflow: hidden;
       cursor: pointer;
-      animation: ctaOrangePulse 3.5s infinite ease-in-out;
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.22s ease;
+      white-space: nowrap;
     }
+    /* Diagonal glossy shine sweep effect */
+    .btn-luxury-cta::before,
+    .btn-energetic::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transform: skewX(-25deg);
+      transition: left 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+    .btn-luxury-cta:hover,
     .btn-energetic:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 22px rgba(255, 102, 0, 0.58);
-      background: linear-gradient(135deg, #ffa05c 0%, #FF6600 100%);
+      box-shadow: 0 8px 24px rgba(255, 102, 0, 0.6), 0 0 16px rgba(255, 133, 51, 0.4);
+      filter: brightness(1.05);
     }
+    .btn-luxury-cta:hover::before,
+    .btn-energetic:hover::before {
+      left: 150%;
+    }
+    .btn-luxury-cta:active,
     .btn-energetic:active {
       transform: translateY(0) scale(0.98);
       box-shadow: 0 2px 8px rgba(255, 102, 0, 0.4);
     }
+    .btn-luxury-cta:focus-visible,
     .btn-energetic:focus-visible {
       outline: none;
       box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.35), 0 4px 14px rgba(255, 102, 0, 0.5);
@@ -617,34 +656,37 @@
             <!-- RIGHT COLUMN (5 cols): Stacked product preview cards -->
             <div class="lg:col-span-5 relative flex flex-col gap-5 lg:pl-6">
               <!-- Card 1 Preview (What Nobody Tells You About Getting Old - 1st Position Featured) -->
-              <div onclick="openProductDetail('aging_well');" class="frosted-card rounded-2xl p-4 sm:p-5 text-[#131b2e] shadow-2xl relative transform lg:rotate-1 hover:rotate-0 transition-transform duration-300 cursor-pointer border border-white/80">
+              <div onclick="openProductDetail('aging_well');" class="marketplace-card shadow-2xl relative transform lg:rotate-1 hover:rotate-0 transition-transform duration-300 cursor-pointer">
                 <div class="flex items-center justify-between mb-3">
-                  <span class="px-2.5 py-1 rounded-md bg-[#EA580C]/15 text-[#EA580C] font-heading font-bold text-[11px] tracking-wider uppercase flex items-center gap-1">
+                  <span class="px-2.5 py-1 rounded-md bg-orange-50 text-[#EA580C] font-heading font-bold text-[11px] tracking-wider uppercase flex items-center gap-1 border border-orange-200/60">
                     <span>🔥 #1 New Release · Education</span>
                   </span>
                   <div class="flex items-center gap-1 text-amber-500 font-heading font-bold text-xs">
                     <span>★</span>
-                    <span>4.7</span>
+                    <span class="text-slate-900 font-bold">4.7</span>
                     <span class="text-slate-400 font-normal text-[11px]">(1,126)</span>
                   </div>
                 </div>
                 <div class="flex gap-4 items-center">
                   <img src="assets/products/aging_well_workbook.jpg"
                        alt="What Nobody Tells You About Getting Old workbook cover"
-                       class="w-20 h-24 sm:w-24 sm:h-28 rounded-xl object-cover shadow-sm flex-shrink-0 border border-slate-200"/>
+                       class="w-20 h-24 sm:w-24 sm:h-28 rounded-xl object-cover shadow-sm flex-shrink-0 border border-slate-200/80"/>
                   <div class="flex-1 min-w-0">
-                    <h3 class="font-heading font-bold text-base sm:text-lg text-[#003441] truncate">What Nobody Tells You About Getting Old</h3>
-                    <p class="font-body text-xs text-[#40484b] mt-0.5 line-clamp-1">Mars Kowalski's Blunt Workbook on Aging Well 🇺🇸</p>
-                    <div class="text-[11px] text-emerald-700 font-semibold mt-1 flex items-center gap-1.5">
+                    <h3 class="font-heading font-black text-base sm:text-lg text-slate-900 truncate">What Nobody Tells You About Getting Old</h3>
+                    <div class="flex items-center gap-1.5 mt-0.5 mb-1">
+                      <span class="font-body text-xs text-slate-500 font-medium truncate">Mars Kowalski's Blunt Workbook</span>
+                      <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase bg-slate-100 text-slate-500 border border-slate-200/60 leading-none shrink-0">US</span>
+                    </div>
+                    <div class="text-[11px] text-emerald-700 font-semibold flex items-center gap-1.5">
                       <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                      <span>Instant PDF Delivery · 7-Day Refund Promise</span>
+                      <span>Instant PDF Delivery · 7-Day Guarantee</span>
                     </div>
                     <div class="mt-2.5 flex items-center justify-between gap-2">
-                      <div class="flex items-baseline gap-1.5">
-                        <span class="font-heading font-extrabold text-lg text-[#003441]">$11</span>
-                        <span class="text-xs text-slate-400 line-through">$27</span>
+                      <div class="flex items-baseline">
+                        <span class="font-heading font-black text-xl text-slate-900">$11</span>
+                        <span class="text-xs text-slate-400 line-through font-medium ml-1.5">$27</span>
                       </div>
-                      <button type="button" onclick="event.stopPropagation(); triggerInstantCheckout('aging_well', event);" class="btn-energetic px-3.5 py-2 text-xs font-heading font-bold text-white rounded-xl shadow-md inline-flex items-center gap-1.5 cursor-pointer">
+                      <button type="button" onclick="event.stopPropagation(); triggerInstantCheckout('aging_well', event);" class="btn-luxury-cta px-3 py-1.5 text-xs font-heading font-bold text-white rounded-xl shadow-md inline-flex items-center gap-1.5 cursor-pointer">
                         <span>Get Instant Access</span>
                         <svg class="w-3.5 h-3.5 text-white fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                       </button>
@@ -654,24 +696,27 @@
               </div>
 
               <!-- Card 2 Preview (FinanceOS Spreadsheet) -->
-              <div onclick="openProductDetail('finance');" class="frosted-card rounded-2xl p-4 sm:p-5 text-[#131b2e] shadow-2xl relative transform lg:-rotate-1 hover:rotate-0 transition-transform duration-300 cursor-pointer border border-white/80">
+              <div onclick="openProductDetail('finance');" class="marketplace-card shadow-2xl relative transform lg:-rotate-1 hover:rotate-0 transition-transform duration-300 cursor-pointer">
                 <div class="flex items-center justify-between mb-3">
-                  <span class="px-2.5 py-1 rounded-md bg-[#006398]/15 text-[#006398] font-heading font-bold text-[11px] tracking-wider uppercase">Staff Pick</span>
+                  <span class="px-2.5 py-1 rounded-md bg-teal-50 text-[#0F4C5C] border border-teal-200/60 font-heading font-bold text-[11px] tracking-wider uppercase">Staff Pick</span>
                   <div class="flex items-center gap-1 text-amber-500 font-heading font-bold text-xs">
                     <span>★</span>
-                    <span>4.9</span>
+                    <span class="text-slate-900 font-bold">4.9</span>
                   </div>
                 </div>
                 <div class="flex gap-4 items-center">
                   <img src="assets/products/finance.jpg"
                        alt="FinanceOS Spreadsheet Bundle preview"
-                       class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover shadow-sm flex-shrink-0 border border-slate-200"/>
+                       class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover shadow-sm flex-shrink-0 border border-slate-200/80"/>
                   <div class="flex-1 min-w-0">
-                    <h3 class="font-heading font-bold text-base sm:text-lg text-[#003441] truncate">FinanceOS Spreadsheet</h3>
-                    <p class="font-body text-xs text-[#40484b] mt-0.5 line-clamp-1">10 plug-and-play Excel &amp; Google Sheets models</p>
-                    <div class="mt-3 flex items-center justify-between">
-                      <span class="font-heading font-extrabold text-lg text-[#003441]">$39</span>
-                      <button type="button" onclick="event.stopPropagation(); openProductDetail('finance');" class="btn-energetic px-3.5 py-2 text-xs font-heading font-bold text-white rounded-xl shadow-md inline-flex items-center gap-1.5 cursor-pointer">
+                    <h3 class="font-heading font-black text-base sm:text-lg text-slate-900 truncate">FinanceOS Spreadsheet</h3>
+                    <div class="flex items-center gap-1.5 mt-0.5 mb-1.5">
+                      <span class="font-body text-xs text-slate-500 font-medium truncate">10 plug-and-play Excel &amp; Sheets models</span>
+                      <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase bg-slate-100 text-slate-500 border border-slate-200/60 leading-none shrink-0">DE</span>
+                    </div>
+                    <div class="mt-2 flex items-center justify-between gap-2">
+                      <span class="font-heading font-black text-xl text-slate-900">$39</span>
+                      <button type="button" onclick="event.stopPropagation(); openProductDetail('finance');" class="btn-luxury-cta px-3 py-1.5 text-xs font-heading font-bold text-white rounded-xl shadow-md inline-flex items-center gap-1.5 cursor-pointer">
                         <span>Get Instant Access</span>
                         <svg class="w-3.5 h-3.5 text-white fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                       </button>
@@ -2357,16 +2402,15 @@
 
       Object.values(PRODUCTS).forEach(prod => {
         const article = document.createElement('article');
-        article.className = 'product-card frosted-card rounded-2xl p-5 flex flex-col justify-between';
+        article.className = 'product-card marketplace-card';
         article.setAttribute('data-category', prod.category);
 
-        const btnLabel = prod.isLocked ? 'Members Only' : 'Get Instant Access';
         const lockIconHtml = prod.isLocked ? '<span class="material-symbols-outlined text-base">lock</span>' : '';
 
         article.innerHTML = `
           <div>
-            <!-- Image Container -->
-            <div onclick="openProductDetail('${prod.id}');" class="relative w-full h-[224px] rounded-xl overflow-hidden mb-4 shadow-sm border border-slate-200 cursor-pointer group">
+            <!-- Image Mockup Container -->
+            <div onclick="openProductDetail('${prod.id}');" class="relative w-full h-[224px] rounded-xl overflow-hidden mb-4 shadow-sm border border-slate-200/80 cursor-pointer group bg-slate-900">
               <img loading="lazy"
                    src="${prod.img}"
                    alt="${prod.title} UI mockup"
@@ -2376,65 +2420,74 @@
                 ${prod.categoryLabel}
               </div>
               <!-- Favorite Heart Button -->
-              <button type="button" onclick="event.stopPropagation(); toggleHeart(this);" aria-label="Add to wishlist" class="fav-btn absolute top-3 right-3 w-8 h-8 rounded-full frosted-glass-hero flex items-center justify-center text-white hover:text-[#EA580C] hover:bg-white/40 transition-colors">
+              <button type="button" onclick="event.stopPropagation(); toggleHeart(this);" aria-label="Add to wishlist" class="fav-btn absolute top-3 right-3 w-8 h-8 rounded-full frosted-glass-hero flex items-center justify-center text-white hover:text-[#FF6600] hover:bg-white/40 transition-colors">
                 <span class="material-symbols-outlined text-base">favorite</span>
               </button>
             </div>
 
-            <!-- Creator Info with Flag Indicator -->
-            <div class="flex items-center justify-between mb-3">
-              <div class="flex items-center gap-2">
+            <!-- Creator Info & Metadata Row with Pill Micro-Badge -->
+            <div class="flex items-center justify-between gap-2 mb-3.5">
+              <div class="flex items-center gap-2 min-w-0">
                 <img loading="lazy"
                      src="${prod.creator.avatar}"
                      alt="${prod.creator.name} avatar"
-                     class="w-6 h-6 rounded-full object-cover ring-1 ring-slate-200"/>
-                <div class="flex items-center gap-1">
-                  <span class="font-body text-xs font-semibold text-[#003441]">${prod.creator.name}</span>
-                  ${prod.creator.flag ? `<span class="text-sm leading-none" title="${prod.creator.country}">${prod.creator.flag}</span>` : ''}
-                  <span class="material-symbols-outlined text-[#006398] text-sm fill-icon" title="Verified Creator">verified</span>
+                     class="w-6 h-6 rounded-full object-cover ring-1 ring-slate-200/80 flex-shrink-0"/>
+                <div class="flex items-center gap-1.5 min-w-0">
+                  <span class="font-body text-xs font-semibold text-slate-800 truncate">${prod.creator.name}</span>
+                  <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-slate-100 text-slate-500 border border-slate-200/80 leading-none shrink-0" title="${prod.creator.country || ''}">
+                    ${prod.creator.countryCode || 'US'}
+                  </span>
+                  <span class="material-symbols-outlined text-sky-500 text-[15px] fill-icon shrink-0 leading-none" title="Verified Creator">verified</span>
                 </div>
               </div>
-              ${prod.badge ? `<span class="px-2 py-0.5 rounded-full bg-[#006398]/10 text-[#006398] font-heading font-semibold text-[11px]">${prod.badge}</span>` : ''}
+              ${prod.badge ? `
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-orange-50 text-[#EA580C] border border-orange-200/80 font-heading font-semibold text-[11px] shrink-0 whitespace-nowrap">
+                  ${prod.badge}
+                </span>
+              ` : ''}
             </div>
 
-            <!-- Title & Desc -->
-            <h3 onclick="openProductDetail('${prod.id}');" class="font-heading font-bold text-lg leading-snug text-[#003441] mb-1.5 hover:text-[#006398] cursor-pointer transition-colors">
-              ${prod.title}
-            </h3>
-            ${prod.subtitle ? `<p class="font-heading font-semibold text-xs text-[#006398] mb-1.5 line-clamp-1">${prod.subtitle}</p>` : ''}
-            <p class="font-body text-[14px] leading-relaxed text-[#475569] line-clamp-2 mb-4">
-              ${prod.tagline}
-            </p>
+            <!-- Title, Subtitle & Clamped Description Stack -->
+            <div class="mb-4">
+              <h3 onclick="openProductDetail('${prod.id}');" class="font-heading font-black text-[1.125rem] sm:text-[1.2rem] leading-snug text-slate-900 tracking-tight hover:text-slate-700 cursor-pointer transition-colors mb-1 line-clamp-2" title="${prod.title}">
+                ${prod.title}
+              </h3>
+              ${prod.subtitle ? `
+                <p class="font-heading font-medium text-xs text-slate-500 uppercase tracking-wide mb-2 line-clamp-1">
+                  ${prod.subtitle}
+                </p>
+              ` : ''}
+              <p class="font-body text-[13.5px] leading-relaxed text-slate-600 line-clamp-2">
+                ${prod.tagline}
+              </p>
+            </div>
           </div>
 
-          <!-- Footer divider & Price/CTA -->
-          <div>
-            <hr class="border-slate-200 my-3"/>
-            <div class="flex items-center justify-between">
-              <div>
-                <div class="flex items-baseline gap-2">
-                  <span class="font-heading font-extrabold text-2xl text-[#003441]">$${prod.price}</span>
-                  ${prod.originalPrice ? `<span class="text-xs text-slate-400 line-through">$${prod.originalPrice}</span>` : ''}
-                </div>
-                <div class="flex items-center gap-1 text-amber-500 font-heading font-semibold text-xs mt-0.5">
-                  <span>★</span>
-                  <span class="text-[#131b2e] font-bold">${prod.rating}</span>
-                  <span class="text-[11px] text-slate-400">(${prod.reviewsCount.toLocaleString()})</span>
-                </div>
+          <!-- Footer: Dominant Pricing & High-Energy Luxury CTA -->
+          <div class="pt-3.5 border-t border-slate-100 flex items-center justify-between gap-3">
+            <div>
+              <div class="flex items-baseline">
+                <span class="font-heading font-black text-2xl sm:text-[1.75rem] text-slate-900 tracking-tight leading-none">$${prod.price}</span>
+                ${prod.originalPrice ? `<span class="text-xs sm:text-sm text-slate-400 line-through font-medium ml-1.5">$${prod.originalPrice}</span>` : ''}
               </div>
-              ${prod.id === 'aging_well' ? `
-                <button type="button" onclick="triggerInstantCheckout('${prod.id}', event);" class="btn-energetic px-3.5 py-2 text-xs sm:text-sm font-heading font-bold text-white rounded-xl shadow-md inline-flex items-center gap-1.5 cursor-pointer">
-                  <span>Get Instant Access</span>
-                  <svg class="w-3.5 h-3.5 text-white fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                </button>
-              ` : `
-                <button type="button" onclick="handleCardAction('${prod.id}');" class="btn-energetic px-3.5 py-2 text-xs sm:text-sm font-heading font-bold text-white rounded-xl shadow-md inline-flex items-center gap-1.5 cursor-pointer">
-                  ${lockIconHtml}
-                  <span>Get Instant Access</span>
-                  <svg class="w-3.5 h-3.5 text-white fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                </button>
-              `}
+              <div class="flex items-center gap-1 text-amber-500 font-heading font-semibold text-xs mt-1">
+                <span>★</span>
+                <span class="text-slate-800 font-bold">${prod.rating}</span>
+                <span class="text-[11px] text-slate-400 font-normal">(${prod.reviewsCount.toLocaleString()})</span>
+              </div>
             </div>
+            ${prod.id === 'aging_well' ? `
+              <button type="button" onclick="triggerInstantCheckout('${prod.id}', event);" class="btn-luxury-cta">
+                <span>Get Instant Access</span>
+                <svg class="w-3.5 h-3.5 text-white fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              </button>
+            ` : `
+              <button type="button" onclick="handleCardAction('${prod.id}');" class="btn-luxury-cta">
+                ${lockIconHtml}
+                <span>Get Instant Access</span>
+                <svg class="w-3.5 h-3.5 text-white fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              </button>
+            `}
           </div>
         `;
         grid.appendChild(article);
@@ -2707,13 +2760,13 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             ${Object.values(PRODUCTS).filter(p => p.id !== prod.id).slice(0, 3).map(p => `
-              <div onclick="openProductDetail('${p.id}');" class="frosted-card rounded-2xl p-4 cursor-pointer">
-                <img src="${p.img}" alt="${p.title}" class="w-full h-40 object-cover rounded-xl mb-3 border border-slate-200"/>
-                <div class="text-xs font-heading font-semibold text-[#006398] mb-1">${p.categoryLabel}</div>
-                <h4 class="font-heading font-bold text-sm text-[#003441] truncate mb-2">${p.title}</h4>
+              <div onclick="openProductDetail('${p.id}');" class="marketplace-card p-4 cursor-pointer">
+                <img src="${p.img}" alt="${p.title}" class="w-full h-40 object-cover rounded-xl mb-3 border border-slate-200/80"/>
+                <div class="text-xs font-heading font-medium text-slate-500 uppercase tracking-wide mb-1">${p.categoryLabel}</div>
+                <h4 class="font-heading font-black text-sm text-slate-900 truncate mb-3">${p.title}</h4>
                 <div class="flex items-center justify-between">
-                  <span class="font-heading font-extrabold text-base text-[#003441]">$${p.price}</span>
-                  <button type="button" class="btn-energetic px-3 py-1.5 text-xs font-bold inline-flex items-center gap-1 cursor-pointer">
+                  <span class="font-heading font-black text-lg text-slate-900">$${p.price}</span>
+                  <button type="button" class="btn-luxury-cta px-3 py-1.5 text-xs font-bold inline-flex items-center gap-1 cursor-pointer">
                     <span>Get Instant Access</span>
                     <svg class="w-3 h-3 text-white fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                   </button>
