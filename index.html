@@ -761,7 +761,7 @@
   </footer>
 
   <!-- ============================================================ -->
-  <!-- MODAL 1: DUMMY FIREBASE AUTH MODAL                           -->
+  <!-- MODAL 1: FIREBASE AUTH MODAL (GOOGLE + EMAIL)               -->
   <!-- ============================================================ -->
   <div id="authModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative transform transition-all">
@@ -777,30 +777,43 @@
         <p id="authModalSubtitle" class="font-body text-xs sm:text-sm text-[#475569] mt-1">Unlock instant downloads, community access, and creator tools.</p>
       </div>
 
+      <!-- Real Google Sign-In Button -->
+      <button type="button" id="googleSignInBtn" onclick="handleGoogleSignIn();" class="w-full py-3 px-4 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 font-heading font-bold text-xs sm:text-sm text-[#003441] flex items-center justify-center gap-3 mb-3 shadow-sm hover:shadow transition-all group">
+        <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+        </svg>
+        <span>Continue with Google</span>
+      </button>
+
       <!-- Quick Demo Login Button -->
-      <button type="button" onclick="performLogin('Elena Rostova', 'elena@studioaura.io', true);" class="w-full py-3 px-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 font-heading font-semibold text-xs sm:text-sm text-[#003441] flex items-center justify-center gap-2 mb-4 transition-colors">
-        <span class="material-symbols-outlined text-emerald-600 text-lg">bolt</span>
-        <span>Continue as Demo Creator (Elena Rostova)</span>
+      <button type="button" onclick="performDemoLogin();" class="w-full py-2.5 px-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 font-heading font-semibold text-xs text-[#475569] flex items-center justify-center gap-2 mb-4 transition-colors">
+        <span class="material-symbols-outlined text-amber-500 text-base">bolt</span>
+        <span>Quick Demo Login (Guest)</span>
       </button>
 
       <div class="flex items-center gap-3 my-4">
         <div class="h-px bg-slate-200 flex-1"></div>
-        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">or with email</span>
+        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">or email</span>
         <div class="h-px bg-slate-200 flex-1"></div>
       </div>
 
-      <form id="authForm" onsubmit="handleAuthSubmit(event);" class="space-y-4">
+      <div id="authErrorMessage" class="hidden mb-3 p-2.5 rounded-xl bg-red-50 border border-red-200 text-red-600 text-xs text-center font-medium"></div>
+
+      <form id="authForm" onsubmit="handleEmailAuth(event);" class="space-y-4">
         <div>
           <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Email address</label>
           <input id="authEmailInput" type="email" required placeholder="creator@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
         </div>
         <div>
           <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Password</label>
-          <input id="authPasswordInput" type="password" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
+          <input id="authPasswordInput" type="password" required minlength="6" placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
         </div>
 
-        <button type="submit" class="coral-btn w-full py-3 text-sm font-semibold shadow-md mt-2">
-          Sign In / Register
+        <button type="submit" id="authSubmitBtn" class="coral-btn w-full py-3 text-sm font-semibold shadow-md mt-2 flex items-center justify-center gap-2">
+          <span>Sign In / Create Account</span>
         </button>
       </form>
     </div>
@@ -1114,8 +1127,32 @@
   <!-- TOAST NOTIFICATION -->
   <div id="toast" class="hidden fixed bottom-6 right-6 z-50 bg-[#003441] text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2 text-sm font-heading font-medium border border-teal-800 transition-all">
     <span class="material-symbols-outlined text-lg text-[#82d0e3]" id="toastIcon">info</span>
-    <span id="toastMsg">Notification message</span>
-  </div>
+  <!-- FIREBASE SCRIPTS (v10 COMPAT / MODULAR VIA CDN) -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+  <script>
+    // Firebase Configuration from User
+    const firebaseConfig = {
+      apiKey: "AIzaSyBhPGFVcMaTXZY8oP2F-JFW6szV2RA8A1g",
+      authDomain: "webcraftly-9403a.firebaseapp.com",
+      projectId: "webcraftly-9403a",
+      storageBucket: "webcraftly-9403a.firebasestorage.app",
+      messagingSenderId: "969634403244",
+      appId: "1:969634403244:web:7deefe73745e066650e009",
+      measurementId: "G-BPJ91YFHWV"
+    };
+
+    // Initialize Firebase
+    let auth = null;
+    let googleProvider = null;
+    try {
+      firebase.initializeApp(firebaseConfig);
+      auth = firebase.auth();
+      googleProvider = new firebase.auth.GoogleAuthProvider();
+    } catch (e) {
+      console.warn("Firebase initialization warning:", e);
+    }
+  </script>
 
   <!-- JAVASCRIPT LOGIC & STATE ENGINE -->
   <script>
@@ -1883,11 +1920,94 @@
       document.getElementById('authModal').classList.add('hidden');
     }
 
-    function handleAuthSubmit(e) {
+    // Listen to Firebase Auth state change automatically
+    if (auth) {
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          currentUser = {
+            name: user.displayName || user.email.split('@')[0] || 'Creator',
+            email: user.email,
+            avatar: user.photoURL || 'https://lh3.googleusercontent.com/aida-public/AB6AXuAQZI3EACbKwTLk4nWrb2j4MnaQcI1lXvAfspiCdxwHUTgUwDotDeRgYGt7tgSt3nSKxjyB1p_u-zUgj9ujIDplgLJ8ZT0GeBOF8ImCgUMNEVpbzTYscFv9qo9ACpZxZjX9Fv42q8SZZ4vHk75YwwN_czH0bUFE_ZFU2yirUJ3X2EunCqutSRSX4dGhVtAYXsxx31vVuxAQCVv-RpUK-CB8Oztn3hnZihCnR17G2H1qR2qpl-v_I0NRFw',
+            hasContributed: currentUser ? currentUser.hasContributed : false
+          };
+          saveUserState();
+          updateAuthUI();
+          if (pendingAction) {
+            const action = pendingAction;
+            pendingAction = null;
+            action();
+          }
+        }
+      });
+    }
+
+    // Real Firebase Google Sign-In
+    async function handleGoogleSignIn() {
+      const errBox = document.getElementById('authErrorMessage');
+      if (errBox) errBox.classList.add('hidden');
+
+      if (!auth || !googleProvider) {
+        performDemoLogin();
+        return;
+      }
+
+      try {
+        const result = await auth.signInWithPopup(googleProvider);
+        const user = result.user;
+        closeAuthModal();
+        showToast(`Signed in as ${user.displayName || user.email}!`);
+      } catch (error) {
+        console.error("Google Auth Error:", error);
+        if (errBox) {
+          errBox.textContent = error.message || "Failed to sign in with Google. Check Firebase authorized domains.";
+          errBox.classList.remove('hidden');
+        }
+      }
+    }
+
+    // Real Firebase Email / Password Sign In & Sign Up
+    async function handleEmailAuth(e) {
       e.preventDefault();
       const email = document.getElementById('authEmailInput').value.trim();
-      const name = email.split('@')[0] || 'Creator';
-      performLogin(name, email, false);
+      const password = document.getElementById('authPasswordInput').value;
+      const errBox = document.getElementById('authErrorMessage');
+      if (errBox) errBox.classList.add('hidden');
+
+      if (!auth) {
+        performLogin(email.split('@')[0], email, false);
+        return;
+      }
+
+      try {
+        // Try sign in first
+        await auth.signInWithEmailAndPassword(email, password);
+        closeAuthModal();
+        showToast(`Welcome back, ${email}!`);
+      } catch (signInErr) {
+        // If user not found, automatically register/create account
+        if (signInErr.code === 'auth/user-not-found' || signInErr.code === 'auth/invalid-credential') {
+          try {
+            await auth.createUserWithEmailAndPassword(email, password);
+            closeAuthModal();
+            showToast(`Account created & signed in!`);
+          } catch (createErr) {
+            if (errBox) {
+              errBox.textContent = createErr.message;
+              errBox.classList.remove('hidden');
+            }
+          }
+        } else {
+          if (errBox) {
+            errBox.textContent = signInErr.message;
+            errBox.classList.remove('hidden');
+          }
+        }
+      }
+    }
+
+    // Guest / Demo fallback login
+    function performDemoLogin() {
+      performLogin('Elena Rostova', 'elena@studioaura.io', true);
     }
 
     function performLogin(name, email, hasContributed = false) {
@@ -1900,7 +2020,7 @@
       saveUserState();
       closeAuthModal();
       updateAuthUI();
-      showToast(`Welcome back, ${name}!`);
+      showToast(`Welcome, ${name}!`);
 
       if (pendingAction) {
         const action = pendingAction;
@@ -1909,7 +2029,14 @@
       }
     }
 
-    function logout() {
+    async function logout() {
+      if (auth && auth.currentUser) {
+        try {
+          await auth.signOut();
+        } catch (e) {
+          console.error(e);
+        }
+      }
       currentUser = null;
       localStorage.removeItem('webcraftly_user');
       updateAuthUI();
