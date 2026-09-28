@@ -1,0 +1,2178 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WebCraftly — Premium Digital Tools &amp; Creator Community</title>
+  <meta name="description" content="Discover vetted digital products across Finance, Business, Marketing, Education, Healthcare, Dev, Creator, and Productivity — plus a real community of builders."/>
+
+  <!-- Google Fonts: Plus Jakarta Sans, Inter & Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+
+  <!-- Tailwind CSS Play CDN with Forms plugin -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#003441',
+            'primary-container': '#0F4C5C',
+            secondary: '#006398',
+            'cta-coral': '#EA580C',
+            surface: '#faf8ff',
+            'on-surface': '#131b2e',
+            'on-surface-variant': '#40484b',
+            'outline-variant': '#c0c8cb',
+          },
+          fontFamily: {
+            heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+            body: ['"Inter"', 'sans-serif'],
+          },
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Gradient canvas (Hero & CTA) */
+    .hero-gradient-bg {
+      background: linear-gradient(
+        180deg,
+        #082c35 0%,
+        #0c424f 35%,
+        #0f5667 70%,
+        #197287 100%
+      );
+    }
+
+    /* Frosted glass card for light surfaces */
+    .frosted-card {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(226, 232, 240, 0.85);
+      box-shadow: 0 10px 30px -4px rgba(11, 62, 75, 0.05),
+                  0 2px 8px -2px rgba(2, 132, 199, 0.03);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .frosted-card:hover {
+      background: #ffffff;
+      transform: translateY(-4px);
+      border-color: rgba(56, 189, 248, 0.6);
+      box-shadow: 0 20px 40px -8px rgba(11, 62, 75, 0.12),
+                  0 8px 16px -2px rgba(2, 132, 199, 0.08);
+    }
+
+    /* Hero glass pills & surfaces */
+    .frosted-glass-hero {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    /* Coral primary action button */
+    .coral-btn {
+      background: #EA580C;
+      box-shadow: 0 4px 16px rgba(234, 88, 12, 0.32);
+      border-radius: 0.75rem;
+      color: #ffffff;
+      font-weight: 600;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .coral-btn:hover {
+      background: #f97316;
+      box-shadow: 0 6px 20px rgba(234, 88, 12, 0.45);
+      transform: translateY(-1px);
+    }
+
+    .coral-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* Utilities */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+    }
+    .material-symbols-outlined.fill-icon {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* Sticky Nav transition */
+    #navbar {
+      background: rgba(250, 248, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(218, 226, 253, 0.60);
+      transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(250, 248, 255, 0.98);
+      box-shadow: 0 10px 25px -5px rgba(8, 44, 53, 0.08);
+      border-bottom-color: rgba(218, 226, 253, 0.80);
+    }
+
+    /* Product Grid items transition */
+    .product-card {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .product-card.hidden-filter {
+      display: none;
+    }
+
+    /* Modal Backdrop */
+    .modal-backdrop {
+      background: rgba(8, 44, 53, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+  </style>
+</head>
+<body class="bg-[#f8fafc] font-body text-[#131b2e] overflow-x-hidden antialiased selection:bg-[#EA580C] selection:text-white">
+
+  <!-- 1. STICKY NAV BAR -->
+  <header id="navbar" class="sticky top-0 z-50 w-full">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 h-20 flex items-center justify-between">
+      <!-- Left: Logo & Wordmark -->
+      <a href="#" onclick="showHomeView(); return false;" class="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg">
+        <div class="w-10 h-10 rounded-xl bg-[#003441] flex items-center justify-center relative shadow-md transition-transform group-hover:scale-105">
+          <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6l4.5 12L12 9l4.5 9L21 6"/>
+          </svg>
+          <span class="absolute top-1 right-1 w-2.5 h-2.5 rounded-full bg-[#EA580C] ring-2 ring-[#003441]"></span>
+        </div>
+        <span class="font-heading font-extrabold text-2xl tracking-tight text-[#003441]">WebCraftly</span>
+      </a>
+
+      <!-- Center: Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 font-heading text-sm font-semibold tracking-wide">
+        <a href="#" onclick="showHomeView(); scrollToSection('vault'); return false;" id="navMarketplace" class="text-[#006398] relative pb-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#006398] after:rounded-full">Marketplace</a>
+        <a href="#" onclick="showHomeView(); scrollToSection('categories'); return false;" class="text-[#40484b] hover:text-[#003441] transition-colors">Collections</a>
+        <a href="#community" onclick="showCommunityView(); return false;" id="navCommunity" class="text-[#40484b] hover:text-[#003441] transition-colors flex items-center gap-1.5">
+          <span>Community</span>
+          <span id="communityNavBadge" class="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300">Gated</span>
+        </a>
+        <a href="#seller" onclick="showSellerModal(); return false;" class="text-[#40484b] hover:text-[#003441] transition-colors">Become a Seller</a>
+      </nav>
+
+      <!-- Right: Search, Favorites, Auth / Avatar / CTA Button -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        <button type="button" onclick="focusSearch();" aria-label="Search digital products" class="w-10 h-10 rounded-full flex items-center justify-center text-[#40484b] hover:text-[#003441] hover:bg-white/80 transition-colors">
+          <span class="material-symbols-outlined text-[22px]">search</span>
+        </button>
+        <button type="button" onclick="showToast('Wishlist feature synced to your account!');" aria-label="Saved favorites" class="w-10 h-10 rounded-full flex items-center justify-center text-[#40484b] hover:text-[#EA580C] hover:bg-white/80 transition-colors">
+          <span class="material-symbols-outlined text-[22px]">favorite</span>
+        </button>
+
+        <!-- Log In / Log Out & User State -->
+        <div id="authContainer" class="flex items-center gap-3">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobileMenuBtn" type="button" aria-label="Toggle mobile menu" class="md:hidden w-10 h-10 rounded-xl flex items-center justify-center text-[#003441] hover:bg-white/60 transition-colors">
+          <span class="material-symbols-outlined text-2xl" id="menuIcon">menu</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Navigation -->
+    <div id="mobileMenu" class="hidden md:hidden px-4 pb-6 pt-2 bg-[#faf8ff]/98 backdrop-blur-xl border-b border-[#dadfed]/80 space-y-3">
+      <a href="#" onclick="showHomeView(); scrollToSection('vault'); closeMobileMenu(); return false;" class="block py-2.5 px-4 rounded-lg font-heading font-semibold text-[#006398] bg-[#006398]/10">Marketplace</a>
+      <a href="#" onclick="showHomeView(); scrollToSection('categories'); closeMobileMenu(); return false;" class="block py-2.5 px-4 rounded-lg font-heading font-medium text-[#40484b] hover:bg-black/5">Collections</a>
+      <a href="#community" onclick="showCommunityView(); closeMobileMenu(); return false;" class="block py-2.5 px-4 rounded-lg font-heading font-medium text-[#40484b] hover:bg-black/5 flex items-center justify-between">
+        <span>Community</span>
+        <span class="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300">Gated</span>
+      </a>
+      <a href="#seller" onclick="showSellerModal(); closeMobileMenu(); return false;" class="block py-2.5 px-4 rounded-lg font-heading font-medium text-[#40484b] hover:bg-black/5">Become a Seller</a>
+      <div class="pt-2">
+        <button onclick="showHomeView(); scrollToSection('vault'); closeMobileMenu();" class="coral-btn w-full flex items-center justify-center py-3 text-center text-sm font-semibold">
+          Explore Marketplace
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN APP CONTAINER FOR VIEWS -->
+  <main id="appContainer">
+
+    <!-- ========================================== -->
+    <!-- VIEW 1: HOMEPAGE (DEFAULT)                -->
+    <!-- ========================================== -->
+    <div id="homeView">
+      
+      <!-- 2. HERO SECTION (Navy/Teal Gradient Zone) -->
+      <section class="hero-gradient-bg relative pt-12 pb-20 sm:pt-16 sm:pb-28 overflow-hidden text-white border-b border-[#197287]/40 shadow-inner">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+            
+            <!-- LEFT COLUMN (7 cols) -->
+            <div class="lg:col-span-7 space-y-6 sm:space-y-8">
+              <!-- Frosted-glass-hero trust pill -->
+              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full frosted-glass-hero text-xs sm:text-sm font-heading font-semibold tracking-wide text-white/95 shadow-sm">
+                <span class="text-amber-400">★</span>
+                <span>4.9/5 from 18,000+ creators</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-white/40"></span>
+                <span class="text-white/80">Curated &amp; Tested Assets</span>
+              </div>
+
+              <!-- H1 Headline (56px/64px, weight 800, tracking -0.03em) -->
+              <h1 class="font-heading font-extrabold text-4xl sm:text-5xl lg:text-[56px] leading-[1.14] tracking-[-0.03em] text-white">
+                Masterfully Crafted Digital Products. Built for Visionary Creators.
+              </h1>
+
+              <!-- Subline (Inter, white/85%, 18px) -->
+              <p class="font-body text-base sm:text-lg leading-relaxed text-white/85 max-w-2xl">
+                Discover vetted tools across Finance, Business, Marketing, Education, Healthcare, Dev, Creator, and Productivity — with direct access to a peer collective of digital builders.
+              </p>
+
+              <!-- Two CTAs -->
+              <div class="flex flex-wrap items-center gap-4 pt-2">
+                <a href="#vault" onclick="scrollToSection('vault'); return false;" class="coral-btn inline-flex items-center gap-2 px-7 py-3.5 text-base shadow-lg">
+                  <span>Explore the Tools</span>
+                  <span class="material-symbols-outlined text-lg">arrow_forward</span>
+                </a>
+                <a href="#community" onclick="showCommunityView(); return false;" class="frosted-glass-hero hover:bg-white/20 transition-all rounded-xl px-6 py-3.5 text-base font-heading font-semibold text-white inline-flex items-center gap-2 border border-white/30">
+                  <span class="material-symbols-outlined text-lg">lock</span>
+                  <span>See the Community</span>
+                </a>
+              </div>
+
+              <!-- Stat row: 3 frosted-glass-hero pills -->
+              <div class="pt-4 grid grid-cols-3 gap-3 sm:gap-4 max-w-lg">
+                <div class="frosted-glass-hero rounded-2xl p-3.5 text-center">
+                  <div class="font-heading font-bold text-xl sm:text-2xl text-white">12,400+</div>
+                  <div class="font-heading font-medium text-xs text-white/75 mt-0.5">Tools</div>
+                </div>
+                <div class="frosted-glass-hero rounded-2xl p-3.5 text-center">
+                  <div class="font-heading font-bold text-xl sm:text-2xl text-white">8</div>
+                  <div class="font-heading font-medium text-xs text-white/75 mt-0.5">Categories</div>
+                </div>
+                <div class="frosted-glass-hero rounded-2xl p-3.5 text-center">
+                  <div class="font-heading font-bold text-xl sm:text-2xl text-white">Active</div>
+                  <div class="font-heading font-medium text-xs text-white/75 mt-0.5">Community</div>
+                </div>
+              </div>
+
+              <!-- Value check marks -->
+              <div class="flex flex-wrap items-center gap-6 pt-2 text-xs sm:text-sm text-white/80 font-medium">
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-base text-[#82d0e3]">verified_user</span>
+                  <span>Lifetime Updates Included</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-base text-[#82d0e3]">copyright</span>
+                  <span>Commercial-Ready Licenses</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT COLUMN (5 cols): Stacked product preview cards -->
+            <div class="lg:col-span-5 relative flex flex-col gap-5 lg:pl-6">
+              <!-- Card 1 Preview (Aura Design System v2.4) -->
+              <div onclick="openProductDetail('business');" class="frosted-card rounded-2xl p-4 sm:p-5 text-[#131b2e] shadow-2xl relative transform lg:rotate-1 hover:rotate-0 transition-transform duration-300 cursor-pointer border border-white/80">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="px-2.5 py-1 rounded-md bg-[#0F4C5C]/15 text-[#0F4C5C] font-heading font-bold text-[11px] tracking-wider uppercase">Trending #1 Release</span>
+                  <div class="flex items-center gap-1 text-amber-500 font-heading font-bold text-xs">
+                    <span>★</span>
+                    <span>5.0</span>
+                  </div>
+                </div>
+                <div class="flex gap-4 items-center">
+                  <img src="assets/products/business.jpg"
+                       alt="ProposalKit Pro preview"
+                       class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover shadow-sm flex-shrink-0 border border-slate-200"/>
+                  <div class="flex-1 min-w-0">
+                    <h3 class="font-heading font-bold text-base sm:text-lg text-[#003441] truncate">ProposalKit Pro</h3>
+                    <p class="font-body text-xs text-[#40484b] mt-0.5 line-clamp-1">50-page proposal system &amp; client onboarding</p>
+                    <div class="mt-3 flex items-center justify-between">
+                      <span class="font-heading font-extrabold text-lg text-[#003441]">$49</span>
+                      <button type="button" class="coral-btn px-4 py-1.5 text-xs font-semibold">Get Asset</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 2 Preview (FinanceOS Spreadsheet) -->
+              <div onclick="openProductDetail('finance');" class="frosted-card rounded-2xl p-4 sm:p-5 text-[#131b2e] shadow-2xl relative transform lg:-rotate-1 hover:rotate-0 transition-transform duration-300 cursor-pointer border border-white/80">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="px-2.5 py-1 rounded-md bg-[#006398]/15 text-[#006398] font-heading font-bold text-[11px] tracking-wider uppercase">Staff Pick</span>
+                  <div class="flex items-center gap-1 text-amber-500 font-heading font-bold text-xs">
+                    <span>★</span>
+                    <span>4.9</span>
+                  </div>
+                </div>
+                <div class="flex gap-4 items-center">
+                  <img src="assets/products/finance.jpg"
+                       alt="FinanceOS Spreadsheet Bundle preview"
+                       class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover shadow-sm flex-shrink-0 border border-slate-200"/>
+                  <div class="flex-1 min-w-0">
+                    <h3 class="font-heading font-bold text-base sm:text-lg text-[#003441] truncate">FinanceOS Spreadsheet</h3>
+                    <p class="font-body text-xs text-[#40484b] mt-0.5 line-clamp-1">10 plug-and-play Excel &amp; Google Sheets models</p>
+                    <div class="mt-3 flex items-center justify-between">
+                      <span class="font-heading font-extrabold text-lg text-[#003441]">$39</span>
+                      <button type="button" class="coral-btn px-4 py-1.5 text-xs font-semibold">Get Asset</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. CATEGORY FILTER BAR (Sticky below nav on scroll) -->
+      <section id="categories" class="sticky top-20 z-40 w-full py-4 backdrop-blur-xl bg-white/95 border-b border-slate-200 shadow-sm transition-all">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+          <div class="flex items-center gap-2.5 overflow-x-auto no-scrollbar py-1">
+            <button type="button" data-filter="all" class="category-chip px-4 py-2 rounded-full font-heading text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap transition-all duration-200 bg-[#0F4C5C] text-white shadow-sm">
+              ✨ All Tools
+            </button>
+            <button type="button" data-filter="finance" class="category-chip px-4 py-2 rounded-full font-heading text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap transition-all duration-200 bg-slate-100 text-[#0F4C5C] hover:bg-[#0F4C5C] hover:text-white border border-slate-200">
+              🧮 Finance
+            </button>
+            <button type="button" data-filter="business" class="category-chip px-4 py-2 rounded-full font-heading text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap transition-all duration-200 bg-slate-100 text-[#0F4C5C] hover:bg-[#0F4C5C] hover:text-white border border-slate-200">
+              💼 Business
+            </button>
+            <button type="button" data-filter="marketing" class="category-chip px-4 py-2 rounded-full font-heading text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap transition-all duration-200 bg-slate-100 text-[#0F4C5C] hover:bg-[#0F4C5C] hover:text-white border border-slate-200">
+              📈 Marketing
+            </button>
+            <button type="button" data-filter="education" class="category-chip px-4 py-2 rounded-full font-heading text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap transition-all duration-200 bg-slate-100 text-[#0F4C5C] hover:bg-[#0F4C5C] hover:text-white border border-slate-200">
+              🎓 Education
+            </button>
+            <button type="button" data-filter="healthcare" class="category-chip px-4 py-2 rounded-full font-heading text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap transition-all duration-200 bg-slate-100 text-[#0F4C5C] hover:bg-[#0F4C5C] hover:text-white border border-slate-200">
+              🧑‍⚕️ Healthcare
+            </button>
+            <button type="button" data-filter="developer" class="category-chip px-4 py-2 rounded-full font-heading text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap transition-all duration-200 bg-slate-100 text-[#0F4C5C] hover:bg-[#0F4C5C] hover:text-white border border-slate-200">
+              💻 Developer
+            </button>
+            <button type="button" data-filter="creator" class="category-chip px-4 py-2 rounded-full font-heading text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap transition-all duration-200 bg-slate-100 text-[#0F4C5C] hover:bg-[#0F4C5C] hover:text-white border border-slate-200">
+              🎨 Creator
+            </button>
+            <button type="button" data-filter="productivity" class="category-chip px-4 py-2 rounded-full font-heading text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap transition-all duration-200 bg-slate-100 text-[#0F4C5C] hover:bg-[#0F4C5C] hover:text-white border border-slate-200">
+              📄 Productivity
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. DIGITAL PRODUCTS SECTION (PALE NEUTRAL LIGHT BACKGROUND #f8fafc) -->
+      <section id="vault" class="py-16 sm:py-24 bg-[#f8fafc] border-b border-slate-200">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+          
+          <!-- Section Header with WCAG AA Passed High Contrast -->
+          <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-teal-50 text-[#0F4C5C] font-heading font-semibold text-xs tracking-wider uppercase mb-3 shadow-sm border border-teal-200">
+              <span class="material-symbols-outlined text-sm">lock_open</span>
+              <span>Vetted Asset Library</span>
+            </div>
+            <h2 class="font-heading font-extrabold text-3xl sm:text-4xl lg:text-[42px] leading-tight tracking-[-0.02em] text-[#003441]" style="color: #003441 !important;">
+              The Vault — Premium Digital Tools
+            </h2>
+            <!-- High contrast WCAG AA subtitle text -->
+            <p class="font-body text-base sm:text-lg text-slate-800 font-semibold mt-3 max-w-2xl mx-auto leading-relaxed" style="color: #1e293b !important; opacity: 1 !important;">
+              Handpicked production templates, systems, and boilerplates built by top digital creators. Tested, updated, and ready for production.
+            </p>
+          </div>
+
+          <!-- 3-Column Responsive Grid with 100% UI mockup images -->
+          <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <!-- Dynamically rendered or static semantic cards -->
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 5. COMMUNITY SECTION (SLATE PALE TINT #f1f5f9 — ALTERNATING) -->
+      <section id="communityTeaser" class="py-16 sm:py-24 bg-[#f1f5f9] border-b border-slate-200">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+          
+          <!-- Header -->
+          <div class="text-center max-w-2xl mx-auto mb-12">
+            <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white text-[#0F4C5C] font-heading font-semibold text-xs tracking-wider uppercase mb-3 shadow-sm border border-slate-200">
+              <span class="material-symbols-outlined text-sm">groups</span>
+              <span>Peer Circles</span>
+            </div>
+            <h2 class="font-heading font-extrabold text-3xl sm:text-4xl leading-tight tracking-[-0.02em] text-[#003441]">
+              Find Your People
+            </h2>
+            <p class="font-body text-base text-[#475569] mt-2">
+              Groups built around shared goals — builders, learners, and creators who actually show up.
+            </p>
+          </div>
+
+          <!-- Horizontal scrollable row of 6 community tiles with BRAND LINE ICONS -->
+          <div class="overflow-x-auto no-scrollbar pb-6 -mx-4 px-4 sm:mx-0 sm:px-0">
+            <div class="flex gap-4 sm:gap-6 justify-start lg:justify-center min-w-max mx-auto">
+              
+              <!-- Tile 1: Finance Builders -->
+              <div class="frosted-card rounded-2xl p-5 w-[168px] flex flex-col items-center text-center justify-between shadow-sm">
+                <div>
+                  <div class="w-12 h-12 rounded-xl bg-teal-50 border border-teal-200 flex items-center justify-center text-[#0F4C5C] mx-auto mb-3 shadow-sm">
+                    <span class="material-symbols-outlined text-2xl">account_balance</span>
+                  </div>
+                  <h3 class="font-heading font-bold text-sm text-[#003441] leading-tight">Finance Builders</h3>
+                  <div class="font-body text-xs text-[#64748b] mt-1">2.4k members</div>
+                </div>
+                <button type="button" onclick="showCommunityView();" class="coral-btn w-full mt-4 py-1.5 text-xs font-semibold">Join</button>
+              </div>
+
+              <!-- Tile 2: Founders Club -->
+              <div class="frosted-card rounded-2xl p-5 w-[168px] flex flex-col items-center text-center justify-between shadow-sm">
+                <div>
+                  <div class="w-12 h-12 rounded-xl bg-sky-50 border border-sky-200 flex items-center justify-center text-[#006398] mx-auto mb-3 shadow-sm">
+                    <span class="material-symbols-outlined text-2xl">rocket_launch</span>
+                  </div>
+                  <h3 class="font-heading font-bold text-sm text-[#003441] leading-tight">Founders Club</h3>
+                  <div class="font-body text-xs text-[#64748b] mt-1">5.1k members</div>
+                </div>
+                <button type="button" onclick="showCommunityView();" class="coral-btn w-full mt-4 py-1.5 text-xs font-semibold">Join</button>
+              </div>
+
+              <!-- Tile 3: Marketers Unite -->
+              <div class="frosted-card rounded-2xl p-5 w-[168px] flex flex-col items-center text-center justify-between shadow-sm">
+                <div>
+                  <div class="w-12 h-12 rounded-xl bg-orange-50 border border-orange-200 flex items-center justify-center text-[#EA580C] mx-auto mb-3 shadow-sm">
+                    <span class="material-symbols-outlined text-2xl">campaign</span>
+                  </div>
+                  <h3 class="font-heading font-bold text-sm text-[#003441] leading-tight">Marketers Unite</h3>
+                  <div class="font-body text-xs text-[#64748b] mt-1">3.8k members</div>
+                </div>
+                <button type="button" onclick="showCommunityView();" class="coral-btn w-full mt-4 py-1.5 text-xs font-semibold">Join</button>
+              </div>
+
+              <!-- Tile 4: Dev Corner -->
+              <div class="frosted-card rounded-2xl p-5 w-[168px] flex flex-col items-center text-center justify-between shadow-sm">
+                <div>
+                  <div class="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-700 mx-auto mb-3 shadow-sm">
+                    <span class="material-symbols-outlined text-2xl">terminal</span>
+                  </div>
+                  <h3 class="font-heading font-bold text-sm text-[#003441] leading-tight">Dev Corner</h3>
+                  <div class="font-body text-xs text-[#64748b] mt-1">6.2k members</div>
+                </div>
+                <button type="button" onclick="showCommunityView();" class="coral-btn w-full mt-4 py-1.5 text-xs font-semibold">Join</button>
+              </div>
+
+              <!-- Tile 5: Creator Circle -->
+              <div class="frosted-card rounded-2xl p-5 w-[168px] flex flex-col items-center text-center justify-between shadow-sm">
+                <div>
+                  <div class="w-12 h-12 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 mx-auto mb-3 shadow-sm">
+                    <span class="material-symbols-outlined text-2xl">palette</span>
+                  </div>
+                  <h3 class="font-heading font-bold text-sm text-[#003441] leading-tight">Creator Circle</h3>
+                  <div class="font-body text-xs text-[#64748b] mt-1">4.3k members</div>
+                </div>
+                <button type="button" onclick="showCommunityView();" class="coral-btn w-full mt-4 py-1.5 text-xs font-semibold">Join</button>
+              </div>
+
+              <!-- Tile 6: Study Squad -->
+              <div class="frosted-card rounded-2xl p-5 w-[168px] flex flex-col items-center text-center justify-between shadow-sm">
+                <div>
+                  <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 mx-auto mb-3 shadow-sm">
+                    <span class="material-symbols-outlined text-2xl">menu_book</span>
+                  </div>
+                  <h3 class="font-heading font-bold text-sm text-[#003441] leading-tight">Study Squad</h3>
+                  <div class="font-body text-xs text-[#64748b] mt-1">1.9k members</div>
+                </div>
+                <button type="button" onclick="showCommunityView();" class="coral-btn w-full mt-4 py-1.5 text-xs font-semibold">Join</button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Button below row -->
+          <div class="text-center mt-6">
+            <button type="button" onclick="showCommunityView();" class="coral-btn inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold">
+              <span>Explore All Communities</span>
+              <span class="material-symbols-outlined text-base">arrow_forward</span>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 6. TESTIMONIALS (CRISP WHITE CANVAS #ffffff — ALTERNATING) -->
+      <section id="testimonials" class="py-16 sm:py-20 bg-white border-b border-slate-200">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+          
+          <div class="text-center max-w-xl mx-auto mb-12">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-[#0F4C5C] font-heading font-semibold text-xs tracking-wider uppercase mb-3 shadow-sm border border-slate-200">
+              <span class="material-symbols-outlined text-sm">sentiment_satisfied</span>
+              <span>Proof of Craft</span>
+            </div>
+            <h2 class="font-heading font-extrabold text-3xl sm:text-4xl leading-tight tracking-[-0.02em] text-[#003441]">
+              Loved by Visionary Builders
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+            
+            <!-- T1: Julian Thorne -->
+            <div class="frosted-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-1 text-[#EA580C] text-sm mb-4">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+                <p class="font-body text-[15px] leading-relaxed text-[#131b2e] italic">
+                  “The DevKit and FinanceOS bundle alone saved us 40 hours of setup work. Every tool just works.”
+                </p>
+              </div>
+              <div>
+                <hr class="border-slate-200 my-4"/>
+                <div class="flex items-center gap-3">
+                  <img loading="lazy"
+                       src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmUckaryncghQL1dWD00tX73v1VncvUUbsFVE-jMVtijwTgrrnyMvLqnrPys4AR58jnTjJoRoyXdsRA5-AWyu4UWVqROhMKtiLCVHk_8CeQ_K7PtTXEND5TXI_mEKEW-HG2U1GLzxn_d0lwpcysJ7FQCbt55Tr8LJTGhhVbO4oF2cTHp_4oVjMIzTwnGkX7ts3aCMDVy1JfvRyVPtmxpI8Z8uT9BZFboPI7FRN5uww2dFFh3O7RC_8Fw"
+                       alt="Julian Thorne avatar"
+                       class="w-10 h-10 rounded-full object-cover ring-2 ring-slate-100 shadow-sm"/>
+                  <div>
+                    <h3 class="font-heading font-bold text-sm text-[#003441]">Julian Thorne</h3>
+                    <div class="font-body text-xs text-[#64748b]">CTO at Northwind Labs</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- T2: Sarah Chen -->
+            <div class="frosted-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-1 text-[#EA580C] text-sm mb-4">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+                <p class="font-body text-[15px] leading-relaxed text-[#131b2e] italic">
+                  “WebCraftly has the best curation I've seen. No noise — every product is genuinely useful.”
+                </p>
+              </div>
+              <div>
+                <hr class="border-slate-200 my-4"/>
+                <div class="flex items-center gap-3">
+                  <img loading="lazy"
+                       src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmUckaryncghQL1dWD00tX73v1VncvUUbsFVE-jMVtijwTgrrnyMvLqnrPys4AR58jnTjJoRoyXdsRA5-AWyu4UWVqROhMKtiLCVHk_8CeQ_K7PtTXEND5TXI_mEKEW-HG2U1GLzxn_d0lwpcysJ7FQCbt55Tr8LJTGhhVbO4oF2cTHp_4oVjMIzTwnGkX7ts3aCMDVy1JfvRyVPtmxpI8Z8uT9BZFboPI7FRN5uww2dFFh3O7RC_8Fw"
+                       alt="Sarah Chen avatar"
+                       class="w-10 h-10 rounded-full object-cover ring-2 ring-slate-100 shadow-sm"/>
+                  <div>
+                    <h3 class="font-heading font-bold text-sm text-[#003441]">Sarah Chen</h3>
+                    <div class="font-body text-xs text-[#64748b]">Head of Design at Studio Aura</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- T3: Lucas Moretti -->
+            <div class="frosted-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-1 text-[#EA580C] text-sm mb-4">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+                <p class="font-body text-[15px] leading-relaxed text-[#131b2e] italic">
+                  “The community alone is worth it. I've closed 3 client deals through connections I made in Founders Club.”
+                </p>
+              </div>
+              <div>
+                <hr class="border-slate-200 my-4"/>
+                <div class="flex items-center gap-3">
+                  <img loading="lazy"
+                       src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbO7MIV8j5G8ye6lRVQSW2nxLiiRpKI_Da55PlJ1USec-jJ432bGwzTiNY2hdX27yJBW7EVCm5iUAmw4fEyU062R8I5Ky43Tp788irn-9RoHdjd3xUwKD-L5IjcjAr49k_sSp4RHkuDX33ZXINDshgS8HEX9WZSEAEBTaeUfB4d4851oRmY6ND5NmaKAC1iefOgYMb058whO-HhMfqkh3M62XoKHpHZP2dSCkQNJQpvpbfrpVrrSXAwg"
+                       alt="Lucas Moretti avatar"
+                       class="w-10 h-10 rounded-full object-cover ring-2 ring-slate-100 shadow-sm"/>
+                  <div>
+                    <h3 class="font-heading font-bold text-sm text-[#003441]">Lucas Moretti</h3>
+                    <div class="font-body text-xs text-[#64748b]">Indie Founder &amp; Developer</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. CLOSING CTA PANEL (Rich Teal Gradient) -->
+      <section class="py-16 sm:py-24 bg-[#f8fafc]">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+          <div class="hero-gradient-bg rounded-3xl p-8 sm:p-14 lg:p-16 text-center max-w-4xl mx-auto shadow-2xl relative overflow-hidden border border-white/20 text-white">
+            <div class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full frosted-glass-hero text-white font-heading font-semibold text-xs tracking-wider uppercase mb-6">
+              ✨ Elevate Your Digital Craft
+            </div>
+            <h2 class="font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white tracking-[-0.02em] leading-tight">
+              Ready to create at the highest standard?
+            </h2>
+            <p class="font-body text-base sm:text-lg text-white/90 max-w-2xl mx-auto mt-4 leading-relaxed">
+              Join thousands of builders with instant downloads, pristine licenses, and lifelong updates.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-4 mt-8">
+              <a href="#vault" onclick="scrollToSection('vault'); return false;" class="coral-btn px-8 py-3.5 text-base font-semibold shadow-xl inline-flex items-center gap-2">
+                <span>Enter WebCraftly</span>
+                <span class="material-symbols-outlined text-lg">arrow_forward</span>
+              </a>
+              <button type="button" onclick="showSellerModal();" class="px-7 py-3.5 rounded-xl font-heading font-semibold text-white bg-white/10 hover:bg-white/20 transition-all border border-white/30 shadow-sm">
+                Become a Seller
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- VIEW 2: PRODUCT DETAIL PAGE (REUSABLE PDP) -->
+    <!-- ========================================== -->
+    <div id="productDetailView" class="hidden min-h-screen bg-[#f8fafc] py-10 sm:py-16">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+        
+        <!-- Breadcrumb / Back button -->
+        <button type="button" onclick="showHomeView();" class="inline-flex items-center gap-2 text-sm font-heading font-semibold text-[#006398] hover:text-[#003441] mb-8 group">
+          <span class="material-symbols-outlined text-lg transition-transform group-hover:-translate-x-1">arrow_back</span>
+          <span>Back to Marketplace</span>
+        </button>
+
+        <div id="productDetailContent">
+          <!-- Populated dynamically via JS -->
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- VIEW 3: GATED COMMUNITY HUB               -->
+    <!-- ========================================== -->
+    <div id="communityView" class="hidden min-h-screen bg-[#f8fafc] py-10 sm:py-16">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+        
+        <!-- Community Container (Switches between Locked and Unlocked) -->
+        <div id="communityContent">
+          <!-- Populated dynamically via renderCommunityView() -->
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 8. FOOTER -->
+  <footer class="bg-[#002833] text-white border-t border-[#0c424f] pt-16 pb-12">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 sm:gap-12 pb-12 border-b border-white/10">
+        
+        <!-- Left: Brand & Newsletter (6 cols) -->
+        <div class="md:col-span-6 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center relative shadow-sm">
+              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 6l4.5 12L12 9l4.5 9L21 6"/>
+              </svg>
+              <span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-[#EA580C] ring-2 ring-[#002833]"></span>
+            </div>
+            <span class="font-heading font-extrabold text-xl tracking-tight text-white">WebCraftly</span>
+          </div>
+          <p class="font-body text-sm text-white/70 max-w-sm">
+            Curated marketplace &amp; community for modern digital craftsmen, developers, and creators.
+          </p>
+
+          <!-- Newsletter Input with JS validation -->
+          <div class="pt-2 max-w-md">
+            <form id="newsletterForm" novalidate class="flex flex-col sm:flex-row gap-2">
+              <div class="relative flex-1">
+                <input id="newsletterEmail"
+                       type="email"
+                       placeholder="Enter your creator email..."
+                       class="w-full px-4 py-2.5 rounded-xl border border-white/20 bg-white/10 text-sm text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-[#82d0e3] focus:border-transparent transition-all"/>
+              </div>
+              <button type="submit" class="coral-btn px-5 py-2.5 text-sm font-semibold whitespace-nowrap">
+                Subscribe
+              </button>
+            </form>
+            <p id="emailError" class="hidden text-xs text-red-400 font-medium mt-1.5 flex items-center gap-1">
+              <span class="material-symbols-outlined text-sm">error</span>
+              <span>Please enter a valid email</span>
+            </p>
+            <p id="emailSuccess" class="hidden text-xs text-emerald-400 font-medium mt-1.5 flex items-center gap-1">
+              <span class="material-symbols-outlined text-sm">check_circle</span>
+              <span>You're in! Check your inbox for the weekly drops.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Center & Right: Navigation Links (6 cols) -->
+        <div class="md:col-span-6 grid grid-cols-2 sm:grid-cols-3 gap-8">
+          <div>
+            <h4 class="font-heading font-bold text-xs uppercase tracking-wider text-[#82d0e3] mb-3">Platform</h4>
+            <ul class="space-y-2 text-sm text-white/70 font-body">
+              <li><a href="#" onclick="showHomeView(); scrollToSection('vault'); return false;" class="hover:text-white transition-colors">Marketplace</a></li>
+              <li><a href="#" onclick="showHomeView(); scrollToSection('categories'); return false;" class="hover:text-white transition-colors">Collections</a></li>
+              <li><a href="#community" onclick="showCommunityView(); return false;" class="hover:text-white transition-colors">Community</a></li>
+              <li><a href="#seller" onclick="showSellerModal(); return false;" class="hover:text-white transition-colors">Become a Seller</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-heading font-bold text-xs uppercase tracking-wider text-[#82d0e3] mb-3">Legal &amp; Trust</h4>
+            <ul class="space-y-2 text-sm text-white/70 font-body">
+              <li><a href="#" onclick="showToast('Commercial Single & Team licenses included.'); return false;" class="hover:text-white transition-colors">License &amp; Terms</a></li>
+              <li><a href="#" onclick="showToast('Your privacy is protected with AES-256 encryption.'); return false;" class="hover:text-white transition-colors">Privacy Policy</a></li>
+              <li><a href="#" onclick="showToast('Contact support: help@webcraftly.com'); return false;" class="hover:text-white transition-colors">Help Center</a></li>
+            </ul>
+          </div>
+          <div class="col-span-2 sm:col-span-1">
+            <h4 class="font-heading font-bold text-xs uppercase tracking-wider text-[#82d0e3] mb-3">Connect</h4>
+            <div class="flex items-center gap-2">
+              <a href="#" aria-label="Terminal" class="w-9 h-9 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-colors">
+                <span class="material-symbols-outlined text-lg">terminal</span>
+              </a>
+              <a href="#" aria-label="Community Forum" class="w-9 h-9 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-colors">
+                <span class="material-symbols-outlined text-lg">forum</span>
+              </a>
+              <a href="#" aria-label="RSS Feed" class="w-9 h-9 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-colors">
+                <span class="material-symbols-outlined text-lg">rss_feed</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Copyright -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60">
+        <div>© 2025 WebCraftly. Crafted for modern creators and visionary digital craftsmen.</div>
+        <div class="flex items-center gap-6">
+          <a href="#" class="hover:underline">Terms of Service</a>
+          <a href="#" class="hover:underline">Privacy Statement</a>
+          <a href="#" class="hover:underline">Security</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ============================================================ -->
+  <!-- MODAL 1: DUMMY FIREBASE AUTH MODAL                           -->
+  <!-- ============================================================ -->
+  <div id="authModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative transform transition-all">
+      <button type="button" onclick="closeAuthModal();" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 transition-colors">
+        <span class="material-symbols-outlined text-2xl">close</span>
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 rounded-2xl bg-[#003441] flex items-center justify-center text-white mx-auto mb-3 shadow-md">
+          <span class="material-symbols-outlined text-2xl">lock</span>
+        </div>
+        <h3 id="authModalTitle" class="font-heading font-extrabold text-2xl text-[#003441]">Sign In to WebCraftly</h3>
+        <p id="authModalSubtitle" class="font-body text-xs sm:text-sm text-[#475569] mt-1">Unlock instant downloads, community access, and creator tools.</p>
+      </div>
+
+      <!-- Quick Demo Login Button -->
+      <button type="button" onclick="performLogin('Elena Rostova', 'elena@studioaura.io', true);" class="w-full py-3 px-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 font-heading font-semibold text-xs sm:text-sm text-[#003441] flex items-center justify-center gap-2 mb-4 transition-colors">
+        <span class="material-symbols-outlined text-emerald-600 text-lg">bolt</span>
+        <span>Continue as Demo Creator (Elena Rostova)</span>
+      </button>
+
+      <div class="flex items-center gap-3 my-4">
+        <div class="h-px bg-slate-200 flex-1"></div>
+        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">or with email</span>
+        <div class="h-px bg-slate-200 flex-1"></div>
+      </div>
+
+      <form id="authForm" onsubmit="handleAuthSubmit(event);" class="space-y-4">
+        <div>
+          <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Email address</label>
+          <input id="authEmailInput" type="email" required placeholder="creator@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
+        </div>
+        <div>
+          <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Password</label>
+          <input id="authPasswordInput" type="password" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
+        </div>
+
+        <button type="submit" class="coral-btn w-full py-3 text-sm font-semibold shadow-md mt-2">
+          Sign In / Register
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- MODAL 2: DUMMY RAZORPAY CHECKOUT MODAL                       -->
+  <!-- ============================================================ -->
+  <div id="checkoutModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden border border-slate-200 relative">
+      <!-- Razorpay Header Simulation -->
+      <div class="bg-[#0c2340] text-white px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded bg-[#2b83ea] flex items-center justify-center font-heading font-bold text-sm">
+            R
+          </div>
+          <div>
+            <div class="font-heading font-bold text-sm leading-tight">Razorpay Trusted Checkout</div>
+            <div class="text-[10px] text-slate-300">WebCraftly Digital Marketplace</div>
+          </div>
+        </div>
+        <button type="button" onclick="closeCheckoutModal();" class="text-slate-300 hover:text-white transition-colors">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div id="checkoutBody" class="p-6">
+        <!-- Order Summary -->
+        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 mb-6">
+          <div class="flex items-center justify-between mb-1">
+            <span id="checkoutItemTitle" class="font-heading font-bold text-sm text-[#003441]">Product Name</span>
+            <span id="checkoutItemPrice" class="font-heading font-extrabold text-base text-[#003441]">$39.00</span>
+          </div>
+          <div class="text-xs text-slate-500">Commercial Single License · Instant Access</div>
+        </div>
+
+        <!-- Payment Methods -->
+        <div class="space-y-3 mb-6">
+          <label class="flex items-center justify-between p-3 rounded-xl border border-blue-500 bg-blue-50/50 cursor-pointer">
+            <div class="flex items-center gap-3">
+              <input type="radio" name="paymethod" checked class="text-[#2b83ea] focus:ring-0"/>
+              <span class="font-heading font-semibold text-xs text-[#0c2340]">Credit / Debit Card (Visa, MC, Amex)</span>
+            </div>
+            <span class="material-symbols-outlined text-[#2b83ea] text-lg">credit_card</span>
+          </label>
+          <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer">
+            <div class="flex items-center gap-3">
+              <input type="radio" name="paymethod" class="text-[#2b83ea] focus:ring-0"/>
+              <span class="font-heading font-semibold text-xs text-[#0c2340]">UPI &amp; QR Code / NetBanking</span>
+            </div>
+            <span class="material-symbols-outlined text-slate-500 text-lg">qr_code</span>
+          </label>
+        </div>
+
+        <button type="button" id="payNowBtn" onclick="processMockPayment();" class="w-full py-3.5 px-4 rounded-xl bg-[#2b83ea] hover:bg-[#1a73e8] text-white font-heading font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2">
+          <span>Pay Securely</span>
+          <span id="payBtnAmount">$39.00</span>
+        </button>
+        <div class="text-[11px] text-center text-slate-400 mt-3 flex items-center justify-center gap-1">
+          <span class="material-symbols-outlined text-xs">verified_user</span>
+          <span>Dummy Test Mode — No actual bank charges</span>
+        </div>
+      </div>
+
+      <!-- Payment Processing State -->
+      <div id="checkoutProcessing" class="hidden p-10 text-center">
+        <div class="w-12 h-12 border-4 border-slate-200 border-t-[#2b83ea] rounded-full animate-spin mx-auto mb-4"></div>
+        <h4 class="font-heading font-bold text-lg text-[#0c2340]">Verifying Transaction...</h4>
+        <p class="font-body text-xs text-slate-500 mt-1">Communicating with mock Razorpay gateway</p>
+      </div>
+
+      <!-- Payment Success State -->
+      <div id="checkoutSuccess" class="hidden p-8 text-center">
+        <div class="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4 shadow-sm">
+          <span class="material-symbols-outlined text-3xl">check_circle</span>
+        </div>
+        <h4 class="font-heading font-extrabold text-xl text-[#003441]">Payment Successful!</h4>
+        <p class="font-body text-xs text-slate-600 mt-1 mb-6">Order ID: <span id="successOrderId" class="font-mono font-semibold text-slate-800">WC-98214</span></p>
+
+        <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-200 mb-6 text-left">
+          <div class="font-heading font-bold text-xs text-emerald-900 mb-1 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-sm">download</span>
+            <span>Your License &amp; Files are Ready</span>
+          </div>
+          <p class="text-xs text-emerald-800">A backup download link was also sent to your verified email.</p>
+        </div>
+
+        <button type="button" onclick="triggerMockDownload();" class="coral-btn w-full py-3 text-sm font-semibold flex items-center justify-center gap-2 mb-3">
+          <span class="material-symbols-outlined text-base">cloud_download</span>
+          <span>Download Asset Package (.ZIP)</span>
+        </button>
+        <button type="button" onclick="closeCheckoutModal();" class="w-full py-2.5 text-xs font-heading font-semibold text-slate-500 hover:text-slate-800 transition-colors">
+          Return to Marketplace
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- MODAL 3: BECOME A SELLER LISTING FORM MODAL                  -->
+  <!-- ============================================================ -->
+  <div id="sellerModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative my-8">
+      <button type="button" onclick="closeSellerModal();" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 transition-colors">
+        <span class="material-symbols-outlined text-2xl">close</span>
+      </button>
+
+      <div class="mb-6">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-[#EA580C] font-heading font-semibold text-xs tracking-wider uppercase mb-2 border border-orange-200">
+          <span>Creator Portal</span>
+        </div>
+        <h3 class="font-heading font-extrabold text-2xl text-[#003441]">Create a Digital Product Listing</h3>
+        <p class="font-body text-xs sm:text-sm text-[#475569] mt-1">Reach 18,000+ creators and keep 92% of your sales revenue.</p>
+      </div>
+
+      <!-- Seller Form Matching Specifications -->
+      <form id="sellerForm" onsubmit="handleSellerSubmit(event);" class="space-y-4">
+        <!-- 1. Title -->
+        <div>
+          <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Title <span class="text-red-500">*</span></label>
+          <input id="sellerTitle" type="text" required placeholder="e.g. Next.js SaaS Boilerplate Pro" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
+        </div>
+
+        <!-- 2. Subtitle -->
+        <div>
+          <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Subtitle <span class="text-red-500">*</span></label>
+          <input id="sellerSubtitle" type="text" required placeholder="e.g. Complete authentication, billing, and clean architecture kit" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
+        </div>
+
+        <!-- 3. Button Label -->
+        <div>
+          <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Button Label</label>
+          <input id="sellerBtnLabel" type="text" placeholder="Get Asset (or 'Get My Guide')" value="Get Asset" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
+        </div>
+
+        <!-- 4. Price & Discount Price Toggle -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Price ($) <span class="text-red-500">*</span></label>
+            <input id="sellerPrice" type="number" required min="1" placeholder="49" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="text-xs font-heading font-bold text-[#003441] uppercase tracking-wider">Discount Price ($)</label>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input id="discountToggle" type="checkbox" onchange="toggleDiscountField();" class="sr-only peer">
+                <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#EA580C]"></div>
+              </label>
+            </div>
+            <input id="sellerDiscountPrice" type="number" min="1" disabled placeholder="29" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm disabled:opacity-50 focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
+          </div>
+        </div>
+
+        <!-- 5. Category Selection -->
+        <div>
+          <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Category <span class="text-red-500">*</span></label>
+          <select id="sellerCategory" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none">
+            <option value="developer">Developer</option>
+            <option value="business">Business</option>
+            <option value="marketing">Marketing</option>
+            <option value="finance">Finance</option>
+            <option value="education">Education</option>
+            <option value="creator">Creator</option>
+            <option value="productivity">Productivity</option>
+            <option value="healthcare">Healthcare</option>
+          </select>
+        </div>
+
+        <!-- 6. Short Description -->
+        <div>
+          <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Detailed Description</label>
+          <textarea id="sellerDesc" rows="3" placeholder="Provide a summary of what's included, supported formats, and ideal buyer..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none"></textarea>
+        </div>
+
+        <!-- 7. File / Image Upload Placeholder -->
+        <div>
+          <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Product File / Cover Mockup</label>
+          <div class="border-2 border-dashed border-slate-300 rounded-2xl p-6 text-center hover:border-[#006398] transition-colors cursor-pointer bg-slate-50">
+            <span class="material-symbols-outlined text-3xl text-slate-400 mb-1">cloud_upload</span>
+            <div class="font-heading font-semibold text-xs text-[#003441]">Click to upload asset file or drag and drop</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">ZIP, PDF, FIG, or XLSX (max 150MB)</div>
+          </div>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeSellerModal();" class="px-5 py-2.5 rounded-xl text-sm font-heading font-semibold text-slate-500 hover:bg-slate-100 transition-colors">
+            Cancel
+          </button>
+          <button type="submit" class="coral-btn px-6 py-2.5 text-sm font-semibold shadow-md">
+            Submit for Review
+          </button>
+        </div>
+      </form>
+
+      <!-- Confirmation state -->
+      <div id="sellerConfirmation" class="hidden text-center py-8">
+        <div class="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4 shadow-sm">
+          <span class="material-symbols-outlined text-3xl">task_alt</span>
+        </div>
+        <h4 class="font-heading font-extrabold text-2xl text-[#003441]">Listing Submitted!</h4>
+        <p class="font-body text-sm text-[#475569] max-w-sm mx-auto mt-2">
+          Your listing has been submitted to the curation queue. Review typically completes within 24 hours.
+        </p>
+        <div class="mt-6">
+          <button type="button" onclick="closeSellerModal();" class="coral-btn px-6 py-2.5 text-sm font-semibold">
+            Done
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- MODAL 4: COMMUNITY CONTRIBUTION FORM MODAL                   -->
+  <!-- ============================================================ -->
+  <div id="contributionModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative my-8">
+      <button type="button" onclick="closeContributionModal();" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 transition-colors">
+        <span class="material-symbols-outlined text-2xl">close</span>
+      </button>
+
+      <div class="mb-6">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 text-[#0F4C5C] font-heading font-semibold text-xs tracking-wider uppercase mb-2 border border-teal-200">
+          <span>Peer Contribution</span>
+        </div>
+        <h3 class="font-heading font-extrabold text-2xl text-[#003441]">Contribute an Asset</h3>
+        <p class="font-body text-xs sm:text-sm text-[#475569] mt-1">Share your digital craft to unlock the community and earn payouts from member downloads.</p>
+      </div>
+
+      <form id="contributionForm" onsubmit="handleContributionSubmit(event);" class="space-y-4">
+        <div>
+          <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Asset Title <span class="text-red-500">*</span></label>
+          <input id="contribTitle" type="text" required placeholder="e.g. Clean Architecture NestJS Template" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
+        </div>
+
+        <div>
+          <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Description <span class="text-red-500">*</span></label>
+          <textarea id="contribDesc" rows="3" required placeholder="Describe what makes this tool useful for the collective..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none"></textarea>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Category</label>
+            <select id="contribCategory" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none">
+              <option value="developer">Developer</option>
+              <option value="business">Business</option>
+              <option value="marketing">Marketing</option>
+              <option value="finance">Finance</option>
+              <option value="creator">Creator</option>
+              <option value="productivity">Productivity</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Desired Price ($)</label>
+            <input id="contribPrice" type="number" min="0" placeholder="0 for Free or 19" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Upload Asset Archive</label>
+          <div class="border-2 border-dashed border-slate-300 rounded-2xl p-5 text-center bg-slate-50">
+            <span class="material-symbols-outlined text-2xl text-slate-400 mb-1">cloud_upload</span>
+            <div class="text-xs font-heading font-semibold text-[#003441]">Drop your file (.zip, .pdf, .fig)</div>
+          </div>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeContributionModal();" class="px-5 py-2.5 rounded-xl text-sm font-heading font-semibold text-slate-500 hover:bg-slate-100 transition-colors">
+            Cancel
+          </button>
+          <button type="submit" class="coral-btn px-6 py-2.5 text-sm font-semibold shadow-md">
+            Submit Asset
+          </button>
+        </div>
+      </form>
+
+      <!-- Pending review confirmation -->
+      <div id="contributionConfirmation" class="hidden text-center py-6">
+        <div class="w-14 h-14 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mx-auto mb-4 shadow-sm">
+          <span class="material-symbols-outlined text-3xl">hourglass_top</span>
+        </div>
+        <h4 class="font-heading font-extrabold text-2xl text-[#003441]">Pending Review</h4>
+        <p class="font-body text-sm text-[#475569] max-w-sm mx-auto mt-2">
+          Your asset was uploaded successfully! Once an editor approves the submission, full Community access will be unlocked.
+        </p>
+
+        <!-- Fast Test Mode: Immediate Simulator Toggle -->
+        <div class="mt-6 p-4 rounded-2xl bg-teal-50 border border-teal-200 text-left">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-heading font-bold text-xs text-[#003441]">Test Mode: Instant Approval</div>
+              <div class="text-[11px] text-[#475569]">Simulate admin review approval to test unlocked state right now.</div>
+            </div>
+            <button type="button" onclick="approveCurrentContribution();" class="coral-btn px-3 py-1.5 text-xs font-semibold whitespace-nowrap">
+              Approve Now
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <button type="button" onclick="closeContributionModal();" class="text-xs font-semibold text-slate-500 hover:text-slate-800">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="hidden fixed bottom-6 right-6 z-50 bg-[#003441] text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2 text-sm font-heading font-medium border border-teal-800 transition-all">
+    <span class="material-symbols-outlined text-lg text-[#82d0e3]" id="toastIcon">info</span>
+    <span id="toastMsg">Notification message</span>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC & STATE ENGINE -->
+  <script>
+    // --- 1. PRODUCT CATALOG DATA ---
+    const PRODUCTS = {
+      finance: {
+        id: 'finance',
+        category: 'finance',
+        categoryLabel: '🧮 Finance',
+        title: 'FinanceOS Spreadsheet Bundle',
+        tagline: '10 plug-and-play Excel & Google Sheets models — budget trackers, loan calculators, net worth dashboards.',
+        price: 39,
+        originalPrice: 69,
+        rating: 4.9,
+        reviewsCount: 142,
+        badge: 'Most Downloaded',
+        isLocked: false,
+        img: 'assets/products/finance.jpg',
+        creator: {
+          name: 'Elena Rostova',
+          role: 'Financial Systems Architect',
+          avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuABddTw1mS2cU5g1-pcWG9Q8Z_3vIKtzG6ZdfhhU0JyXjLWStKg6qkOPy0BqIIpBfPpUxCXtkYvkRPrchHR999HpzGdZgzK4xN5zYhp13XmIVs7muLkJlEICmu1miuKfqh-K0i-uc3yOebtJYhF7FP6QhHBOOSyTlgok2rh258jfOlr9GaiXzQj7bdxPlScfRvHQnPqGFFE8jU9l-pnCaHZ3801BjaFY-WBckuEaqDDoW0tiGw1qMs5tA',
+          verified: true
+        },
+        included: [
+          'Monthly Budget & Cash Flow Planner with dynamic variance charts',
+          'Multi-scenario Loan Amortization Schedule (Mortgage, Auto, Business)',
+          'Automated Net Worth Tracker linked to asset category KPIs',
+          'Tax preparation summary sheet with deduction categorization',
+          'Full documentation and video walkthrough guides'
+        ],
+        formats: ['.XLSX', '.GSHEET', '.CSV', '.PDF Documentation'],
+        license: 'Commercial Single License — unrestricted personal and client consulting use.'
+      },
+      business: {
+        id: 'business',
+        category: 'business',
+        categoryLabel: '💼 Business',
+        title: 'ProposalKit Pro',
+        tagline: '50-page proposal system, invoice generator, and client onboarding templates — close deals faster.',
+        price: 49,
+        originalPrice: 89,
+        rating: 4.8,
+        reviewsCount: 96,
+        badge: 'Trending #1 Release',
+        isLocked: false,
+        img: 'assets/products/business.jpg',
+        creator: {
+          name: 'Karel Van Der Berg',
+          role: 'Agency Operations Director',
+          avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBIfJ7_MAxQurNvSxyGBEmq5rAns42oSCS8S2kVtJMv3aHz-g3YdPJzXnyyh9rzovnWL2kf3RbrwS-TV3U4kI7nNQU2h0UzYf9fLC-1Zbidw1AZlwAC_ztRmOr6aDJyzOUtlCyxTIFjOoAy5vlSmykR6qyos_JoNhG8Ek13BTxPfYE5vh6uXdS9Bvfvyqx5hkSz77YxNuqHNLf6vk7_Ekc76Wavkc-3TLTqHecOIp7DGvsWPGzYPEEVTg',
+          verified: true
+        },
+        included: [
+          '50-Page High-Conversion Proposal Pitch Deck (Figma & InDesign)',
+          'Automated Google Docs Invoice Generator with tax calculation',
+          'Client Welcome Packet & NDA Agreement contracts (Vetted US Law)',
+          'Scope of Work (SOW) matrix with milestone sign-off blocks',
+          'Step-by-step Loom walkthrough onboarding guide'
+        ],
+        formats: ['.FIG', '.INDD', '.DOCX', '.PDF'],
+        license: 'Commercial Single & Agency Team License — lifetime client deployment rights.'
+      },
+      marketing: {
+        id: 'marketing',
+        category: 'marketing',
+        categoryLabel: '📈 Marketing',
+        title: 'SEO Accelerator Toolkit',
+        tagline: 'Content calendar, SEO audit template, 200+ social media hooks, and a keyword research spreadsheet.',
+        price: 29,
+        originalPrice: 59,
+        rating: 5.0,
+        reviewsCount: 210,
+        badge: 'Top Rated',
+        isLocked: false,
+        img: 'assets/products/marketing.jpg',
+        creator: {
+          name: 'Devon Vance',
+          role: 'Growth Marketing Lead',
+          avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA-zHZS3LNVxvZ5t2HWg9kmXt4RYQbWeW6kCaY2c1FFvjnFJ2x8OZnW0txQy4Ksy8UwHLclNYd5vl5nqwRTCu-JM-k_-yVtl4Zgxc7NhKKDKr7mezAZ3Gjty9XiuNBO43kGjKeYA62r1Bz9FWfpdo1YPk1XkcYNpUlrSjQ3-W21KoHDKEjNAA_ie_GKIxsE78tvwzHG4_PrhA78DjoICOQ8AQ75wYVJq16Cdj-ep8f-_UZ5rpD_5n9MlQ',
+          verified: true
+        },
+        included: [
+          'Technical SEO Site Audit Matrix (120+ inspection criteria)',
+          '365-Day Omnichannel Content Marketing Calendar',
+          '200+ Proven Viral Hooks for LinkedIn, X, and Newsletter intros',
+          'Keyword Gap Analysis & Competitor Tracking Spreadsheet',
+          'SERP Snippet & Meta description CTR optimizer formula'
+        ],
+        formats: ['.NOTION', '.GSHEET', '.XLSX', '.MARKDOWN'],
+        license: 'Commercial License — unlimited brand and client content deployment.'
+      },
+      education: {
+        id: 'education',
+        category: 'education',
+        categoryLabel: '🎓 Education',
+        title: 'StudyStack Ultimate Planner',
+        tagline: 'Notion study system, flashcard sets, and weekly planner templates used by 3,000+ students.',
+        price: 19,
+        originalPrice: 35,
+        rating: 4.9,
+        reviewsCount: 88,
+        badge: 'Editor Pick',
+        isLocked: false,
+        img: 'assets/products/education.jpg',
+        creator: {
+          name: 'Sarah Chen',
+          role: 'Learning Experience Designer',
+          avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuApzTCphVfJKP8rbFpAFIxxfWx3_ZK7Wp-s0uy6Sqmd8pn-Kc3Nt2HYKifjt5HSzG370foy92Fa59oYaeszBpayLbHdLD8WN_kL3-K5mizeeu0hMdlNIHeqdxUdO_FF8qvsTvOUAM4TISQrx-HcWh-EK1J8R-cQZ1DLmWLLHi6oQfQU1tnZv9zselU3KzDEAMhvjmGwqpzcWaycAX_Osy3EeOFuL3kGuuWZblLjARF841DQhbUOvPGiLQ',
+          verified: true
+        },
+        included: [
+          'Comprehensive Notion University & High-School Dashboard',
+          'Active Recall Spaced Repetition flashcard system',
+          'Exam Countdown & Grade Weight Calculation automated matrix',
+          'Reading list & research paper synthesis database',
+          'Weekly time-blocking schedule with Pomodoro tracker'
+        ],
+        formats: ['.NOTION TEMPLATE', '.PDF PRINTABLES', '.ANKEY PACK'],
+        license: 'Personal & Classroom Educational License.'
+      },
+      healthcare: {
+        id: 'healthcare',
+        category: 'healthcare',
+        categoryLabel: '🧑‍⚕️ Healthcare',
+        title: 'MedCalc Pro Resource Pack',
+        tagline: 'Clinical calculators, patient education sheets, and dosage reference guides built for healthcare pros.',
+        price: 34,
+        originalPrice: 65,
+        rating: 4.7,
+        reviewsCount: 64,
+        badge: 'Vetted Resource',
+        isLocked: true,
+        img: 'assets/products/healthcare.jpg',
+        creator: {
+          name: 'Julian Thorne',
+          role: 'Healthcare Systems Director',
+          avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBQ4aSyhCMUV9HfH8ZbnH2_noQXPUuONdr_zjdzaQWklZMGsD0-yvs8b5ECZoJlzLXAOg0yRBK0jN0m8KBzxoA9IEp_S3g60b7AI4AACFT0kYcOO4TwUe0cBRTz-WJOG1oMFI1Ubx7lmbSUuEFXwQk08cR_NkRaw49jzpB5WNeZx5CbJ3XNm0qelpZA1NU4dz-28RtwCF7_oqDpK4PKRyNzwU4LOxQ-2nOAlz8nG5UQvrmxX_MYNyyFaw',
+          verified: true
+        },
+        included: [
+          'Clinical Dosage & IV Infusion Rate Calculation Sheets',
+          'Pediatric & Adult BMI assessment matrices',
+          '45 Patient discharge education sheets in print-ready layout',
+          'Emergency room quick triage protocol reference card',
+          'Compliance validation guidelines for clinical staff'
+        ],
+        formats: ['.PDF PRINTABLE', '.XLSX', '.NUMBERS', '.DOCX'],
+        license: 'Medical Professional & Institutional Practice License.'
+      },
+      developer: {
+        id: 'developer',
+        category: 'developer',
+        categoryLabel: '💻 Developer',
+        title: 'DevKit Essentials',
+        tagline: 'JSON formatter, regex tester, base64 converter, and 12 other browser-based dev utilities in one bundle.',
+        price: 24,
+        originalPrice: 45,
+        rating: 4.8,
+        reviewsCount: 184,
+        badge: 'Production Ready',
+        isLocked: false,
+        img: 'assets/products/developer.jpg',
+        creator: {
+          name: 'Lucas Moretti',
+          role: 'Principal Fullstack Engineer',
+          avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCbCLmmvdGxpmNhUHgRq2KqcXyQIBlzx1gLPWCqG93MfcbvxjExBT9C68B7caqxkdUeA30SpB87uA48OgyjHfQAsm8GNCkq9RCbZWe62Kf2UdFQx7clWzOLg62l-f849CFv_QQfdXAp9YhpSerUXX77y2eeu-6cLGXioSri56h_IqKgGCyzuK_bKH-UUvCHOPv28C1bHaqdWpPfg2b8HT6otJSL3QpQ_Grrt6ISy5cJllMj8_E75CPGRA',
+          verified: true
+        },
+        included: [
+          'Offline-capable Web-based Developer Utility Suite',
+          'JSON Schema validator, minifier, and TypeScript type generator',
+          'Live Regular Expression debugger with group matches inspection',
+          'JWT decoder, HMAC generator, and Base64 cipher utility',
+          'Self-hostable Dockerfile and static HTML bundle'
+        ],
+        formats: ['.TS / REACT SOURCE', '.HTML STANDALONE', '.DOCKERFILE'],
+        license: 'MIT Permissive Commercial Developer License.'
+      },
+      creator: {
+        id: 'creator',
+        category: 'creator',
+        categoryLabel: '🎨 Creator',
+        title: 'CreatorOS Utility Pack',
+        tagline: 'Image resizer, text generator, color palette builder, and video thumbnail templates for content creators.',
+        price: 22,
+        originalPrice: 40,
+        rating: 4.9,
+        reviewsCount: 119,
+        badge: 'Community Exclusive',
+        isLocked: true,
+        img: 'assets/products/creator.jpg',
+        creator: {
+          name: 'Elena Rostova',
+          role: 'Digital Design Architect',
+          avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCDRUwxJ3Y4cVkUUjCHrn6g1VXedUns9ivyE3amQx3z1sSZHO5UqhOp-XhKB9vydoS73YhMPyYjDNWaykLKb8kI-7ihOJsUmnUD15dt04vzYSRdgoGGG3Nd2tGaBQRMcy29F2UWInjB7lFfKcJ8Jj8lTND7wOfzA77MsqanKCdenpo8ttTa-ydwcpTXAKxt1-Wpf4yt02SZXJtTKkyZThxK0fxO4SfeXsWxitltvDwqGicc_w2w7h2MBQ',
+          verified: true
+        },
+        included: [
+          'High-CTR YouTube & TikTok Thumbnail Design System (30 layouts)',
+          'Dynamic Color Palette Generator with accessible contrast checks',
+          'Multi-platform Aspect Ratio Export guide for Photoshop & Figma',
+          'Kinetic Typography title presets for Premiere & After Effects',
+          'Content production checklist database'
+        ],
+        formats: ['.FIG', '.PSD', '.MOGRT', '.CSV'],
+        license: 'Commercial Creator License — unrestricted video and social usage.'
+      },
+      productivity: {
+        id: 'productivity',
+        category: 'productivity',
+        categoryLabel: '📄 Productivity',
+        title: 'DocFlow PDF Toolkit',
+        tagline: 'PDF merger, splitter, compressor, and form builder — all browser-based, no installs, privacy-first.',
+        price: 18,
+        originalPrice: 32,
+        rating: 4.8,
+        reviewsCount: 153,
+        badge: 'Top Efficiency',
+        isLocked: false,
+        img: 'assets/products/productivity.jpg',
+        creator: {
+          name: 'Devon Vance',
+          role: 'Productivity Systems Engineer',
+          avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDUZnZFSwNvl-V8AY8ZVsS1_rnXWQFV-cL0SZL11VRXaWJEAWjMJD5sX3b9EfdIV8Cbs3ILC1Vp3lc9ckAot3a6-8aWwuO0aIX8Famqtw2cEixcoHSEAz9FOTbPUKgDqX-Szs5AoPAQaGktdvKunM3QTthAD8OCCGSBaSZv_azGxzn8KxvBQ9zj70fDvJ6XkomeLyJu9v-P5d5kuAXp5ehb8HvBeKAogf6p3v_J5UyqRVtSfMpozvvyDQ',
+          verified: true
+        },
+        included: [
+          'Client-Side Zero-Cloud PDF Merging and Splitting engine',
+          'Lossless WebAssembly PDF compression tool',
+          'Interactive Fillable PDF Form creator with signature blocks',
+          'Page rotation, watermark stamp, and metadata wiper',
+          'Standalone single-file deployment for complete privacy'
+        ],
+        formats: ['.HTML / JS STANDALONE', '.WASM BUNDLE', '.NPM READY'],
+        license: 'Commercial Team License — no user tracking, GDPR compliant.'
+      }
+    };
+
+    // --- 2. GLOBAL CLIENT STATE ---
+    let currentUser = null; // null or { name, email, avatar, hasContributed }
+    let activeCheckoutItem = null;
+    let pendingAction = null; // callback to run after successful login
+
+    // Initialize from localStorage if present
+    try {
+      const savedUser = localStorage.getItem('webcraftly_user');
+      if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    // --- 3. RENDER VAULT CARDS (100% UI MOCKUPS, STANDARDIZED MICROCOPY) ---
+    function renderProductGrid() {
+      const grid = document.getElementById('productGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      Object.values(PRODUCTS).forEach(prod => {
+        const article = document.createElement('article');
+        article.className = 'product-card frosted-card rounded-2xl p-5 flex flex-col justify-between';
+        article.setAttribute('data-category', prod.category);
+
+        const btnLabel = prod.isLocked ? 'Members Only' : 'Get Asset';
+        const lockIconHtml = prod.isLocked ? '<span class="material-symbols-outlined text-base">lock</span>' : '';
+
+        article.innerHTML = `
+          <div>
+            <!-- Image Container -->
+            <div onclick="openProductDetail('${prod.id}');" class="relative w-full h-[224px] rounded-xl overflow-hidden mb-4 shadow-sm border border-slate-200 cursor-pointer group">
+              <img loading="lazy"
+                   src="${prod.img}"
+                   alt="${prod.title} UI mockup"
+                   class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>
+              <!-- Category badge -->
+              <div class="absolute top-3 left-3 px-3 py-1 rounded-full frosted-glass-hero text-xs font-heading font-semibold text-white tracking-wide shadow-sm">
+                ${prod.categoryLabel}
+              </div>
+              <!-- Favorite Heart Button -->
+              <button type="button" onclick="event.stopPropagation(); toggleHeart(this);" aria-label="Add to wishlist" class="fav-btn absolute top-3 right-3 w-8 h-8 rounded-full frosted-glass-hero flex items-center justify-center text-white hover:text-[#EA580C] hover:bg-white/40 transition-colors">
+                <span class="material-symbols-outlined text-base">favorite</span>
+              </button>
+            </div>
+
+            <!-- Creator Info -->
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <img loading="lazy"
+                     src="${prod.creator.avatar}"
+                     alt="${prod.creator.name} avatar"
+                     class="w-6 h-6 rounded-full object-cover ring-1 ring-slate-200"/>
+                <span class="font-body text-xs font-medium text-[#40484b]">${prod.creator.name}</span>
+                <span class="material-symbols-outlined text-[#006398] text-sm fill-icon" title="Verified Creator">verified</span>
+              </div>
+              ${prod.badge ? `<span class="px-2 py-0.5 rounded-full bg-[#006398]/10 text-[#006398] font-heading font-semibold text-[11px]">${prod.badge}</span>` : ''}
+            </div>
+
+            <!-- Title & Desc -->
+            <h3 onclick="openProductDetail('${prod.id}');" class="font-heading font-bold text-lg leading-snug text-[#003441] mb-1.5 hover:text-[#006398] cursor-pointer transition-colors">
+              ${prod.title}
+            </h3>
+            <p class="font-body text-[15px] leading-relaxed text-[#475569] line-clamp-2 mb-4">
+              ${prod.tagline}
+            </p>
+          </div>
+
+          <!-- Footer divider & Price/CTA -->
+          <div>
+            <hr class="border-slate-200 my-3"/>
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="flex items-baseline gap-2">
+                  <span class="font-heading font-extrabold text-2xl text-[#003441]">$${prod.price}</span>
+                  ${prod.originalPrice ? `<span class="text-xs text-slate-400 line-through">$${prod.originalPrice}</span>` : ''}
+                </div>
+                <div class="flex items-center gap-1 text-amber-500 font-heading font-semibold text-xs mt-0.5">
+                  <span>★</span>
+                  <span class="text-[#131b2e]">${prod.rating}</span>
+                </div>
+              </div>
+              <button type="button" onclick="handleCardAction('${prod.id}');" class="coral-btn px-4 py-2 text-sm font-semibold inline-flex items-center gap-1.5">
+                ${lockIconHtml}
+                <span>${btnLabel}</span>
+              </button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(article);
+      });
+    }
+
+    // --- 4. VIEW ROUTING SYSTEM ---
+    function showHomeView() {
+      document.getElementById('homeView').classList.remove('hidden');
+      document.getElementById('productDetailView').classList.add('hidden');
+      document.getElementById('communityView').classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openProductDetail(productId) {
+      const prod = PRODUCTS[productId];
+      if (!prod) return;
+
+      document.getElementById('homeView').classList.add('hidden');
+      document.getElementById('communityView').classList.add('hidden');
+      document.getElementById('productDetailView').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      renderProductDetailContent(prod);
+    }
+
+    function showCommunityView() {
+      document.getElementById('homeView').classList.add('hidden');
+      document.getElementById('productDetailView').classList.add('hidden');
+      document.getElementById('communityView').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      renderCommunityView();
+    }
+
+    function scrollToSection(id) {
+      showHomeView();
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 50);
+    }
+
+    // --- 5. RENDER PRODUCT DETAIL PAGE (REUSABLE PDP) ---
+    function renderProductDetailContent(prod) {
+      const container = document.getElementById('productDetailContent');
+      if (!container) return;
+
+      const discountPercent = prod.originalPrice ? Math.round(((prod.originalPrice - prod.price) / prod.originalPrice) * 100) : 0;
+      const btnLabel = prod.isLocked ? 'Members Only' : 'Get Asset';
+      const lockIconHtml = prod.isLocked ? '<span class="material-symbols-outlined text-base">lock</span>' : '';
+
+      container.innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          
+          <!-- LEFT: Large Product Mockup Render (7 cols) -->
+          <div class="lg:col-span-7 space-y-6">
+            <div class="relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-xl border border-slate-200 bg-slate-900">
+              <img src="${prod.img}" alt="${prod.title} software interface" class="w-full h-full object-cover"/>
+              <div class="absolute top-4 left-4 px-3.5 py-1.5 rounded-full frosted-glass-hero text-xs font-heading font-semibold text-white tracking-wide shadow-md">
+                ${prod.categoryLabel}
+              </div>
+            </div>
+
+            <!-- Structured Specifications Blocks (Cleanly Separated) -->
+            <div class="space-y-6 pt-4">
+              <!-- Block 1: What's Included -->
+              <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm">
+                <h3 class="font-heading font-bold text-lg text-[#003441] mb-4 flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[#0F4C5C]">check_circle</span>
+                  <span>What's Included in This Bundle</span>
+                </h3>
+                <ul class="space-y-2.5 text-sm font-body text-[#334155]">
+                  ${prod.included.map(item => `
+                    <li class="flex items-start gap-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-[#EA580C] mt-2 flex-shrink-0"></span>
+                      <span>${item}</span>
+                    </li>
+                  `).join('')}
+                </ul>
+              </div>
+
+              <!-- Block 2: File Formats -->
+              <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm">
+                <h3 class="font-heading font-bold text-lg text-[#003441] mb-3 flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[#0F4C5C]">folder_zip</span>
+                  <span>Compatible File Formats</span>
+                </h3>
+                <div class="flex flex-wrap gap-2 pt-1">
+                  ${prod.formats.map(fmt => `
+                    <span class="px-3 py-1.5 rounded-lg bg-slate-100 text-xs font-heading font-bold text-[#0F4C5C] border border-slate-200">
+                      ${fmt}
+                    </span>
+                  `).join('')}
+                </div>
+              </div>
+
+              <!-- Block 3: License Terms -->
+              <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm">
+                <h3 class="font-heading font-bold text-lg text-[#003441] mb-2 flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[#0F4C5C]">verified_user</span>
+                  <span>Pristine License &amp; Updates</span>
+                </h3>
+                <p class="font-body text-sm text-[#475569] leading-relaxed">
+                  ${prod.license} Includes all future minor upgrades and priority technical support from the creator.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: Title, Pricing, Creator Card, CTA (5 cols) -->
+          <div class="lg:col-span-5 space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm sticky top-28">
+              
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-3 py-1 rounded-md bg-teal-50 text-[#0F4C5C] font-heading font-bold text-xs uppercase tracking-wider border border-teal-200">
+                  ${prod.badge || 'Verified Digital Asset'}
+                </span>
+                <div class="flex items-center gap-1 text-amber-500 font-heading font-bold text-sm">
+                  <span>★</span>
+                  <span class="text-[#003441]">${prod.rating}</span>
+                  <span class="text-xs text-slate-400 font-normal">(${prod.reviewsCount} reviews)</span>
+                </div>
+              </div>
+
+              <h1 class="font-heading font-extrabold text-2xl sm:text-3xl text-[#003441] leading-tight mb-2">
+                ${prod.title}
+              </h1>
+              <p class="font-body text-sm text-[#475569] leading-relaxed mb-6">
+                ${prod.tagline}
+              </p>
+
+              <!-- Price Box with Strikethrough Discount -->
+              <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 mb-6 flex items-center justify-between">
+                <div>
+                  <div class="text-xs font-heading font-semibold text-slate-500 uppercase tracking-wider">Instant Access Price</div>
+                  <div class="flex items-baseline gap-2.5 mt-0.5">
+                    <span class="font-heading font-extrabold text-3xl text-[#003441]">$${prod.price}</span>
+                    ${prod.originalPrice ? `<span class="text-base text-slate-400 line-through">$${prod.originalPrice}</span>` : ''}
+                  </div>
+                </div>
+                ${discountPercent > 0 ? `
+                  <span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-heading font-bold border border-emerald-300">
+                    Save ${discountPercent}%
+                  </span>
+                ` : ''}
+              </div>
+
+              <!-- Main CTA Button -->
+              <button type="button" onclick="handleCardAction('${prod.id}');" class="coral-btn w-full py-4 text-base font-semibold shadow-lg flex items-center justify-center gap-2 mb-4">
+                ${lockIconHtml}
+                <span>${btnLabel}</span>
+              </button>
+
+              <div class="text-center text-xs text-slate-400 flex items-center justify-center gap-1.5 mb-6">
+                <span class="material-symbols-outlined text-sm text-emerald-600">security</span>
+                <span>Encrypted checkout via Razorpay · Instant ZIP download</span>
+              </div>
+
+              <hr class="border-slate-200 my-6"/>
+
+              <!-- Seller Card -->
+              <div class="flex items-center gap-3">
+                <img src="${prod.creator.avatar}" alt="${prod.creator.name}" class="w-12 h-12 rounded-full object-cover ring-2 ring-slate-200"/>
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="font-heading font-bold text-sm text-[#003441]">${prod.creator.name}</span>
+                    <span class="material-symbols-outlined text-[#006398] text-base fill-icon" title="Verified Creator">verified</span>
+                  </div>
+                  <div class="font-body text-xs text-slate-500">${prod.creator.role}</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sticky Mobile Bottom Bar -->
+        <div class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-xl border-t border-slate-200 p-4 flex items-center justify-between shadow-2xl">
+          <div>
+            <div class="text-[11px] text-slate-500 font-heading">Total Price</div>
+            <div class="font-heading font-extrabold text-xl text-[#003441]">$${prod.price}</div>
+          </div>
+          <button type="button" onclick="handleCardAction('${prod.id}');" class="coral-btn px-6 py-2.5 text-sm font-semibold flex items-center gap-1.5">
+            ${lockIconHtml}
+            <span>${btnLabel}</span>
+          </button>
+        </div>
+
+        <!-- Similar Products Carousel/Grid -->
+        <div class="mt-20 pt-10 border-t border-slate-200">
+          <div class="flex items-center justify-between mb-8">
+            <div>
+              <h3 class="font-heading font-bold text-2xl text-[#003441]">Similar Digital Tools</h3>
+              <p class="font-body text-xs sm:text-sm text-slate-500 mt-0.5">Explore related production assets created by the collective</p>
+            </div>
+            <button type="button" onclick="showHomeView(); scrollToSection('vault');" class="text-xs sm:text-sm font-heading font-semibold text-[#006398] hover:underline">
+              View All Tools →
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            ${Object.values(PRODUCTS).filter(p => p.id !== prod.id).slice(0, 3).map(p => `
+              <div onclick="openProductDetail('${p.id}');" class="frosted-card rounded-2xl p-4 cursor-pointer">
+                <img src="${p.img}" alt="${p.title}" class="w-full h-40 object-cover rounded-xl mb-3 border border-slate-200"/>
+                <div class="text-xs font-heading font-semibold text-[#006398] mb-1">${p.categoryLabel}</div>
+                <h4 class="font-heading font-bold text-sm text-[#003441] truncate mb-2">${p.title}</h4>
+                <div class="flex items-center justify-between">
+                  <span class="font-heading font-extrabold text-base text-[#003441]">$${p.price}</span>
+                  <button type="button" class="coral-btn px-3 py-1 text-xs font-semibold">Get Asset</button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // --- 6. RENDER GATED COMMUNITY VIEW ---
+    function renderCommunityView() {
+      const container = document.getElementById('communityContent');
+      if (!container) return;
+
+      const hasContributed = currentUser && currentUser.hasContributed;
+
+      if (!hasContributed) {
+        // LOCKED STATE
+        container.innerHTML = `
+          <div class="max-w-3xl mx-auto text-center py-10">
+            <div class="w-20 h-20 rounded-3xl bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center mx-auto mb-6 shadow-md">
+              <span class="material-symbols-outlined text-4xl">lock</span>
+            </div>
+
+            <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-900 font-heading font-semibold text-xs tracking-wider uppercase mb-4 border border-amber-300">
+              <span>Restricted Access Collective</span>
+            </div>
+
+            <h1 class="font-heading font-extrabold text-3xl sm:text-4xl text-[#003441] tracking-tight leading-tight mb-4">
+              Contribute an asset to unlock the Community
+            </h1>
+
+            <p class="font-body text-base sm:text-lg text-[#334155] leading-relaxed max-w-xl mx-auto mb-8">
+              Contribute a digital asset to unlock the Community — approved contributors can also earn money when others download their asset.
+            </p>
+
+            <div class="flex flex-wrap items-center justify-center gap-4">
+              <button type="button" onclick="showContributionModal();" class="coral-btn px-8 py-3.5 text-base font-semibold shadow-xl inline-flex items-center gap-2">
+                <span class="material-symbols-outlined text-xl">upload_file</span>
+                <span>Contribute an Asset</span>
+              </button>
+              <button type="button" onclick="showHomeView();" class="px-6 py-3.5 rounded-xl font-heading font-semibold text-[#003441] bg-white hover:bg-slate-50 border border-slate-200 shadow-sm transition-colors">
+                Back to Marketplace
+              </button>
+            </div>
+
+            <!-- Testing Helper Bar -->
+            <div class="mt-16 p-5 rounded-2xl bg-white border border-slate-200 shadow-sm max-w-lg mx-auto text-left">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="font-heading font-bold text-xs text-[#003441]">Admin Simulator Trigger</div>
+                  <div class="text-[11px] text-[#64748b]">Toggle approval status to preview the unlocked community hub right now.</div>
+                </div>
+                <button type="button" onclick="toggleTestApproval();" class="coral-btn px-3 py-1.5 text-xs font-semibold whitespace-nowrap">
+                  Toggle Unlock
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        // UNLOCKED STATE: Full Community Hub
+        container.innerHTML = `
+          <div>
+            <!-- Banner -->
+            <div class="bg-gradient-to-r from-[#003441] to-[#0F4C5C] rounded-3xl p-8 sm:p-10 text-white shadow-xl mb-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              <div>
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-[#82d0e3] font-heading font-semibold text-xs tracking-wider uppercase mb-3 border border-white/20">
+                  <span class="material-symbols-outlined text-sm">verified</span>
+                  <span>Unlocked Member Access</span>
+                </div>
+                <h1 class="font-heading font-extrabold text-3xl sm:text-4xl text-white">Welcome to the Collective Hub</h1>
+                <p class="font-body text-sm sm:text-base text-white/80 mt-1 max-w-xl">
+                  You are an approved contributor. Engage in Peer Circles, share feedback on new tools, and monitor your asset downloads.
+                </p>
+              </div>
+              <button type="button" onclick="showContributionModal();" class="coral-btn px-6 py-3 text-sm font-semibold shadow-md whitespace-nowrap">
+                Submit Another Asset
+              </button>
+            </div>
+
+            <!-- Peer Circles Grid with Branded Line Icons -->
+            <div class="mb-12">
+              <h3 class="font-heading font-bold text-xl text-[#003441] mb-6">Active Peer Circles &amp; Discussion Rooms</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                  <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-teal-50 border border-teal-200 text-[#0F4C5C] flex items-center justify-center">
+                      <span class="material-symbols-outlined text-xl">account_balance</span>
+                    </div>
+                    <div>
+                      <h4 class="font-heading font-bold text-base text-[#003441]">Finance Builders</h4>
+                      <span class="text-xs text-slate-500">2.4k active members · 18 discussions</span>
+                    </div>
+                  </div>
+                  <p class="text-xs text-slate-600 mb-4 line-clamp-2">Best practices for building compliant financial models in Google Sheets and Excel.</p>
+                  <button type="button" onclick="showToast('Entered Finance Builders room');" class="w-full py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-heading font-semibold text-[#003441] transition-colors">Enter Channel</button>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                  <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-sky-50 border border-sky-200 text-[#006398] flex items-center justify-center">
+                      <span class="material-symbols-outlined text-xl">rocket_launch</span>
+                    </div>
+                    <div>
+                      <h4 class="font-heading font-bold text-base text-[#003441]">Founders Club</h4>
+                      <span class="text-xs text-slate-500">5.1k active members · 42 discussions</span>
+                    </div>
+                  </div>
+                  <p class="text-xs text-slate-600 mb-4 line-clamp-2">Direct dealmaking, client referrals, and pricing advice for independent tool builders.</p>
+                  <button type="button" onclick="showToast('Entered Founders Club room');" class="w-full py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-heading font-semibold text-[#003441] transition-colors">Enter Channel</button>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                  <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-700 flex items-center justify-center">
+                      <span class="material-symbols-outlined text-xl">terminal</span>
+                    </div>
+                    <div>
+                      <h4 class="font-heading font-bold text-base text-[#003441]">Dev Corner</h4>
+                      <span class="text-xs text-slate-500">6.2k active members · 31 discussions</span>
+                    </div>
+                  </div>
+                  <p class="text-xs text-slate-600 mb-4 line-clamp-2">Architecture teardowns, TypeScript snippets, and feedback on developer utilities.</p>
+                  <button type="button" onclick="showToast('Entered Dev Corner room');" class="w-full py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-heading font-semibold text-[#003441] transition-colors">Enter Channel</button>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Lock Reset for Testing -->
+            <div class="p-4 rounded-2xl bg-white border border-slate-200 max-w-sm flex items-center justify-between text-xs">
+              <span class="text-slate-500">Contributor status active</span>
+              <button onclick="toggleTestApproval();" class="text-[#EA580C] font-semibold hover:underline">Re-lock for testing</button>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function toggleTestApproval() {
+      if (!currentUser) {
+        performLogin('Demo Contributor', 'creator@demo.io', true);
+      } else {
+        currentUser.hasContributed = !currentUser.hasContributed;
+        saveUserState();
+      }
+      renderCommunityView();
+      updateAuthUI();
+      showToast(currentUser.hasContributed ? 'Community Unlocked!' : 'Community Locked');
+    }
+
+    // --- 7. AUTH & GATE ENGINE ---
+    function updateAuthUI() {
+      const container = document.getElementById('authContainer');
+      const badge = document.getElementById('communityNavBadge');
+      if (!container) return;
+
+      if (currentUser) {
+        if (badge) {
+          badge.textContent = currentUser.hasContributed ? 'Unlocked' : 'Gated';
+          badge.className = currentUser.hasContributed 
+            ? 'text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300'
+            : 'text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300';
+        }
+
+        container.innerHTML = `
+          <div class="relative group">
+            <button type="button" class="flex items-center gap-2 focus:outline-none">
+              <div class="w-10 h-10 rounded-full ring-2 ring-white/90 shadow-sm overflow-hidden flex-shrink-0 cursor-pointer">
+                <img src="${currentUser.avatar || 'https://lh3.googleusercontent.com/aida-public/AB6AXuAQZI3EACbKwTLk4nWrb2j4MnaQcI1lXvAfspiCdxwHUTgUwDotDeRgYGt7tgSt3nSKxjyB1p_u-zUgj9ujIDplgLJ8ZT0GeBOF8ImCgUMNEVpbzTYscFv9qo9ACpZxZjX9Fv42q8SZZ4vHk75YwwN_czH0bUFE_ZFU2yirUJ3X2EunCqutSRSX4dGhVtAYXsxx31vVuxAQCVv-RpUK-CB8Oztn3hnZihCnR17G2H1qR2qpl-v_I0NRFw'}"
+                     alt="${currentUser.name}"
+                     class="w-full h-full object-cover"/>
+              </div>
+            </button>
+            <div class="hidden group-hover:block absolute right-0 top-12 w-48 bg-white rounded-2xl shadow-2xl border border-slate-200 py-2 z-50">
+              <div class="px-4 py-2 border-b border-slate-100">
+                <div class="font-heading font-bold text-xs text-[#003441] truncate">${currentUser.name}</div>
+                <div class="text-[11px] text-slate-400 truncate">${currentUser.email}</div>
+              </div>
+              <button onclick="showCommunityView();" class="w-full text-left px-4 py-2 text-xs font-heading font-semibold text-[#003441] hover:bg-slate-50 flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm">groups</span>
+                <span>My Community</span>
+              </button>
+              <button onclick="showSellerModal();" class="w-full text-left px-4 py-2 text-xs font-heading font-semibold text-[#003441] hover:bg-slate-50 flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm">storefront</span>
+                <span>Seller Listing</span>
+              </button>
+              <button onclick="logout();" class="w-full text-left px-4 py-2 text-xs font-heading font-semibold text-red-600 hover:bg-red-50 flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm">logout</span>
+                <span>Sign Out</span>
+              </button>
+            </div>
+          </div>
+        `;
+      } else {
+        if (badge) {
+          badge.textContent = 'Gated';
+          badge.className = 'text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300';
+        }
+        container.innerHTML = `
+          <button type="button" onclick="showAuthModal();" class="hidden sm:inline-flex items-center px-4 py-2 rounded-xl text-xs font-heading font-bold text-[#003441] bg-slate-100 hover:bg-slate-200 transition-colors">
+            Sign In
+          </button>
+          <button onclick="scrollToSection('vault');" class="coral-btn hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-sm tracking-wide">
+            Explore Marketplace
+          </button>
+        `;
+      }
+    }
+
+    function requireAuth(callback) {
+      if (currentUser) {
+        callback();
+      } else {
+        pendingAction = callback;
+        showAuthModal();
+      }
+    }
+
+    function showAuthModal() {
+      document.getElementById('authModal').classList.remove('hidden');
+    }
+    function closeAuthModal() {
+      document.getElementById('authModal').classList.add('hidden');
+    }
+
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('authEmailInput').value.trim();
+      const name = email.split('@')[0] || 'Creator';
+      performLogin(name, email, false);
+    }
+
+    function performLogin(name, email, hasContributed = false) {
+      currentUser = {
+        name,
+        email,
+        avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAQZI3EACbKwTLk4nWrb2j4MnaQcI1lXvAfspiCdxwHUTgUwDotDeRgYGt7tgSt3nSKxjyB1p_u-zUgj9ujIDplgLJ8ZT0GeBOF8ImCgUMNEVpbzTYscFv9qo9ACpZxZjX9Fv42q8SZZ4vHk75YwwN_czH0bUFE_ZFU2yirUJ3X2EunCqutSRSX4dGhVtAYXsxx31vVuxAQCVv-RpUK-CB8Oztn3hnZihCnR17G2H1qR2qpl-v_I0NRFw',
+        hasContributed
+      };
+      saveUserState();
+      closeAuthModal();
+      updateAuthUI();
+      showToast(`Welcome back, ${name}!`);
+
+      if (pendingAction) {
+        const action = pendingAction;
+        pendingAction = null;
+        action();
+      }
+    }
+
+    function logout() {
+      currentUser = null;
+      localStorage.removeItem('webcraftly_user');
+      updateAuthUI();
+      showToast('Signed out successfully.');
+      showHomeView();
+    }
+
+    function saveUserState() {
+      try {
+        localStorage.setItem('webcraftly_user', JSON.stringify(currentUser));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // --- 8. CARD ACTIONS & CHECKOUT GATE ---
+    function handleCardAction(productId) {
+      const prod = PRODUCTS[productId];
+      if (!prod) return;
+
+      if (prod.isLocked) {
+        // Members only item
+        requireAuth(() => {
+          if (!currentUser.hasContributed) {
+            showToast('Locked: Available to Approved Community Members.');
+            showCommunityView();
+          } else {
+            openCheckoutModal(prod);
+          }
+        });
+      } else {
+        // Available item -> Requires login, then checkout
+        requireAuth(() => {
+          openCheckoutModal(prod);
+        });
+      }
+    }
+
+    function openCheckoutModal(prod) {
+      activeCheckoutItem = prod;
+      document.getElementById('checkoutItemTitle').textContent = prod.title;
+      document.getElementById('checkoutItemPrice').textContent = `$${prod.price}.00`;
+      document.getElementById('payBtnAmount').textContent = `$${prod.price}.00`;
+
+      // Reset modal screens
+      document.getElementById('checkoutBody').classList.remove('hidden');
+      document.getElementById('checkoutProcessing').classList.add('hidden');
+      document.getElementById('checkoutSuccess').classList.add('hidden');
+
+      document.getElementById('checkoutModal').classList.remove('hidden');
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkoutModal').classList.add('hidden');
+    }
+
+    function processMockPayment() {
+      document.getElementById('checkoutBody').classList.add('hidden');
+      document.getElementById('checkoutProcessing').classList.remove('hidden');
+
+      setTimeout(() => {
+        document.getElementById('checkoutProcessing').classList.add('hidden');
+        document.getElementById('checkoutSuccess').classList.remove('hidden');
+        document.getElementById('successOrderId').textContent = 'WC-' + Math.floor(100000 + Math.random() * 900000);
+      }, 1400);
+    }
+
+    function triggerMockDownload() {
+      showToast(`Downloading: ${activeCheckoutItem ? activeCheckoutItem.title : 'Asset Package'}.zip`);
+      setTimeout(() => {
+        closeCheckoutModal();
+      }, 1000);
+    }
+
+    // --- 9. BECOME A SELLER FLOW ---
+    function showSellerModal() {
+      requireAuth(() => {
+        document.getElementById('sellerForm').classList.remove('hidden');
+        document.getElementById('sellerConfirmation').classList.add('hidden');
+        document.getElementById('sellerModal').classList.remove('hidden');
+      });
+    }
+
+    function closeSellerModal() {
+      document.getElementById('sellerModal').classList.add('hidden');
+    }
+
+    function toggleDiscountField() {
+      const toggle = document.getElementById('discountToggle');
+      const discountInput = document.getElementById('sellerDiscountPrice');
+      if (toggle.checked) {
+        discountInput.disabled = false;
+        discountInput.classList.remove('bg-slate-50');
+        discountInput.focus();
+      } else {
+        discountInput.disabled = true;
+        discountInput.classList.add('bg-slate-50');
+        discountInput.value = '';
+      }
+    }
+
+    function handleSellerSubmit(e) {
+      e.preventDefault();
+      document.getElementById('sellerForm').classList.add('hidden');
+      document.getElementById('sellerConfirmation').classList.remove('hidden');
+      showToast('Listing draft created in mock Firestore!');
+    }
+
+    // --- 10. COMMUNITY CONTRIBUTION FLOW ---
+    function showContributionModal() {
+      requireAuth(() => {
+        document.getElementById('contributionForm').classList.remove('hidden');
+        document.getElementById('contributionConfirmation').classList.add('hidden');
+        document.getElementById('contributionModal').classList.remove('hidden');
+      });
+    }
+
+    function closeContributionModal() {
+      document.getElementById('contributionModal').classList.add('hidden');
+    }
+
+    function handleContributionSubmit(e) {
+      e.preventDefault();
+      document.getElementById('contributionForm').classList.add('hidden');
+      document.getElementById('contributionConfirmation').classList.remove('hidden');
+    }
+
+    function approveCurrentContribution() {
+      if (currentUser) {
+        currentUser.hasContributed = true;
+        saveUserState();
+      }
+      closeContributionModal();
+      renderCommunityView();
+      updateAuthUI();
+      showToast('Asset Approved! Full Community Access Unlocked.');
+    }
+
+    // --- 11. GENERAL HELPERS & LISTENERS ---
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      if (toast && toastMsg) {
+        toastMsg.textContent = msg;
+        toast.classList.remove('hidden');
+        setTimeout(() => {
+          toast.classList.add('hidden');
+        }, 3000);
+      }
+    }
+
+    function focusSearch() {
+      showHomeView();
+      scrollToSection('vault');
+      showToast('Search active: Filtering all 8 category tools');
+    }
+
+    function toggleHeart(btn) {
+      const icon = btn.querySelector('.material-symbols-outlined');
+      if (icon.classList.contains('fill-icon')) {
+        icon.classList.remove('fill-icon', 'text-[#EA580C]');
+        btn.classList.remove('text-[#EA580C]');
+      } else {
+        icon.classList.add('fill-icon', 'text-[#EA580C]');
+        btn.classList.add('text-[#EA580C]');
+        showToast('Saved to your favorites wishlist!');
+      }
+    }
+
+    function closeMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuIcon = document.getElementById('menuIcon');
+      if (mobileMenu) {
+        mobileMenu.classList.add('hidden');
+        if (menuIcon) menuIcon.textContent = 'menu';
+      }
+    }
+
+    // DOM Ready Initialization
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProductGrid();
+      updateAuthUI();
+
+      // Navbar scroll effect
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 20) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      }, { passive: true });
+
+      // Mobile menu toggle
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuIcon = document.getElementById('menuIcon');
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+          const isHidden = mobileMenu.classList.contains('hidden');
+          if (isHidden) {
+            mobileMenu.classList.remove('hidden');
+            menuIcon.textContent = 'close';
+          } else {
+            mobileMenu.classList.add('hidden');
+            menuIcon.textContent = 'menu';
+          }
+        });
+      }
+
+      // Category chips filter logic
+      const filterChips = document.querySelectorAll('.category-chip');
+      filterChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          const filterValue = chip.getAttribute('data-filter');
+
+          // Update chip active styling
+          filterChips.forEach(c => {
+            c.classList.remove('bg-[#0F4C5C]', 'text-white');
+            c.classList.add('bg-slate-100', 'text-[#0F4C5C]', 'border', 'border-slate-200');
+          });
+          chip.classList.add('bg-[#0F4C5C]', 'text-white');
+          chip.classList.remove('bg-slate-100', 'border-slate-200');
+
+          // Filter cards
+          const cards = document.querySelectorAll('.product-card');
+          cards.forEach(card => {
+            const cat = card.getAttribute('data-category');
+            if (filterValue === 'all' || cat === filterValue) {
+              card.classList.remove('hidden-filter');
+              card.style.opacity = '0';
+              setTimeout(() => {
+                card.style.opacity = '1';
+              }, 20);
+            } else {
+              card.classList.add('hidden-filter');
+            }
+          });
+        });
+      });
+
+      // Newsletter form validation
+      const newsletterForm = document.getElementById('newsletterForm');
+      const newsletterEmail = document.getElementById('newsletterEmail');
+      const emailError = document.getElementById('emailError');
+      const emailSuccess = document.getElementById('emailSuccess');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (newsletterForm) {
+        newsletterForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const email = newsletterEmail.value.trim();
+          if (!email || !emailRegex.test(email)) {
+            emailError.classList.remove('hidden');
+            emailSuccess.classList.add('hidden');
+          } else {
+            emailError.classList.add('hidden');
+            emailSuccess.classList.remove('hidden');
+            newsletterEmail.value = '';
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

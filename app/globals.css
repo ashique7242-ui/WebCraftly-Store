@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-espresso font-body-md antialiased min-h-screen selection:bg-secondary-fixed selection:text-espresso;
+  }
+}
+
+@layer components {
+  .wedding-card {
+    @apply bg-[#FFFFFF] border border-[#E5E2DB] relative transition-all duration-[260ms] ease-[cubic-bezier(0.16,1,0.3,1)];
+    box-shadow: 0 10px 28px -6px rgba(106, 0, 6, 0.06), 0 4px 10px -2px rgba(28, 28, 24, 0.03);
+  }
+  .wedding-card::after {
+    content: '';
+    @apply absolute inset-1 border border-[#D4AF37]/30 rounded-[inherit] pointer-events-none transition-colors duration-[220ms] ease-out;
+  }
+  .wedding-card:hover {
+    @apply -translate-y-0.5;
+    box-shadow: 0 18px 36px -6px rgba(106, 0, 6, 0.11), 0 8px 16px -4px rgba(28, 28, 24, 0.05);
+  }
+  .wedding-card:hover::after {
+    @apply border-[#D4AF37]/65;
+  }
+  
+  .wax-seal {
+    background: linear-gradient(135deg, #8E1616 0%, #6A0006 100%);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 3px 8px rgba(106, 0, 6, 0.3);
+  }
+  
+  .gold-seal-badge {
+    background: linear-gradient(135deg, #FFF7D9 0%, #FED65B 100%);
+    border: 1px solid #D4AF37;
+    color: #574500;
+    box-shadow: 0 2px 4px rgba(212, 175, 55, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+  
+  .gilded-rule {
+    background: linear-gradient(90deg, transparent 0%, #D4AF37 50%, transparent 100%);
+    height: 1px;
+  }
+  
+  .tech-badge-python {
+    @apply bg-[#F0F7FF] text-[#1E4E79] border border-[#BED8F4];
+  }
+  
+  .tech-badge-node {
+    @apply bg-[#F1F9F0] text-[#1E5C23] border border-[#B8E4B7];
+  }
+  
+  .soft-modal-shadow {
+    box-shadow: 0 25px 60px -15px rgba(28, 28, 24, 0.28), 0 0 0 1px rgba(212, 175, 55, 0.35);
+  }
+}
