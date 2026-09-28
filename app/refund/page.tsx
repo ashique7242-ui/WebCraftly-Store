@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,6 +11,13 @@ export default function RefundPage() {
   return (
     <div className="min-h-screen bg-[#00171f] text-[#c9d1d9] py-16 px-4 sm:px-6 lg:px-8 font-body">
       <div className="max-w-4xl mx-auto bg-[#00222c]/90 border border-white/10 rounded-3xl p-6 sm:p-12 shadow-2xl backdrop-blur-md">
+        
+        {/* Navigation Breadcrumb */}
+        <Link href="/marketplace" className="inline-flex items-center gap-2 text-xs font-semibold text-[#FF8533] hover:underline mb-8 group">
+          <span className="material-symbols-outlined text-base transition-transform group-hover:-translate-x-1">arrow_back</span>
+          <span>Back to Marketplace</span>
+        </Link>
+
         <div className="mb-10 border-b border-white/10 pb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF6600]/10 border border-[#FF6600]/30 text-[#FF8533] text-xs font-semibold uppercase tracking-wider mb-4">
             Customer Guarantee &amp; Compliance

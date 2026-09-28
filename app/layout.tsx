@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import React from "react";
+import Link from "next/link";
 import { AuthProvider } from "@/components/AuthProvider";
 
 export const metadata: Metadata = {
@@ -97,7 +98,7 @@ export default function RootLayout({
 
         <header className="bg-[#FFFDF9]/95 backdrop-blur-md text-espresso sticky top-0 z-50 shadow-[0_4px_20px_-4px_rgba(28,28,24,0.05)] border-b border-[#E5E2DB]">
           <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-20">
-            <a href="/" className="flex items-center gap-3.5 group">
+            <Link href="/" className="flex items-center gap-3.5 group">
               <div className="w-11 h-11 rounded-xl wax-seal text-white flex items-center justify-center shadow-md group-hover:scale-105 transition-transform duration-200 border border-[#D4AF37]">
                 <span className="material-symbols-outlined text-2xl">handshake</span>
               </div>
@@ -107,37 +108,34 @@ export default function RootLayout({
                   <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]"></span> Global Tech Atelier
                 </span>
               </div>
-            </a>
+            </Link>
             
             <nav className="hidden lg:flex items-center space-x-7">
-              <a href="#tools" className="text-espresso-light font-medium hover:text-primary transition-colors text-[14px] hover:underline decoration-[#D4AF37] decoration-2 underline-offset-8">Tool Suites</a>
-              <a href="#crafts" className="text-espresso-light font-medium hover:text-primary transition-colors text-[14px] hover:underline decoration-[#D4AF37] decoration-2 underline-offset-8">Digital Crafts</a>
-              <a href="#atelier" className="text-espresso-light font-medium hover:text-primary transition-colors text-[14px] hover:underline decoration-[#D4AF37] decoration-2 underline-offset-8">Creator Atelier</a>
-              <a href="#reviews" className="text-espresso-light font-medium hover:text-primary transition-colors text-[14px] hover:underline decoration-[#D4AF37] decoration-2 underline-offset-8">Sanctuary Notes</a>
+              <Link href="/marketplace" className="text-espresso-light font-medium hover:text-primary transition-colors text-[14px] hover:underline decoration-[#D4AF37] decoration-2 underline-offset-8">Marketplace</Link>
+              <Link href="/#crafts" className="text-espresso-light font-medium hover:text-primary transition-colors text-[14px] hover:underline decoration-[#D4AF37] decoration-2 underline-offset-8">Digital Crafts</Link>
+              <Link href="/#atelier" className="text-espresso-light font-medium hover:text-primary transition-colors text-[14px] hover:underline decoration-[#D4AF37] decoration-2 underline-offset-8">Creator Atelier</Link>
+              <Link href="/#reviews" className="text-espresso-light font-medium hover:text-primary transition-colors text-[14px] hover:underline decoration-[#D4AF37] decoration-2 underline-offset-8">Sanctuary Notes</Link>
             </nav>
             
             <div className="flex items-center space-x-3">
-              <select className="bg-[#F6F3EC] rounded-full text-espresso text-[12px] font-bold border border-[#D4AF37]/70 shadow-sm px-3 py-1 outline-none">
-                <option value="USD">USD</option>
-                <option value="EUR">EUR</option>
-                <option value="GBP">GBP</option>
-                <option value="INR">INR</option>
-                <option value="JPY">JPY</option>
-              </select>
+              <div className="bg-[#F6F3EC] rounded-full text-espresso text-[12px] font-bold border border-[#D4AF37]/70 shadow-sm px-3 py-1 flex items-center gap-1.5 select-none" title="All checkouts locked strictly in USD ($)">
+                <span>🇺🇸</span>
+                <span>USD</span>
+              </div>
               
-              <button className="w-10 h-10 rounded-full flex items-center justify-center text-espresso-light hover:text-primary hover:bg-[#F0EEE7] transition-colors border border-transparent hover:border-[#E5E2DB]" title="Saved Crafts">
+              <Link href="/marketplace" className="w-10 h-10 rounded-full flex items-center justify-center text-espresso-light hover:text-primary hover:bg-[#F0EEE7] transition-colors border border-transparent hover:border-[#E5E2DB]" title="Saved Crafts">
                 <span className="material-symbols-outlined text-[20px]">favorite</span>
-              </button>
+              </Link>
               
-              <button className="w-10 h-10 rounded-full flex items-center justify-center text-espresso-light hover:text-primary hover:bg-[#F0EEE7] transition-colors relative border border-transparent hover:border-[#E5E2DB]" title="Vault Bag">
+              <Link href="/marketplace" className="w-10 h-10 rounded-full flex items-center justify-center text-espresso-light hover:text-primary hover:bg-[#F0EEE7] transition-colors relative border border-transparent hover:border-[#E5E2DB]" title="Vault Bag">
                 <span className="material-symbols-outlined text-[20px]">shopping_bag</span>
                 <span className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-primary ring-2 ring-white"></span>
-              </button>
+              </Link>
               
-              <a href="#atelier" className="hidden sm:inline-flex items-center gap-2 bg-primary hover:bg-[#8E1616] text-white px-4 py-2 rounded-lg text-[13px] font-semibold shadow-[0_3px_10px_rgba(106,0,6,0.2)] border border-[#410002] transition-all duration-150 active:scale-95">
+              <Link href="/contact?topic=submit" className="hidden sm:inline-flex items-center gap-2 bg-primary hover:bg-[#8E1616] text-white px-4 py-2 rounded-lg text-[13px] font-semibold shadow-[0_3px_10px_rgba(106,0,6,0.2)] border border-[#410002] transition-all duration-150 active:scale-95">
                 <span className="material-symbols-outlined text-[17px]">add_circle</span>
                 Submit Craft
-              </a>
+              </Link>
             </div>
           </div>
         </header>
@@ -161,11 +159,12 @@ export default function RootLayout({
                 </div>
               </div>
               <div className="flex flex-wrap gap-x-8 gap-y-3 font-medium text-[13px]">
-                <a href="/privacy" className="text-espresso-light hover:text-primary transition-colors">Privacy Policy</a>
-                <a href="/terms" className="text-espresso-light hover:text-primary transition-colors">Terms &amp; Conditions</a>
-                <a href="/refund" className="text-espresso-light hover:text-primary transition-colors">Refund/Cancellation Policy</a>
-                <a href="/contact" className="text-espresso-light hover:text-primary transition-colors">Contact Us</a>
-                <a href="#atelier" className="text-primary font-bold hover:underline transition-colors">Creator Atelier</a>
+                <Link href="/privacy" className="text-espresso-light hover:text-primary transition-colors">Privacy Policy</Link>
+                <Link href="/terms" className="text-espresso-light hover:text-primary transition-colors">Terms &amp; Conditions</Link>
+                <Link href="/refund" className="text-espresso-light hover:text-primary transition-colors">Refund/Cancellation Policy</Link>
+                <Link href="/contact" className="text-espresso-light hover:text-primary transition-colors">Contact Us</Link>
+                <Link href="/marketplace" className="text-espresso-light hover:text-primary transition-colors">Marketplace Vault</Link>
+                <Link href="/#atelier" className="text-primary font-bold hover:underline transition-colors">Creator Atelier</Link>
               </div>
             </div>
             <div className="pt-8 border-t border-[#E5E2DB] flex flex-col sm:flex-row items-center justify-between text-[13px] text-espresso-light gap-4">

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", issue: "" });
@@ -55,6 +56,13 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-[#00171f] text-[#c9d1d9] py-16 px-4 sm:px-6 lg:px-8 font-body">
       <div className="max-w-4xl mx-auto">
+        
+        {/* Navigation Breadcrumb */}
+        <Link href="/marketplace" className="inline-flex items-center gap-2 text-xs font-semibold text-[#82d0e3] hover:underline mb-8 group">
+          <span className="material-symbols-outlined text-base transition-transform group-hover:-translate-x-1">arrow_back</span>
+          <span>Back to Marketplace</span>
+        </Link>
+
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#82d0e3]/10 border border-[#82d0e3]/30 text-[#82d0e3] text-xs font-semibold uppercase tracking-wider mb-4">
             Support &amp; Inquiries

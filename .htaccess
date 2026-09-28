@@ -1,0 +1,36 @@
+# WebCraftly Apache / LiteSpeed Configuration for Clean URLs & Routing
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Force HTTPS and WWW or Non-WWW consistency if needed
+  # (Hostinger SSL handles this automatically)
+
+  # Serve existing files and directories directly
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Map clean URLs to .html files if matching file exists
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^([^/]+)/?$ $1.html [L]
+
+  # Sub-routes for Single Page Application views
+  RewriteRule ^marketplace/?$ index.html [L,QSA]
+  RewriteRule ^collections/?$ index.html [L,QSA]
+  RewriteRule ^community/?$ index.html [L,QSA]
+  RewriteRule ^seller/?$ index.html [L,QSA]
+  RewriteRule ^product/([^/]+)/?$ index.html [L,QSA]
+
+  # Fallback for all other routes to index.html
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Security and cache headers
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

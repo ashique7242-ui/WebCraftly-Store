@@ -55,9 +55,9 @@ export default function Home() {
                 className="w-full pl-12 pr-32 py-3.5 bg-[#FFFFFF] border border-[#D4AF37]/80 rounded-full text-espresso placeholder:text-[#8D706D] focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 shadow-[0_4px_15px_rgba(28,28,24,0.04)] text-[15px]" 
                 placeholder="Search by tech or pain point..." 
               />
-              <button className="absolute right-2 px-5 py-2 bg-primary text-white rounded-full text-[13px] font-semibold hover:bg-[#8E1616] transition-all shadow-sm">
+              <Link href="/marketplace" className="absolute right-2 px-5 py-2 bg-primary text-white rounded-full text-[13px] font-semibold hover:bg-[#8E1616] transition-all shadow-sm">
                 Find Craft
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -102,9 +102,9 @@ export default function Home() {
               </div>
               <div className="p-5 pt-0 border-t border-[#E5E2DB] flex items-center justify-between mt-auto">
                 <div className="font-headline-sm text-xl text-primary font-bold">Free</div>
-                <button className="px-3.5 py-1.5 bg-[#FFFDF9] hover:bg-primary text-espresso hover:text-white border border-[#D4AF37] rounded-lg text-[12px] font-bold transition-all shadow-sm">
+                <Link href="/marketplace" className="px-3.5 py-1.5 bg-[#FFFDF9] hover:bg-primary text-espresso hover:text-white border border-[#D4AF37] rounded-lg text-[12px] font-bold transition-all shadow-sm">
                   Get for Free
-                </button>
+                </Link>
               </div>
             </div>
             
@@ -124,9 +124,9 @@ export default function Home() {
               </div>
               <div className="p-5 pt-0 border-t border-[#E5E2DB] flex items-center justify-between mt-auto">
                 <div className="font-headline-sm text-xl text-primary font-bold">Free</div>
-                <button className="px-3.5 py-1.5 bg-[#FFFDF9] hover:bg-primary text-espresso hover:text-white border border-[#D4AF37] rounded-lg text-[12px] font-bold transition-all shadow-sm">
+                <Link href="/marketplace" className="px-3.5 py-1.5 bg-[#FFFDF9] hover:bg-primary text-espresso hover:text-white border border-[#D4AF37] rounded-lg text-[12px] font-bold transition-all shadow-sm">
                   Get for Free
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -168,9 +168,9 @@ export default function Home() {
                 <div>
                   <div className="font-headline-sm text-2xl text-primary font-bold">899<span className="text-[13px] font-normal text-espresso-light font-body-md">/mo</span></div>
                 </div>
-                <button className="px-4 py-2 bg-primary hover:bg-[#8E1616] text-white rounded-lg text-[13px] font-semibold shadow-sm transition-all border border-[#410002]">
-                  Inspect & Test
-                </button>
+                <Link href="/marketplace" className="px-4 py-2 bg-primary hover:bg-[#8E1616] text-white rounded-lg text-[13px] font-semibold shadow-sm transition-all border border-[#410002]">
+                  Inspect &amp; Test
+                </Link>
               </div>
             </div>
           </div>
@@ -186,9 +186,9 @@ export default function Home() {
           <p className="text-espresso-light text-base md:text-lg mb-10 max-w-2xl mx-auto">
             We welcome rigorously tested developer libraries, sane legal architectures, and battle-tested tools built by real engineers with heart.
           </p>
-          <button className="inline-flex items-center gap-2 bg-primary hover:bg-[#8E1616] text-white px-7 py-3 rounded-lg font-semibold text-[14px] shadow-sm border border-[#410002]">
+          <Link href="/contact?topic=creator-atelier" className="inline-flex items-center gap-2 bg-primary hover:bg-[#8E1616] text-white px-7 py-3 rounded-lg font-semibold text-[14px] shadow-sm border border-[#410002]">
             Open Creator Atelier Submission Portal
-          </button>
+          </Link>
         </div>
       </section>
 
