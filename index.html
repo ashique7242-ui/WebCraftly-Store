@@ -182,6 +182,14 @@
           <span class="material-symbols-outlined text-[22px]">favorite</span>
         </button>
 
+        <!-- Auto-detected Country & Age Badge / Selector -->
+        <button type="button" id="countrySelectorBtn" onclick="openCountryAgeModal();" title="Your detected region & currency settings" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 hover:bg-white text-xs font-heading font-semibold text-[#003441] border border-slate-200 shadow-sm transition-all">
+          <span id="navCountryFlag" class="text-base leading-none">🇺🇸</span>
+          <span id="navCountryCode" class="tracking-wide">US · USD ($)</span>
+          <span id="navAgeBadge" class="hidden text-[10px] px-1 rounded bg-slate-100 text-slate-600 font-mono font-normal"></span>
+          <span class="material-symbols-outlined text-sm text-slate-400">expand_more</span>
+        </button>
+
         <!-- Log In / Log Out & User State -->
         <div id="authContainer" class="flex items-center gap-3">
           <!-- Populated by JS -->
@@ -287,24 +295,31 @@
 
             <!-- RIGHT COLUMN (5 cols): Stacked product preview cards -->
             <div class="lg:col-span-5 relative flex flex-col gap-5 lg:pl-6">
-              <!-- Card 1 Preview (Aura Design System v2.4) -->
-              <div onclick="openProductDetail('business');" class="frosted-card rounded-2xl p-4 sm:p-5 text-[#131b2e] shadow-2xl relative transform lg:rotate-1 hover:rotate-0 transition-transform duration-300 cursor-pointer border border-white/80">
+              <!-- Card 1 Preview (What Nobody Tells You About Getting Old - 1st Position Featured) -->
+              <div onclick="openProductDetail('aging_well');" class="frosted-card rounded-2xl p-4 sm:p-5 text-[#131b2e] shadow-2xl relative transform lg:rotate-1 hover:rotate-0 transition-transform duration-300 cursor-pointer border border-white/80">
                 <div class="flex items-center justify-between mb-3">
-                  <span class="px-2.5 py-1 rounded-md bg-[#0F4C5C]/15 text-[#0F4C5C] font-heading font-bold text-[11px] tracking-wider uppercase">Trending #1 Release</span>
+                  <span class="px-2.5 py-1 rounded-md bg-[#EA580C]/15 text-[#EA580C] font-heading font-bold text-[11px] tracking-wider uppercase flex items-center gap-1">
+                    <span>🔥 #1 New Release · Healthcare</span>
+                  </span>
                   <div class="flex items-center gap-1 text-amber-500 font-heading font-bold text-xs">
                     <span>★</span>
-                    <span>5.0</span>
+                    <span>4.7</span>
+                    <span class="text-slate-400 font-normal text-[11px]">(1,126)</span>
                   </div>
                 </div>
                 <div class="flex gap-4 items-center">
-                  <img src="assets/products/business.jpg"
-                       alt="ProposalKit Pro preview"
-                       class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover shadow-sm flex-shrink-0 border border-slate-200"/>
+                  <img src="assets/products/aging_well_workbook.jpg"
+                       alt="What Nobody Tells You About Getting Old workbook cover"
+                       class="w-20 h-24 sm:w-24 sm:h-28 rounded-xl object-cover shadow-sm flex-shrink-0 border border-slate-200"/>
                   <div class="flex-1 min-w-0">
-                    <h3 class="font-heading font-bold text-base sm:text-lg text-[#003441] truncate">ProposalKit Pro</h3>
-                    <p class="font-body text-xs text-[#40484b] mt-0.5 line-clamp-1">50-page proposal system &amp; client onboarding</p>
-                    <div class="mt-3 flex items-center justify-between">
-                      <span class="font-heading font-extrabold text-lg text-[#003441]">$49</span>
+                    <h3 class="font-heading font-bold text-base sm:text-lg text-[#003441] truncate">What Nobody Tells You About Getting Old</h3>
+                    <p class="font-body text-xs text-[#40484b] mt-0.5 line-clamp-1">Mars Kowalski's Blunt Workbook on Aging Well 🇺🇸</p>
+                    <div class="text-[11px] text-[#006398] font-semibold mt-1">Use coupon: <code class="bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-mono font-bold">242</code> for $0.10</div>
+                    <div class="mt-2.5 flex items-center justify-between">
+                      <div class="flex items-baseline gap-1.5">
+                        <span class="font-heading font-extrabold text-lg text-[#003441]">$11</span>
+                        <span class="text-xs text-slate-400 line-through">$27</span>
+                      </div>
                       <button type="button" class="coral-btn px-4 py-1.5 text-xs font-semibold">Get Asset</button>
                     </div>
                   </div>
@@ -846,13 +861,39 @@
 
       <!-- Modal Body -->
       <div id="checkoutBody" class="p-6">
-        <!-- Order Summary -->
-        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 mb-6">
+        <!-- Order Summary with Global Currency Indicator -->
+        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 mb-4">
           <div class="flex items-center justify-between mb-1">
-            <span id="checkoutItemTitle" class="font-heading font-bold text-sm text-[#003441]">Product Name</span>
-            <span id="checkoutItemPrice" class="font-heading font-extrabold text-base text-[#003441]">$39.00</span>
+            <span id="checkoutItemTitle" class="font-heading font-bold text-sm text-[#003441] truncate max-w-[240px]">Product Name</span>
+            <div class="text-right">
+              <span id="checkoutItemPrice" class="font-heading font-extrabold text-base text-[#003441]">$11.00</span>
+              <div id="checkoutOriginalPrice" class="text-xs text-slate-400 line-through">$27.00</div>
+            </div>
           </div>
-          <div class="text-xs text-slate-500">Commercial Single License · Instant Access</div>
+          <div class="flex items-center justify-between text-xs text-slate-500 pt-1 border-t border-slate-200/60 mt-2">
+            <span>Global License · Standard USD ($)</span>
+            <span id="checkoutBuyerRegion" class="inline-flex items-center gap-1 font-semibold text-[#003441]">🇺🇸 United States</span>
+          </div>
+        </div>
+
+        <!-- Coupon Code Application Box -->
+        <div class="mb-5 p-3 rounded-xl bg-orange-50/70 border border-orange-200">
+          <div class="flex items-center justify-between mb-2">
+            <label class="text-xs font-heading font-bold text-[#003441] flex items-center gap-1">
+              <span class="material-symbols-outlined text-sm text-[#EA580C]">local_activity</span>
+              <span>Have a Promo Coupon?</span>
+            </label>
+            <button type="button" onclick="quickApplyCoupon('242');" class="text-[11px] font-mono font-bold text-[#EA580C] hover:underline bg-white px-2 py-0.5 rounded border border-orange-200 shadow-2xs">
+              Try: 242 ($0.10)
+            </button>
+          </div>
+          <div class="flex gap-2">
+            <input type="text" id="couponInput" placeholder="Enter coupon (e.g. 242)" class="uppercase font-mono font-semibold flex-1 px-3 py-2 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-[#EA580C] focus:outline-none"/>
+            <button type="button" id="applyCouponBtn" onclick="applyCheckoutCoupon();" class="px-3.5 py-2 rounded-lg bg-[#003441] hover:bg-[#0c424f] text-white text-xs font-heading font-semibold transition-colors">
+              Apply
+            </button>
+          </div>
+          <div id="couponFeedback" class="hidden text-xs font-medium mt-2 flex items-center gap-1"></div>
         </div>
 
         <!-- Payment Methods -->
@@ -1126,6 +1167,61 @@
         </div>
       </div>
     </div>
+  <!-- ============================================================ -->
+  <!-- MODAL 5: COUNTRY & AGE SELECTION MODAL                       -->
+  <!-- ============================================================ -->
+  <div id="countryAgeModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative transform transition-all">
+      <button type="button" onclick="closeCountryAgeModal();" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 transition-colors">
+        <span class="material-symbols-outlined text-2xl">close</span>
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 rounded-2xl bg-teal-50 border border-teal-200 text-[#0F4C5C] flex items-center justify-center mx-auto mb-3 shadow-sm">
+          <span class="material-symbols-outlined text-2xl">public</span>
+        </div>
+        <h3 class="font-heading font-extrabold text-2xl text-[#003441]">Your Region & Age</h3>
+        <p class="font-body text-xs sm:text-sm text-[#475569] mt-1">We auto-detect your location so you see standard global prices in USD ($) and localized community circles.</p>
+      </div>
+
+      <form onsubmit="handleCountryAgeSave(event);" class="space-y-4">
+        <div>
+          <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Select Country</label>
+          <select id="userCountrySelect" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none">
+            <option value="US">🇺🇸 United States (US)</option>
+            <option value="GB">🇬🇧 United Kingdom (UK)</option>
+            <option value="CA">🇨🇦 Canada (CA)</option>
+            <option value="AU">🇦🇺 Australia (AU)</option>
+            <option value="DE">🇩🇪 Germany (DE)</option>
+            <option value="FR">🇫🇷 France (FR)</option>
+            <option value="IN">🇮🇳 India (IN)</option>
+            <option value="NL">🇳🇱 Netherlands (NL)</option>
+            <option value="ES">🇪🇸 Spain (ES)</option>
+            <option value="IT">🇮🇹 Italy (IT)</option>
+            <option value="BR">🇧🇷 Brazil (BR)</option>
+            <option value="JP">🇯🇵 Japan (JP)</option>
+            <option value="SG">🇸🇬 Singapore (SG)</option>
+            <option value="AE">🇦🇪 United Arab Emirates (AE)</option>
+            <option value="GLOBAL">🌐 Global / Other Region</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Your Age (Years)</label>
+          <input id="userAgeInput" type="number" min="16" max="110" placeholder="e.g. 58" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
+          <p class="text-[11px] text-slate-400 mt-1">Used to curate peer circles and workbook age-planning resources.</p>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeCountryAgeModal();" class="px-5 py-2.5 rounded-xl text-sm font-heading font-semibold text-slate-500 hover:bg-slate-100 transition-colors">
+            Cancel
+          </button>
+          <button type="submit" class="coral-btn px-6 py-2.5 text-sm font-semibold shadow-md">
+            Save Preferences
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <!-- TOAST NOTIFICATION -->
@@ -1161,13 +1257,102 @@
   <!-- JAVASCRIPT LOGIC & STATE ENGINE -->
   <script>
     // --- 1. PRODUCT CATALOG DATA ---
+    // --- 1. PRODUCT CATALOG DATA ---
     const PRODUCTS = {
+      aging_well: {
+        id: 'aging_well',
+        category: 'healthcare',
+        categoryLabel: '🧑‍⚕️ Healthcare',
+        title: 'What Nobody Tells You About Getting Old',
+        subtitle: "Mars Kowalski's Blunt Workbook on Aging Well",
+        tagline: "The blunt version of aging well nobody's selling you. Eight honest conversations on nightstands, emergency contacts, legal directives, bank account lists, and daily movement before it's too late.",
+        buttonText: 'Get Asset',
+        price: 11,
+        originalPrice: 27,
+        rating: 4.7,
+        reviewsCount: 1126,
+        badge: '🔥 #1 New Release',
+        isLocked: false,
+        img: 'assets/products/aging_well_workbook.jpg',
+        creator: {
+          name: 'Marlene "Mars" Kowalski',
+          country: 'United States',
+          countryCode: 'US',
+          flag: '🇺🇸',
+          role: 'Retired ICU Nurse of 22 Years',
+          avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=256&q=80',
+          verified: true
+        },
+        included: [
+          'Unit 1: The Nightstand Rule (Arm-reach charging, paper emergency list, check-in person)',
+          'Unit 2: The One Phone Call Rule (Testing the 2 vital safety contacts before an ER visit)',
+          'Unit 3: The Paperwork Isn’t Morbid Rule (Healthcare directive, power of attorney, will)',
+          'Unit 4: The Casserole Rule (Where the bank accounts and bills actually live)',
+          'Unit 5: The Body You Actually Have (Functional floor mobility and daily non-negotiable movement)',
+          'Unit 6: The Empty Chair Rule (Overcoming grief-induced isolation, welcoming new connections)',
+          'Unit 7: The Purpose Isn’t Optional (Protecting the Tuesday morning reason to wake up)',
+          'Unit 8: The Last Conversation Rule (Saying the unsaid before hospital beds)',
+          'The 1-Page Master Checklist & 5-Thing Quickstart for this week',
+          'Annotated Legal/Financial Papers guide & Reconnecting conversation scripts'
+        ],
+        formats: ['.PDF INTERACTIVE WORKBOOK (15 Pages)', '.PRINTABLE COMPANION', '.FILLABLE DIGITAL TEMPLATES'],
+        license: 'Standard Personal & Family Guidance License — Lifetime updates & instant downloads.',
+        reviews: [
+          {
+            name: 'Eleanor Vance',
+            country: 'United States',
+            countryCode: 'US',
+            flag: '🇺🇸',
+            rating: 5,
+            date: '3 days ago',
+            comment: 'Unit 3 on healthcare directives finally made me and my husband sit down without crying or getting defensive. Mars cuts straight through the fluff. Worth ten times the price.'
+          },
+          {
+            name: 'Robert H. Sterling',
+            country: 'United States',
+            countryCode: 'US',
+            flag: '🇺🇸',
+            rating: 5,
+            date: '1 week ago',
+            comment: 'The Casserole Rule alone saved my family from what would have been months of chaotic digging. Having one clean list of accounts is pure peace of mind.'
+          },
+          {
+            name: 'Dr. Arthur Pendelton',
+            country: 'United Kingdom',
+            countryCode: 'GB',
+            flag: '🇬🇧',
+            rating: 5,
+            date: '2 weeks ago',
+            comment: 'As a retired GP in Bristol, I saw families stumble on these exact omissions every single week. This workbook does what physicians wish they had time to teach. Essential reading.'
+          },
+          {
+            name: 'Clara Jenkins',
+            country: 'United States',
+            countryCode: 'US',
+            flag: '🇺🇸',
+            rating: 4,
+            date: '3 weeks ago',
+            comment: 'Unit 1 was an immediate wake up call. My phone used to sit across the bedroom. Now it’s right on the nightstand with written numbers. Honest, blunt, and immensely practical.'
+          },
+          {
+            name: 'David MacIntyre',
+            country: 'United States',
+            countryCode: 'US',
+            flag: '🇺🇸',
+            rating: 5,
+            date: '1 month ago',
+            comment: 'No spa music, no patronizing nonsense. Just hard-earned ICU truth. The coupon code worked instantly too. Got copies for both my adult daughters.'
+          }
+        ]
+      },
       finance: {
         id: 'finance',
         category: 'finance',
         categoryLabel: '🧮 Finance',
         title: 'FinanceOS Spreadsheet Bundle',
+        subtitle: '10 plug-and-play Excel & Google Sheets models',
         tagline: '10 plug-and-play Excel & Google Sheets models — budget trackers, loan calculators, net worth dashboards.',
+        buttonText: 'Get Asset',
         price: 39,
         originalPrice: 69,
         rating: 4.9,
@@ -1177,6 +1362,9 @@
         img: 'assets/products/finance.jpg',
         creator: {
           name: 'Elena Rostova',
+          country: 'Germany',
+          countryCode: 'DE',
+          flag: '🇩🇪',
           role: 'Financial Systems Architect',
           avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuABddTw1mS2cU5g1-pcWG9Q8Z_3vIKtzG6ZdfhhU0JyXjLWStKg6qkOPy0BqIIpBfPpUxCXtkYvkRPrchHR999HpzGdZgzK4xN5zYhp13XmIVs7muLkJlEICmu1miuKfqh-K0i-uc3yOebtJYhF7FP6QhHBOOSyTlgok2rh258jfOlr9GaiXzQj7bdxPlScfRvHQnPqGFFE8jU9l-pnCaHZ3801BjaFY-WBckuEaqDDoW0tiGw1qMs5tA',
           verified: true
@@ -1189,14 +1377,36 @@
           'Full documentation and video walkthrough guides'
         ],
         formats: ['.XLSX', '.GSHEET', '.CSV', '.PDF Documentation'],
-        license: 'Commercial Single License — unrestricted personal and client consulting use.'
+        license: 'Commercial Single License — unrestricted personal and client consulting use.',
+        reviews: [
+          {
+            name: 'Michael Thorne',
+            country: 'United States',
+            countryCode: 'US',
+            flag: '🇺🇸',
+            rating: 5,
+            date: '1 week ago',
+            comment: 'Clean formulas and zero bloat. Used it directly for my small agency client cashflow.'
+          },
+          {
+            name: 'Sophie Laurent',
+            country: 'France',
+            countryCode: 'FR',
+            flag: '🇫🇷',
+            rating: 5,
+            date: '2 weeks ago',
+            comment: 'The loan amortization sheet with extra payment simulator is simply brilliant.'
+          }
+        ]
       },
       business: {
         id: 'business',
         category: 'business',
         categoryLabel: '💼 Business',
         title: 'ProposalKit Pro',
+        subtitle: '50-page proposal system & client onboarding',
         tagline: '50-page proposal system, invoice generator, and client onboarding templates — close deals faster.',
+        buttonText: 'Get Asset',
         price: 49,
         originalPrice: 89,
         rating: 4.8,
@@ -1206,6 +1416,9 @@
         img: 'assets/products/business.jpg',
         creator: {
           name: 'Karel Van Der Berg',
+          country: 'Netherlands',
+          countryCode: 'NL',
+          flag: '🇳🇱',
           role: 'Agency Operations Director',
           avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBIfJ7_MAxQurNvSxyGBEmq5rAns42oSCS8S2kVtJMv3aHz-g3YdPJzXnyyh9rzovnWL2kf3RbrwS-TV3U4kI7nNQU2h0UzYf9fLC-1Zbidw1AZlwAC_ztRmOr6aDJyzOUtlCyxTIFjOoAy5vlSmykR6qyos_JoNhG8Ek13BTxPfYE5vh6uXdS9Bvfvyqx5hkSz77YxNuqHNLf6vk7_Ekc76Wavkc-3TLTqHecOIp7DGvsWPGzYPEEVTg',
           verified: true
@@ -1218,14 +1431,27 @@
           'Step-by-step Loom walkthrough onboarding guide'
         ],
         formats: ['.FIG', '.INDD', '.DOCX', '.PDF'],
-        license: 'Commercial Single & Agency Team License — lifetime client deployment rights.'
+        license: 'Commercial Single & Agency Team License — lifetime client deployment rights.',
+        reviews: [
+          {
+            name: 'Liam O’Connor',
+            country: 'United Kingdom',
+            countryCode: 'GB',
+            flag: '🇬🇧',
+            rating: 5,
+            date: '5 days ago',
+            comment: 'Closed our first £8,500 retainer using the proposal structure. Worth every penny.'
+          }
+        ]
       },
       marketing: {
         id: 'marketing',
         category: 'marketing',
         categoryLabel: '📈 Marketing',
         title: 'SEO Accelerator Toolkit',
+        subtitle: 'Content calendar, SEO audit template & viral hooks',
         tagline: 'Content calendar, SEO audit template, 200+ social media hooks, and a keyword research spreadsheet.',
+        buttonText: 'Get Asset',
         price: 29,
         originalPrice: 59,
         rating: 5.0,
@@ -1235,6 +1461,9 @@
         img: 'assets/products/marketing.jpg',
         creator: {
           name: 'Devon Vance',
+          country: 'United States',
+          countryCode: 'US',
+          flag: '🇺🇸',
           role: 'Growth Marketing Lead',
           avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA-zHZS3LNVxvZ5t2HWg9kmXt4RYQbWeW6kCaY2c1FFvjnFJ2x8OZnW0txQy4Ksy8UwHLclNYd5vl5nqwRTCu-JM-k_-yVtl4Zgxc7NhKKDKr7mezAZ3Gjty9XiuNBO43kGjKeYA62r1Bz9FWfpdo1YPk1XkcYNpUlrSjQ3-W21KoHDKEjNAA_ie_GKIxsE78tvwzHG4_PrhA78DjoICOQ8AQ75wYVJq16Cdj-ep8f-_UZ5rpD_5n9MlQ',
           verified: true
@@ -1247,14 +1476,27 @@
           'SERP Snippet & Meta description CTR optimizer formula'
         ],
         formats: ['.NOTION', '.GSHEET', '.XLSX', '.MARKDOWN'],
-        license: 'Commercial License — unlimited brand and client content deployment.'
+        license: 'Commercial License — unlimited brand and client content deployment.',
+        reviews: [
+          {
+            name: 'Jessica Miller',
+            country: 'Canada',
+            countryCode: 'CA',
+            flag: '🇨🇦',
+            rating: 5,
+            date: '1 week ago',
+            comment: 'The 200+ hook templates alone gave our newsletter open rates an immediate boost.'
+          }
+        ]
       },
       education: {
         id: 'education',
         category: 'education',
         categoryLabel: '🎓 Education',
         title: 'StudyStack Ultimate Planner',
+        subtitle: 'Notion study system & spaced repetition cards',
         tagline: 'Notion study system, flashcard sets, and weekly planner templates used by 3,000+ students.',
+        buttonText: 'Get Asset',
         price: 19,
         originalPrice: 35,
         rating: 4.9,
@@ -1264,6 +1506,9 @@
         img: 'assets/products/education.jpg',
         creator: {
           name: 'Sarah Chen',
+          country: 'Singapore',
+          countryCode: 'SG',
+          flag: '🇸🇬',
           role: 'Learning Experience Designer',
           avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuApzTCphVfJKP8rbFpAFIxxfWx3_ZK7Wp-s0uy6Sqmd8pn-Kc3Nt2HYKifjt5HSzG370foy92Fa59oYaeszBpayLbHdLD8WN_kL3-K5mizeeu0hMdlNIHeqdxUdO_FF8qvsTvOUAM4TISQrx-HcWh-EK1J8R-cQZ1DLmWLLHi6oQfQU1tnZv9zselU3KzDEAMhvjmGwqpzcWaycAX_Osy3EeOFuL3kGuuWZblLjARF841DQhbUOvPGiLQ',
           verified: true
@@ -1276,14 +1521,27 @@
           'Weekly time-blocking schedule with Pomodoro tracker'
         ],
         formats: ['.NOTION TEMPLATE', '.PDF PRINTABLES', '.ANKEY PACK'],
-        license: 'Personal & Classroom Educational License.'
+        license: 'Personal & Classroom Educational License.',
+        reviews: [
+          {
+            name: 'Hannah Brooks',
+            country: 'Australia',
+            countryCode: 'AU',
+            flag: '🇦🇺',
+            rating: 5,
+            date: '2 weeks ago',
+            comment: 'Keeps all my college term milestones organized in one place.'
+          }
+        ]
       },
       healthcare: {
         id: 'healthcare',
         category: 'healthcare',
         categoryLabel: '🧑‍⚕️ Healthcare',
         title: 'MedCalc Pro Resource Pack',
+        subtitle: 'Clinical calculators & dosage reference guides',
         tagline: 'Clinical calculators, patient education sheets, and dosage reference guides built for healthcare pros.',
+        buttonText: 'Members Only',
         price: 34,
         originalPrice: 65,
         rating: 4.7,
@@ -1293,6 +1551,9 @@
         img: 'assets/products/healthcare.jpg',
         creator: {
           name: 'Julian Thorne',
+          country: 'United Kingdom',
+          countryCode: 'GB',
+          flag: '🇬🇧',
           role: 'Healthcare Systems Director',
           avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBQ4aSyhCMUV9HfH8ZbnH2_noQXPUuONdr_zjdzaQWklZMGsD0-yvs8b5ECZoJlzLXAOg0yRBK0jN0m8KBzxoA9IEp_S3g60b7AI4AACFT0kYcOO4TwUe0cBRTz-WJOG1oMFI1Ubx7lmbSUuEFXwQk08cR_NkRaw49jzpB5WNeZx5CbJ3XNm0qelpZA1NU4dz-28RtwCF7_oqDpK4PKRyNzwU4LOxQ-2nOAlz8nG5UQvrmxX_MYNyyFaw',
           verified: true
@@ -1305,14 +1566,27 @@
           'Compliance validation guidelines for clinical staff'
         ],
         formats: ['.PDF PRINTABLE', '.XLSX', '.NUMBERS', '.DOCX'],
-        license: 'Medical Professional & Institutional Practice License.'
+        license: 'Medical Professional & Institutional Practice License.',
+        reviews: [
+          {
+            name: 'Dr. Maya Patel',
+            country: 'United Kingdom',
+            countryCode: 'GB',
+            flag: '🇬🇧',
+            rating: 5,
+            date: '3 weeks ago',
+            comment: 'Very thorough clinical reference sheets for ward rotations.'
+          }
+        ]
       },
       developer: {
         id: 'developer',
         category: 'developer',
         categoryLabel: '💻 Developer',
         title: 'DevKit Essentials',
+        subtitle: '15 browser dev utilities in one bundle',
         tagline: 'JSON formatter, regex tester, base64 converter, and 12 other browser-based dev utilities in one bundle.',
+        buttonText: 'Get Asset',
         price: 24,
         originalPrice: 45,
         rating: 4.8,
@@ -1322,6 +1596,9 @@
         img: 'assets/products/developer.jpg',
         creator: {
           name: 'Lucas Moretti',
+          country: 'Italy',
+          countryCode: 'IT',
+          flag: '🇮🇹',
           role: 'Principal Fullstack Engineer',
           avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCbCLmmvdGxpmNhUHgRq2KqcXyQIBlzx1gLPWCqG93MfcbvxjExBT9C68B7caqxkdUeA30SpB87uA48OgyjHfQAsm8GNCkq9RCbZWe62Kf2UdFQx7clWzOLg62l-f849CFv_QQfdXAp9YhpSerUXX77y2eeu-6cLGXioSri56h_IqKgGCyzuK_bKH-UUvCHOPv28C1bHaqdWpPfg2b8HT6otJSL3QpQ_Grrt6ISy5cJllMj8_E75CPGRA',
           verified: true
@@ -1334,14 +1611,27 @@
           'Self-hostable Dockerfile and static HTML bundle'
         ],
         formats: ['.TS / REACT SOURCE', '.HTML STANDALONE', '.DOCKERFILE'],
-        license: 'MIT Permissive Commercial Developer License.'
+        license: 'MIT Permissive Commercial Developer License.',
+        reviews: [
+          {
+            name: 'Alexandre Roy',
+            country: 'Canada',
+            countryCode: 'CA',
+            flag: '🇨🇦',
+            rating: 5,
+            date: '1 week ago',
+            comment: 'Runs offline seamlessly. Saved in my browser bookmarks forever.'
+          }
+        ]
       },
       creator: {
         id: 'creator',
         category: 'creator',
         categoryLabel: '🎨 Creator',
         title: 'CreatorOS Utility Pack',
+        subtitle: 'Color palette, aspect ratios & thumbnail system',
         tagline: 'Image resizer, text generator, color palette builder, and video thumbnail templates for content creators.',
+        buttonText: 'Members Only',
         price: 22,
         originalPrice: 40,
         rating: 4.9,
@@ -1351,6 +1641,9 @@
         img: 'assets/products/creator.jpg',
         creator: {
           name: 'Elena Rostova',
+          country: 'Germany',
+          countryCode: 'DE',
+          flag: '🇩🇪',
           role: 'Digital Design Architect',
           avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCDRUwxJ3Y4cVkUUjCHrn6g1VXedUns9ivyE3amQx3z1sSZHO5UqhOp-XhKB9vydoS73YhMPyYjDNWaykLKb8kI-7ihOJsUmnUD15dt04vzYSRdgoGGG3Nd2tGaBQRMcy29F2UWInjB7lFfKcJ8Jj8lTND7wOfzA77MsqanKCdenpo8ttTa-ydwcpTXAKxt1-Wpf4yt02SZXJtTKkyZThxK0fxO4SfeXsWxitltvDwqGicc_w2w7h2MBQ',
           verified: true
@@ -1363,14 +1656,27 @@
           'Content production checklist database'
         ],
         formats: ['.FIG', '.PSD', '.MOGRT', '.CSV'],
-        license: 'Commercial Creator License — unrestricted video and social usage.'
+        license: 'Commercial Creator License — unrestricted video and social usage.',
+        reviews: [
+          {
+            name: 'Zara Evans',
+            country: 'United Kingdom',
+            countryCode: 'GB',
+            flag: '🇬🇧',
+            rating: 5,
+            date: '2 weeks ago',
+            comment: 'The thumbnail PSD templates made our click-through rate jump 3.2%!'
+          }
+        ]
       },
       productivity: {
         id: 'productivity',
         category: 'productivity',
         categoryLabel: '📄 Productivity',
         title: 'DocFlow PDF Toolkit',
+        subtitle: 'Browser-based PDF merger, compressor & forms',
         tagline: 'PDF merger, splitter, compressor, and form builder — all browser-based, no installs, privacy-first.',
+        buttonText: 'Get Asset',
         price: 18,
         originalPrice: 32,
         rating: 4.8,
@@ -1380,6 +1686,9 @@
         img: 'assets/products/productivity.jpg',
         creator: {
           name: 'Devon Vance',
+          country: 'United States',
+          countryCode: 'US',
+          flag: '🇺🇸',
           role: 'Productivity Systems Engineer',
           avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDUZnZFSwNvl-V8AY8ZVsS1_rnXWQFV-cL0SZL11VRXaWJEAWjMJD5sX3b9EfdIV8Cbs3ILC1Vp3lc9ckAot3a6-8aWwuO0aIX8Famqtw2cEixcoHSEAz9FOTbPUKgDqX-Szs5AoPAQaGktdvKunM3QTthAD8OCCGSBaSZv_azGxzn8KxvBQ9zj70fDvJ6XkomeLyJu9v-P5d5kuAXp5ehb8HvBeKAogf6p3v_J5UyqRVtSfMpozvvyDQ',
           verified: true
@@ -1392,7 +1701,18 @@
           'Standalone single-file deployment for complete privacy'
         ],
         formats: ['.HTML / JS STANDALONE', '.WASM BUNDLE', '.NPM READY'],
-        license: 'Commercial Team License — no user tracking, GDPR compliant.'
+        license: 'Commercial Team License — no user tracking, GDPR compliant.',
+        reviews: [
+          {
+            name: 'Marcus Bell',
+            country: 'United States',
+            countryCode: 'US',
+            flag: '🇺🇸',
+            rating: 5,
+            date: '4 days ago',
+            comment: 'Zero file upload to third-party servers. Exactly what our compliance team needed.'
+          }
+        ]
       }
     };
 
@@ -1400,15 +1720,172 @@
     let currentUser = null; // null or { name, email, avatar, hasContributed }
     let activeCheckoutItem = null;
     let pendingAction = null; // callback to run after successful login
+    let appliedCoupon = null; // { code: '242', discountedPrice: 0.10 }
 
-    // Initialize from localStorage if present
+    // Country flags dictionary
+    const COUNTRY_DATA = {
+      US: { name: 'United States', flag: '🇺🇸', code: 'US', currency: 'USD ($)' },
+      GB: { name: 'United Kingdom', flag: '🇬🇧', code: 'GB', currency: 'USD ($)' },
+      CA: { name: 'Canada', flag: '🇨🇦', code: 'CA', currency: 'USD ($)' },
+      AU: { name: 'Australia', flag: '🇦🇺', code: 'AU', currency: 'USD ($)' },
+      DE: { name: 'Germany', flag: '🇩🇪', code: 'DE', currency: 'USD ($)' },
+      FR: { name: 'France', flag: '🇫🇷', code: 'FR', currency: 'USD ($)' },
+      IN: { name: 'India', flag: '🇮🇳', code: 'IN', currency: 'USD ($)' },
+      NL: { name: 'Netherlands', flag: '🇳🇱', code: 'NL', currency: 'USD ($)' },
+      ES: { name: 'Spain', flag: '🇪🇸', code: 'ES', currency: 'USD ($)' },
+      IT: { name: 'Italy', flag: '🇮🇹', code: 'IT', currency: 'USD ($)' },
+      BR: { name: 'Brazil', flag: '🇧🇷', code: 'BR', currency: 'USD ($)' },
+      JP: { name: 'Japan', flag: '🇯🇵', code: 'JP', currency: 'USD ($)' },
+      SG: { name: 'Singapore', flag: '🇸🇬', code: 'SG', currency: 'USD ($)' },
+      AE: { name: 'United Arab Emirates', flag: '🇦🇪', code: 'AE', currency: 'USD ($)' },
+      GLOBAL: { name: 'Global Region', flag: '🌐', code: 'GLOBAL', currency: 'USD ($)' }
+    };
+
+    let userLocation = {
+      countryCode: 'US',
+      countryName: 'United States',
+      flag: '🇺🇸',
+      age: null,
+      autoDetected: false
+    };
+
+    // Initialize state from localStorage
     try {
       const savedUser = localStorage.getItem('webcraftly_user');
       if (savedUser) {
         currentUser = JSON.parse(savedUser);
       }
+      const savedLoc = localStorage.getItem('webcraftly_user_location');
+      if (savedLoc) {
+        userLocation = JSON.parse(savedLoc);
+      }
     } catch (e) {
       console.error(e);
+    }
+
+    // Auto-detect visitor location from browser locale & timezone with manual fallback
+    async function autoDetectVisitorCountry() {
+      // If user already saved a manual choice, honor it
+      if (userLocation && userLocation.userSelected) {
+        updateCountryBadgeUI();
+        return;
+      }
+
+      try {
+        // Fast client-side timezone & locale detection
+        const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+        const lang = navigator.language || navigator.userLanguage || '';
+
+        let detectedCode = 'US';
+        if (timeZone.includes('Calcutta') || timeZone.includes('Kolkata') || lang.includes('en-IN') || lang.includes('hi')) {
+          detectedCode = 'IN';
+        } else if (timeZone.includes('London') || lang.includes('en-GB')) {
+          detectedCode = 'GB';
+        } else if (timeZone.includes('Berlin') || lang.includes('de')) {
+          detectedCode = 'DE';
+        } else if (timeZone.includes('Paris') || lang.includes('fr')) {
+          detectedCode = 'FR';
+        } else if (timeZone.includes('Toronto') || timeZone.includes('Vancouver') || lang.includes('en-CA')) {
+          detectedCode = 'CA';
+        } else if (timeZone.includes('Sydney') || timeZone.includes('Melbourne') || lang.includes('en-AU')) {
+          detectedCode = 'AU';
+        } else if (timeZone.includes('Amsterdam')) {
+          detectedCode = 'NL';
+        } else if (timeZone.includes('Madrid') || lang.includes('es')) {
+          detectedCode = 'ES';
+        } else if (timeZone.includes('Rome') || lang.includes('it')) {
+          detectedCode = 'IT';
+        } else if (timeZone.includes('Tokyo') || lang.includes('ja')) {
+          detectedCode = 'JP';
+        } else if (timeZone.includes('Singapore')) {
+          detectedCode = 'SG';
+        } else if (timeZone.includes('Dubai')) {
+          detectedCode = 'AE';
+        } else if (timeZone.includes('Sao_Paulo') || lang.includes('pt-BR')) {
+          detectedCode = 'BR';
+        } else {
+          detectedCode = 'US';
+        }
+
+        const data = COUNTRY_DATA[detectedCode] || COUNTRY_DATA['US'];
+        userLocation.countryCode = data.code;
+        userLocation.countryName = data.name;
+        userLocation.flag = data.flag;
+        userLocation.autoDetected = true;
+        saveLocationState();
+      } catch (err) {
+        console.warn('Geolocation fallback to US:', err);
+      }
+      updateCountryBadgeUI();
+    }
+
+    function updateCountryBadgeUI() {
+      const flagEl = document.getElementById('navCountryFlag');
+      const codeEl = document.getElementById('navCountryCode');
+      const ageEl = document.getElementById('navAgeBadge');
+      const selectEl = document.getElementById('userCountrySelect');
+      const ageInput = document.getElementById('userAgeInput');
+
+      if (flagEl) flagEl.textContent = userLocation.flag || '🇺🇸';
+      if (codeEl) codeEl.textContent = `${userLocation.countryCode} · USD ($)`;
+
+      if (ageEl) {
+        if (userLocation.age) {
+          ageEl.textContent = `${userLocation.age}y`;
+          ageEl.classList.remove('hidden');
+        } else {
+          ageEl.classList.add('hidden');
+        }
+      }
+
+      if (selectEl && userLocation.countryCode) {
+        selectEl.value = userLocation.countryCode;
+      }
+      if (ageInput && userLocation.age) {
+        ageInput.value = userLocation.age;
+      }
+
+      const checkoutBuyerRegion = document.getElementById('checkoutBuyerRegion');
+      if (checkoutBuyerRegion) {
+        checkoutBuyerRegion.innerHTML = `${userLocation.flag} ${userLocation.countryName}`;
+      }
+    }
+
+    function saveLocationState() {
+      try {
+        localStorage.setItem('webcraftly_user_location', JSON.stringify(userLocation));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function openCountryAgeModal() {
+      updateCountryBadgeUI();
+      document.getElementById('countryAgeModal').classList.remove('hidden');
+    }
+
+    function closeCountryAgeModal() {
+      document.getElementById('countryAgeModal').classList.add('hidden');
+    }
+
+    function handleCountryAgeSave(e) {
+      e.preventDefault();
+      const selCode = document.getElementById('userCountrySelect').value;
+      const ageVal = document.getElementById('userAgeInput').value;
+
+      const cData = COUNTRY_DATA[selCode] || COUNTRY_DATA['GLOBAL'];
+      userLocation = {
+        countryCode: cData.code,
+        countryName: cData.name,
+        flag: cData.flag,
+        age: ageVal ? parseInt(ageVal, 10) : null,
+        userSelected: true
+      };
+
+      saveLocationState();
+      updateCountryBadgeUI();
+      closeCountryAgeModal();
+      showToast(`Saved: ${userLocation.flag} ${userLocation.countryName} · Prices in USD ($)`);
     }
 
     // --- 3. RENDER VAULT CARDS (100% UI MOCKUPS, STANDARDIZED MICROCOPY) ---
@@ -1443,15 +1920,18 @@
               </button>
             </div>
 
-            <!-- Creator Info -->
+            <!-- Creator Info with Flag Indicator -->
             <div class="flex items-center justify-between mb-3">
               <div class="flex items-center gap-2">
                 <img loading="lazy"
                      src="${prod.creator.avatar}"
                      alt="${prod.creator.name} avatar"
                      class="w-6 h-6 rounded-full object-cover ring-1 ring-slate-200"/>
-                <span class="font-body text-xs font-medium text-[#40484b]">${prod.creator.name}</span>
-                <span class="material-symbols-outlined text-[#006398] text-sm fill-icon" title="Verified Creator">verified</span>
+                <div class="flex items-center gap-1">
+                  <span class="font-body text-xs font-semibold text-[#003441]">${prod.creator.name}</span>
+                  ${prod.creator.flag ? `<span class="text-sm leading-none" title="${prod.creator.country}">${prod.creator.flag}</span>` : ''}
+                  <span class="material-symbols-outlined text-[#006398] text-sm fill-icon" title="Verified Creator">verified</span>
+                </div>
               </div>
               ${prod.badge ? `<span class="px-2 py-0.5 rounded-full bg-[#006398]/10 text-[#006398] font-heading font-semibold text-[11px]">${prod.badge}</span>` : ''}
             </div>
@@ -1460,7 +1940,8 @@
             <h3 onclick="openProductDetail('${prod.id}');" class="font-heading font-bold text-lg leading-snug text-[#003441] mb-1.5 hover:text-[#006398] cursor-pointer transition-colors">
               ${prod.title}
             </h3>
-            <p class="font-body text-[15px] leading-relaxed text-[#475569] line-clamp-2 mb-4">
+            ${prod.subtitle ? `<p class="font-heading font-semibold text-xs text-[#006398] mb-1.5 line-clamp-1">${prod.subtitle}</p>` : ''}
+            <p class="font-body text-[14px] leading-relaxed text-[#475569] line-clamp-2 mb-4">
               ${prod.tagline}
             </p>
           </div>
@@ -1476,12 +1957,13 @@
                 </div>
                 <div class="flex items-center gap-1 text-amber-500 font-heading font-semibold text-xs mt-0.5">
                   <span>★</span>
-                  <span class="text-[#131b2e]">${prod.rating}</span>
+                  <span class="text-[#131b2e] font-bold">${prod.rating}</span>
+                  <span class="text-[11px] text-slate-400">(${prod.reviewsCount.toLocaleString()})</span>
                 </div>
               </div>
               <button type="button" onclick="handleCardAction('${prod.id}');" class="coral-btn px-4 py-2 text-sm font-semibold inline-flex items-center gap-1.5">
                 ${lockIconHtml}
-                <span>${btnLabel}</span>
+                <span>${prod.buttonText || btnLabel}</span>
               </button>
             </div>
           </div>
@@ -1647,21 +2129,79 @@
 
               <hr class="border-slate-200 my-6"/>
 
-              <!-- Seller Card -->
+              <!-- Seller Card with Country Flag -->
               <div class="flex items-center gap-3">
                 <img src="${prod.creator.avatar}" alt="${prod.creator.name}" class="w-12 h-12 rounded-full object-cover ring-2 ring-slate-200"/>
                 <div>
                   <div class="flex items-center gap-1.5">
                     <span class="font-heading font-bold text-sm text-[#003441]">${prod.creator.name}</span>
+                    ${prod.creator.flag ? `<span class="text-base leading-none" title="${prod.creator.country}">${prod.creator.flag}</span>` : ''}
                     <span class="material-symbols-outlined text-[#006398] text-base fill-icon" title="Verified Creator">verified</span>
                   </div>
-                  <div class="font-body text-xs text-slate-500">${prod.creator.role}</div>
+                  <div class="font-body text-xs text-slate-500">${prod.creator.role} · <span class="font-medium text-slate-700">${prod.creator.country}</span></div>
                 </div>
               </div>
 
             </div>
           </div>
 
+        </div>
+
+        <!-- Verified Reviews & Social Proof Section -->
+        <div class="mt-14 pt-10 border-t border-slate-200">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+            <div>
+              <div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-heading font-bold border border-emerald-200 mb-2">
+                <span class="material-symbols-outlined text-sm text-emerald-600">verified</span>
+                <span>Verified Buyer Reviews</span>
+              </div>
+              <h3 class="font-heading font-extrabold text-2xl text-[#003441]">Customer Ratings &amp; Reviews</h3>
+              <p class="font-body text-xs sm:text-sm text-[#475569] mt-0.5">Real feedback from purchasers around the globe.</p>
+            </div>
+            <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-white border border-slate-200 shadow-xs">
+              <div class="text-3xl font-heading font-extrabold text-[#003441]">${prod.rating}</div>
+              <div>
+                <div class="flex text-amber-400 text-base leading-none">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span class="text-amber-300">★</span>
+                </div>
+                <div class="text-[11px] font-body text-slate-500 mt-1 font-semibold">${prod.reviewsCount.toLocaleString()} verified ratings</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Review Cards Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            ${(prod.reviews || []).map(rev => `
+              <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex flex-col justify-between hover:shadow-sm transition-shadow">
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2">
+                      <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-heading font-bold text-xs text-[#003441] border border-slate-200">
+                        ${rev.name.charAt(0)}
+                      </div>
+                      <div>
+                        <div class="font-heading font-bold text-xs text-[#003441] flex items-center gap-1.5">
+                          <span>${rev.name}</span>
+                          <span class="text-sm leading-none" title="${rev.country}">${rev.flag}</span>
+                        </div>
+                        <div class="text-[10px] text-slate-400 font-medium">${rev.country} · ${rev.date}</div>
+                      </div>
+                    </div>
+                    <div class="text-amber-400 text-xs font-bold tracking-tighter">
+                      ${'★'.repeat(rev.rating)}
+                    </div>
+                  </div>
+                  <p class="font-body text-xs sm:text-[13px] text-[#334155] leading-relaxed italic">
+                    "${rev.comment}"
+                  </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center gap-1 text-[11px] text-emerald-700 font-medium">
+                  <span class="material-symbols-outlined text-xs">check_circle</span>
+                  <span>Verified Purchase</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
         </div>
 
         <!-- Sticky Mobile Bottom Bar -->
@@ -1672,12 +2212,12 @@
           </div>
           <button type="button" onclick="handleCardAction('${prod.id}');" class="coral-btn px-6 py-2.5 text-sm font-semibold flex items-center gap-1.5">
             ${lockIconHtml}
-            <span>${btnLabel}</span>
+            <span>${prod.buttonText || btnLabel}</span>
           </button>
         </div>
 
         <!-- Similar Products Carousel/Grid -->
-        <div class="mt-20 pt-10 border-t border-slate-200">
+        <div class="mt-14 pt-10 border-t border-slate-200">
           <div class="flex items-center justify-between mb-8">
             <div>
               <h3 class="font-heading font-bold text-2xl text-[#003441]">Similar Digital Tools</h3>
@@ -1696,7 +2236,7 @@
                 <h4 class="font-heading font-bold text-sm text-[#003441] truncate mb-2">${p.title}</h4>
                 <div class="flex items-center justify-between">
                   <span class="font-heading font-extrabold text-base text-[#003441]">$${p.price}</span>
-                  <button type="button" class="coral-btn px-3 py-1 text-xs font-semibold">Get Asset</button>
+                  <button type="button" class="coral-btn px-3 py-1 text-xs font-semibold">${p.buttonText || 'Get Asset'}</button>
                 </div>
               </div>
             `).join('')}
@@ -2081,9 +2621,29 @@
 
     function openCheckoutModal(prod) {
       activeCheckoutItem = prod;
+      appliedCoupon = null;
+
       document.getElementById('checkoutItemTitle').textContent = prod.title;
-      document.getElementById('checkoutItemPrice').textContent = `$${prod.price}.00`;
-      document.getElementById('payBtnAmount').textContent = `$${prod.price}.00`;
+      document.getElementById('checkoutItemPrice').textContent = `$${prod.price.toFixed(2)}`;
+      if (document.getElementById('checkoutOriginalPrice')) {
+        document.getElementById('checkoutOriginalPrice').textContent = prod.originalPrice ? `$${prod.originalPrice.toFixed(2)}` : '';
+      }
+      document.getElementById('payBtnAmount').textContent = `$${prod.price.toFixed(2)}`;
+
+      // Reset coupon input & feedback
+      const couponInput = document.getElementById('couponInput');
+      const couponFeedback = document.getElementById('couponFeedback');
+      if (couponInput) couponInput.value = '';
+      if (couponFeedback) {
+        couponFeedback.textContent = '';
+        couponFeedback.className = 'hidden text-xs font-medium mt-2 flex items-center gap-1';
+      }
+
+      // Update buyer region flag
+      const checkoutBuyerRegion = document.getElementById('checkoutBuyerRegion');
+      if (checkoutBuyerRegion && userLocation) {
+        checkoutBuyerRegion.innerHTML = `${userLocation.flag} ${userLocation.countryName}`;
+      }
 
       // Reset modal screens
       document.getElementById('checkoutBody').classList.remove('hidden');
@@ -2091,6 +2651,48 @@
       document.getElementById('checkoutSuccess').classList.add('hidden');
 
       document.getElementById('checkoutModal').classList.remove('hidden');
+    }
+
+    function quickApplyCoupon(code) {
+      const input = document.getElementById('couponInput');
+      if (input) {
+        input.value = code;
+        applyCheckoutCoupon();
+      }
+    }
+
+    function applyCheckoutCoupon() {
+      const input = document.getElementById('couponInput');
+      const feedback = document.getElementById('couponFeedback');
+      const priceEl = document.getElementById('checkoutItemPrice');
+      const payBtnAmount = document.getElementById('payBtnAmount');
+
+      if (!input || !activeCheckoutItem) return;
+      const code = input.value.trim().toUpperCase();
+
+      if (code === '242') {
+        // Special instant $0.10 discount
+        appliedCoupon = { code: '242', price: 0.10 };
+        priceEl.textContent = `$0.10`;
+        payBtnAmount.textContent = `$0.10`;
+
+        if (feedback) {
+          feedback.innerHTML = `
+            <span class="material-symbols-outlined text-sm text-emerald-600">check_circle</span>
+            <span class="text-emerald-700 font-bold">Coupon '242' applied! Price reduced to $0.10 USD.</span>
+          `;
+          feedback.classList.remove('hidden');
+        }
+        showToast("Coupon '242' applied: Price dropped to $0.10!");
+      } else if (code) {
+        if (feedback) {
+          feedback.innerHTML = `
+            <span class="material-symbols-outlined text-sm text-red-500">cancel</span>
+            <span class="text-red-600">Invalid coupon code. Try code: <strong>242</strong></span>
+          `;
+          feedback.classList.remove('hidden');
+        }
+      }
     }
 
     function closeCheckoutModal() {
@@ -2144,9 +2746,79 @@
 
     function handleSellerSubmit(e) {
       e.preventDefault();
+      const title = document.getElementById('sellerTitle').value.trim();
+      const subtitle = document.getElementById('sellerSubtitle').value.trim();
+      const buttonText = (document.getElementById('sellerBtnLabel').value.trim()) || 'Get Asset';
+      const originalPrice = parseFloat(document.getElementById('sellerPrice').value) || 29;
+      const discountVal = parseFloat(document.getElementById('sellerDiscountPrice').value);
+      const category = document.getElementById('sellerCategory').value || 'developer';
+      const desc = document.getElementById('sellerDesc').value.trim() || subtitle;
+
+      const finalPrice = (!isNaN(discountVal) && discountVal > 0) ? discountVal : originalPrice;
+      const finalOriginal = (!isNaN(discountVal) && discountVal > 0) ? originalPrice : null;
+
+      // Create new product in live catalog with creator country flag
+      const newProdId = 'prod_' + Date.now();
+      const catLabels = {
+        healthcare: '🧑‍⚕️ Healthcare',
+        finance: '🧮 Finance',
+        business: '💼 Business',
+        marketing: '📈 Marketing',
+        education: '🎓 Education',
+        developer: '💻 Developer',
+        creator: '🎨 Creator',
+        productivity: '📄 Productivity'
+      };
+
+      PRODUCTS[newProdId] = {
+        id: newProdId,
+        category: category,
+        categoryLabel: catLabels[category] || '✨ Digital Tool',
+        title: title,
+        subtitle: subtitle,
+        tagline: desc,
+        buttonText: buttonText,
+        price: finalPrice,
+        originalPrice: finalOriginal,
+        rating: 5.0,
+        reviewsCount: 1,
+        badge: '✨ Newly Listed',
+        isLocked: false,
+        img: 'assets/products/business.jpg',
+        creator: {
+          name: currentUser ? currentUser.name : 'Independent Creator',
+          country: userLocation ? userLocation.countryName : 'United States',
+          countryCode: userLocation ? userLocation.countryCode : 'US',
+          flag: userLocation ? userLocation.flag : '🇺🇸',
+          role: 'Verified Seller',
+          avatar: currentUser ? (currentUser.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80') : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80',
+          verified: true
+        },
+        included: [
+          'Full digital asset release files and master templates',
+          'Commercial deployment rights and source material',
+          'Video guide and direct seller support channel'
+        ],
+        formats: ['.ZIP ARCHIVE', '.SOURCE FILES', '.DOCUMENTATION'],
+        license: 'Commercial Creator License — unrestricted production usage.',
+        reviews: [
+          {
+            name: 'Verified Collector',
+            country: userLocation ? userLocation.countryName : 'United States',
+            countryCode: userLocation ? userLocation.countryCode : 'US',
+            flag: userLocation ? userLocation.flag : '🇺🇸',
+            rating: 5,
+            date: 'Just now',
+            comment: 'Fresh listing verified by WebCraftly community curation team.'
+          }
+        ]
+      };
+
+      renderProductGrid();
+
       document.getElementById('sellerForm').classList.add('hidden');
       document.getElementById('sellerConfirmation').classList.remove('hidden');
-      showToast('Listing draft created in mock Firestore!');
+      showToast(`Listing "${title}" is live in ${catLabels[category]}!`);
     }
 
     // --- 10. COMMUNITY CONTRIBUTION FLOW ---
@@ -2221,6 +2893,7 @@
 
     // DOM Ready Initialization
     document.addEventListener('DOMContentLoaded', () => {
+      autoDetectVisitorCountry();
       renderProductGrid();
       updateAuthUI();
 
