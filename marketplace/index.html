@@ -526,33 +526,33 @@
           <span class="material-symbols-outlined text-[22px]">favorite</span>
         </button>
 
-        <!-- Sleek Market / Region Dropdown (Defaults to US market, strictly USD ($)) -->
+        <!-- Sleek Market / Region & Currency Dropdown (Dynamic USD / INR switching) -->
         <div class="relative inline-flex items-center" id="marketDropdownContainer">
           <button type="button"
                   id="marketDropdownBtn"
                   onclick="toggleMarketDropdown(event);"
                   aria-expanded="false"
                   aria-haspopup="true"
-                  aria-label="Select market region (Billed in USD)"
-                  title="Market Region (All products strictly billed in USD $)"
+                  aria-label="Select market region and currency"
+                  title="Market Region & Currency (Global USD $ / India INR ₹)"
                   class="h-10 px-3 rounded-full flex items-center gap-1.5 bg-white/80 hover:bg-white text-xs font-heading font-semibold text-[#003441] border border-slate-200/90 shadow-sm hover:shadow transition-all focus:outline-none cursor-pointer group">
             <span id="navCountryFlag" class="text-base leading-none select-none">🇺🇸</span>
-            <span class="tracking-wide text-xs font-bold text-[#003441]">USD</span>
+            <span id="navCurrencyCode" class="tracking-wide text-xs font-bold text-[#003441]">USD</span>
             <span class="material-symbols-outlined text-[16px] text-slate-400 group-hover:text-[#003441] transition-transform duration-200" id="marketDropdownChevron">expand_more</span>
           </button>
 
           <!-- Dropdown Menu Panel -->
           <div id="marketDropdownMenu"
-               class="hidden absolute right-0 top-12 w-52 bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl border border-slate-200/90 py-1.5 z-50 transition-all origin-top-right animate-in fade-in zoom-in-95 duration-150">
+               class="hidden absolute right-0 top-12 w-56 bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl border border-slate-200/90 py-1.5 z-50 transition-all origin-top-right animate-in fade-in zoom-in-95 duration-150">
             <div class="px-3 py-2 border-b border-slate-100 flex items-center justify-between">
-              <span class="text-[10px] font-heading font-bold uppercase tracking-wider text-slate-400">Market Region</span>
-              <span class="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">USD ($) Locked</span>
+              <span class="text-[10px] font-heading font-bold uppercase tracking-wider text-slate-400">Market &amp; Currency</span>
+              <span id="navDropdownBadge" class="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-teal-50 text-teal-700 border border-teal-200">USD / INR Smart</span>
             </div>
             <div class="max-h-60 overflow-y-auto py-1 space-y-0.5" id="marketRegionList">
               <!-- Dynamically populated / interactive market items -->
             </div>
             <div class="px-3 py-1.5 border-t border-slate-100 bg-slate-50/80 rounded-b-2xl">
-              <p class="text-[10px] text-slate-500 leading-tight">All marketplace checkouts are processed strictly in USD ($).</p>
+              <p class="text-[10px] text-slate-500 leading-tight">Instant UPI supported for India (INR) • Cards &amp; Apple Pay for Global (USD).</p>
             </div>
           </div>
         </div>
@@ -1335,6 +1335,45 @@
           </div>
         </div>
 
+        <!-- Regional Currency & Payment Rail Switcher (Dark Mode Luxury Tech) -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-[11px] px-1 font-heading font-semibold text-white/70">
+            <span class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-sm text-[#FF8533]">currency_exchange</span>
+              <span>Select Checkout Currency &amp; Rails</span>
+            </span>
+            <span id="currencyDetectionBadge" class="text-[10px] text-teal-300 font-mono font-medium">Auto-detected</span>
+          </div>
+          <div class="p-1 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-sm grid grid-cols-2 gap-1.5 text-xs font-heading">
+            <button type="button"
+                    id="sheetCurrencyBtnUSD"
+                    onclick="setCheckoutCurrency('USD');"
+                    class="py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 transition-all font-semibold cursor-pointer text-white bg-white/10 border border-teal-400/50 shadow-[0_0_12px_rgba(45,212,191,0.25)]">
+              <span class="text-base select-none">🌐</span>
+              <div class="text-left leading-tight">
+                <div class="font-bold text-xs flex items-center gap-1">
+                  <span>Global (USD $)</span>
+                </div>
+                <div class="text-[10px] text-teal-300/90 font-mono font-normal">Cards • Apple Pay</div>
+              </div>
+            </button>
+
+            <button type="button"
+                    id="sheetCurrencyBtnINR"
+                    onclick="setCheckoutCurrency('INR');"
+                    class="py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 transition-all font-medium cursor-pointer text-white/60 hover:text-white hover:bg-white/[0.05] border border-transparent">
+              <span class="text-base select-none">🇮🇳</span>
+              <div class="text-left leading-tight">
+                <div class="font-bold text-xs flex items-center gap-1">
+                  <span>India (INR ₹)</span>
+                  <span class="px-1.5 py-0.2 rounded text-[9px] bg-orange-500/20 text-[#FF8533] border border-orange-500/30 uppercase font-mono font-bold">UPI</span>
+                </div>
+                <div class="text-[10px] text-[#FF8533]/90 font-mono font-normal">Instant QR • GPay</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
         <!-- Value Bullets (Illuminated Badges) -->
         <div class="bg-white/[0.03] rounded-xl p-3.5 border border-white/10 space-y-2 text-xs font-body text-white/80">
           <div class="flex items-center gap-2.5">
@@ -1416,10 +1455,10 @@
             </div>
           </div>
 
-          <!-- Dual-Market Rails Container -->
-          <div class="grid grid-cols-2 gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/10 text-left">
+          <!-- Dual-Market Rails Container (Dynamically Highlighted) -->
+          <div class="grid grid-cols-2 gap-2 text-left">
             <!-- Rail A: Global / US & International -->
-            <div class="space-y-1.5 pr-2 border-r border-white/10">
+            <div id="checkoutRailGlobal" class="space-y-1.5 p-2.5 rounded-xl border border-teal-400/50 bg-teal-500/[0.06] shadow-[0_0_12px_rgba(45,212,191,0.15)] transition-all">
               <div class="flex items-center justify-between">
                 <span class="text-[11px] font-heading font-bold text-white flex items-center gap-1">
                   <span>🌐</span> Global &amp; US
@@ -1434,7 +1473,7 @@
             </div>
 
             <!-- Rail B: India Domestic Instant UPI -->
-            <div class="space-y-1.5 pl-1">
+            <div id="checkoutRailIndia" class="space-y-1.5 p-2.5 rounded-xl border border-white/10 bg-transparent opacity-60 hover:opacity-100 transition-all">
               <div class="flex items-center justify-between">
                 <span class="text-[11px] font-heading font-bold text-white flex items-center gap-1">
                   <span>🇮🇳</span> India Instant
@@ -2323,9 +2362,13 @@
 
     function updateCountryBadgeUI() {
       const flagEl = document.getElementById('navCountryFlag');
+      const currCodeEl = document.getElementById('navCurrencyCode');
       const activeCountry = (currentUser && currentUser.countryCode) ? currentUser : userLocation;
       if (flagEl) {
         flagEl.textContent = activeCountry.flag || '🇺🇸';
+      }
+      if (currCodeEl) {
+        currCodeEl.textContent = (activeCountry.countryCode === 'IN' || activeCountry.currency === 'INR') ? 'INR' : 'USD';
       }
 
       // Sync active state in dropdown list
@@ -2333,7 +2376,8 @@
 
       const checkoutBuyerRegion = document.getElementById('checkoutBuyerRegion');
       if (checkoutBuyerRegion) {
-        checkoutBuyerRegion.innerHTML = `${activeCountry.flag || '🌐'} ${activeCountry.countryName || 'Global'} <span class="text-slate-400 font-normal">· Billed in USD ($)</span>`;
+        const isIndia = (activeCountry.countryCode === 'IN' || activeCountry.currency === 'INR');
+        checkoutBuyerRegion.innerHTML = `${activeCountry.flag || '🌐'} ${activeCountry.countryName || 'Global'} <span class="text-slate-400 font-normal">· ${isIndia ? 'INR (₹ - UPI Active)' : 'Billed in USD ($)'}</span>`;
       }
     }
 
@@ -2375,6 +2419,7 @@
       Object.keys(COUNTRY_DATA).forEach(code => {
         const item = COUNTRY_DATA[code];
         const isSelected = (code === activeCode);
+        const isINR = (code === 'IN');
         const optBtn = document.createElement('button');
         optBtn.type = 'button';
         optBtn.className = `w-full px-3 py-2 text-left flex items-center justify-between rounded-xl text-xs font-heading transition-colors ${
@@ -2388,7 +2433,7 @@
             <span class="truncate">${item.name}</span>
           </div>
           <div class="flex items-center gap-1.5 flex-shrink-0">
-            <span class="text-[11px] font-mono text-slate-400">USD</span>
+            <span class="text-[10px] font-mono ${isINR ? 'text-[#FF8533] font-bold' : 'text-slate-400'}">${isINR ? 'INR (UPI)' : 'USD'}</span>
             ${isSelected ? '<span class="material-symbols-outlined text-[16px] text-[#EA580C]">check</span>' : ''}
           </div>
         `;
@@ -2405,6 +2450,7 @@
       userLocation.countryCode = data.code;
       userLocation.countryName = data.name;
       userLocation.flag = data.flag;
+      userLocation.currency = (data.code === 'IN') ? 'INR' : 'USD';
       userLocation.autoDetected = false;
       saveLocationState();
 
@@ -2412,14 +2458,15 @@
         currentUser.countryCode = data.code;
         currentUser.countryName = data.name;
         currentUser.flag = data.flag;
-        currentUser.currency = 'USD';
+        currentUser.currency = userLocation.currency;
         saveUserState();
         updateAuthUI();
       }
 
       updateCountryBadgeUI();
       closeMarketDropdown();
-      showToast(`Market region set to ${data.name} · All prices in USD ($)`);
+      const currNotice = (userLocation.currency === 'INR') ? 'INR (₹ - UPI Enabled)' : 'USD ($ - Cards & Apple Pay)';
+      showToast(`Market region set to ${data.name} · ${currNotice}`);
     }
 
     function saveLocationState() {
@@ -3274,6 +3321,7 @@
     const HASHED_OFFLINE_COUPON = '14063697603e22d600d336bee6cff12c8be93509ce84a0642918d89b2aef1753';
     let couponAttempts = 0;
     let couponRateLimitReset = 0;
+    const USD_TO_INR_RATE = 85;
     let currentSheetCurrency = 'USD';
     let currentSheetPrice = 11;
 
@@ -3292,6 +3340,89 @@
       const existing = button.getElementsByClassName('btn-ripple')[0];
       if (existing) existing.remove();
       button.appendChild(circle);
+    }
+
+    // Dynamic Multi-Currency Switching & State Management
+    function setCheckoutCurrency(curr) {
+      currentSheetCurrency = (curr === 'INR') ? 'INR' : 'USD';
+      try {
+        localStorage.setItem('webcraftly_preferred_currency', currentSheetCurrency);
+      } catch (e) {}
+
+      if (activeCheckoutItem) {
+        if (appliedCoupon) {
+          currentSheetPrice = (currentSheetCurrency === 'INR') ? 10 : 0.10;
+        } else {
+          currentSheetPrice = (currentSheetCurrency === 'INR') 
+            ? Math.round((activeCheckoutItem.price || 11) * USD_TO_INR_RATE) 
+            : (activeCheckoutItem.price || 11);
+        }
+
+        const originalDisplayPrice = (currentSheetCurrency === 'INR')
+          ? Math.round((activeCheckoutItem.originalPrice || 27) * USD_TO_INR_RATE)
+          : (activeCheckoutItem.originalPrice || 27);
+
+        const pricePrefix = (currentSheetCurrency === 'INR') ? '₹' : '$';
+        const formattedPrice = (currentSheetCurrency === 'INR') 
+          ? `${currentSheetPrice}` 
+          : (appliedCoupon ? `${currentSheetPrice.toFixed(2)}` : `${currentSheetPrice}`);
+
+        const currentPriceEl = document.getElementById('sheetCurrentPrice');
+        if (currentPriceEl) {
+          currentPriceEl.textContent = `${pricePrefix}${formattedPrice}`;
+          currentPriceEl.classList.remove('celebration-pulse');
+          void currentPriceEl.offsetWidth; // trigger reflow
+          currentPriceEl.classList.add('celebration-pulse');
+        }
+
+        const origPriceEl = document.getElementById('sheetOriginalPrice');
+        if (origPriceEl) {
+          origPriceEl.textContent = `${pricePrefix}${originalDisplayPrice}`;
+        }
+      }
+
+      // Update switcher button styles (Luxury-Tech Electric Glow)
+      const btnUSD = document.getElementById('sheetCurrencyBtnUSD');
+      const btnINR = document.getElementById('sheetCurrencyBtnINR');
+      const railGlobal = document.getElementById('checkoutRailGlobal');
+      const railIndia = document.getElementById('checkoutRailIndia');
+      const detectionBadge = document.getElementById('currencyDetectionBadge');
+
+      if (currentSheetCurrency === 'INR') {
+        if (btnINR) {
+          btnINR.className = 'py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 transition-all font-semibold cursor-pointer text-white bg-orange-500/20 border border-[#FF6600]/60 shadow-[0_0_14px_rgba(255,102,0,0.3)]';
+        }
+        if (btnUSD) {
+          btnUSD.className = 'py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 transition-all font-medium cursor-pointer text-white/60 hover:text-white hover:bg-white/[0.05] border border-transparent';
+        }
+        if (railIndia) {
+          railIndia.className = 'space-y-1.5 p-2.5 rounded-xl border border-[#FF6600]/60 bg-orange-500/[0.08] shadow-[0_0_14px_rgba(255,102,0,0.2)] transition-all';
+        }
+        if (railGlobal) {
+          railGlobal.className = 'space-y-1.5 p-2.5 rounded-xl border border-white/10 bg-transparent opacity-60 hover:opacity-100 transition-all';
+        }
+        if (detectionBadge) {
+          detectionBadge.textContent = 'UPI Active (₹)';
+          detectionBadge.className = 'text-[10px] text-[#FF8533] font-mono font-medium';
+        }
+      } else {
+        if (btnUSD) {
+          btnUSD.className = 'py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 transition-all font-semibold cursor-pointer text-white bg-teal-500/15 border border-teal-400/50 shadow-[0_0_12px_rgba(45,212,191,0.25)]';
+        }
+        if (btnINR) {
+          btnINR.className = 'py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 transition-all font-medium cursor-pointer text-white/60 hover:text-white hover:bg-white/[0.05] border border-transparent';
+        }
+        if (railGlobal) {
+          railGlobal.className = 'space-y-1.5 p-2.5 rounded-xl border border-teal-400/50 bg-teal-500/[0.06] shadow-[0_0_12px_rgba(45,212,191,0.15)] transition-all';
+        }
+        if (railIndia) {
+          railIndia.className = 'space-y-1.5 p-2.5 rounded-xl border border-white/10 bg-transparent opacity-60 hover:opacity-100 transition-all';
+        }
+        if (detectionBadge) {
+          detectionBadge.textContent = 'Global Cards ($)';
+          detectionBadge.className = 'text-[10px] text-teal-300 font-mono font-medium';
+        }
+      }
     }
 
     // Instant Direct Checkout (No intermediate pages, opens slide sheet instantly)
@@ -3324,11 +3455,6 @@
       activeCheckoutItem = prod;
       appliedCoupon = null;
 
-      // Platform currency is strictly locked to USD ($) globally
-      currentSheetCurrency = 'USD';
-      currentSheetPrice = prod.price || 11;
-      const originalDisplayPrice = prod.originalPrice || 27;
-
       // Populate Sheet Content
       const thumb = document.getElementById('sheetProductThumb');
       if (thumb) thumb.src = prod.img || 'assets/products/aging_well_workbook.jpg';
@@ -3342,14 +3468,16 @@
       const successTitle = document.getElementById('sheetSuccessProductTitle');
       if (successTitle) successTitle.textContent = prod.title;
 
-      const currentPriceEl = document.getElementById('sheetCurrentPrice');
-      if (currentPriceEl) currentPriceEl.textContent = `$${currentSheetPrice}`;
-
-      const origPriceEl = document.getElementById('sheetOriginalPrice');
-      if (origPriceEl) origPriceEl.textContent = `$${originalDisplayPrice}`;
-
       const payBtnLabel = document.getElementById('sheetPayBtnLabel');
       if (payBtnLabel) payBtnLabel.textContent = 'Pay Securely';
+
+      // Auto-detect currency: check stored preference or user country
+      const savedCurrency = localStorage.getItem('webcraftly_preferred_currency');
+      const activeCountryCode = (currentUser && currentUser.countryCode) || (userLocation && userLocation.countryCode) || 'US';
+      const initialCurrency = savedCurrency || (activeCountryCode === 'IN' ? 'INR' : 'USD');
+
+      // Initialize currency display and calculations
+      setCheckoutCurrency(initialCurrency);
 
       // Reset & prefill email input (frictionless 1-input checkout)
       const emailInput = document.getElementById('sheetCustomerEmail');
@@ -3449,9 +3577,9 @@
 
       let validDiscount = null;
 
-      // 1. Try server-side validation first
+      // 1. Try server-side validation first (supports both /api/create-razorpay-order and /api/create-order)
       try {
-        const res = await fetch('/api/create-order', {
+        const res = await fetch('/api/create-razorpay-order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -3465,6 +3593,23 @@
           if (data.couponApplied) {
             validDiscount = { price: data.finalPrice, currency: data.currency };
           }
+        } else {
+          // Fallback to /api/create-order
+          const resFallback = await fetch('/api/create-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              productId: activeCheckoutItem.id,
+              couponCode: code,
+              currency: currentSheetCurrency
+            })
+          });
+          if (resFallback.ok) {
+            const dataFallback = await resFallback.json();
+            if (dataFallback.couponApplied) {
+              validDiscount = { price: dataFallback.finalPrice, currency: dataFallback.currency };
+            }
+          }
         }
       } catch (e) {
         // Fallback to secure client hash validator if running on static host
@@ -3475,8 +3620,8 @@
         const hashed = await hashStringSHA256(code);
         if (hashed === HASHED_OFFLINE_COUPON) {
           validDiscount = {
-            price: 0.10,
-            currency: 'USD'
+            price: (currentSheetCurrency === 'INR') ? 10 : 0.10,
+            currency: currentSheetCurrency
           };
         }
       }
@@ -3488,9 +3633,12 @@
         appliedCoupon = { code, price: validDiscount.price };
         currentSheetPrice = validDiscount.price;
 
+        const pricePrefix = (currentSheetCurrency === 'INR') ? '₹' : '$';
+        const formattedPrice = (currentSheetCurrency === 'INR') ? `${currentSheetPrice}` : `${currentSheetPrice.toFixed(2)}`;
+
         const currentPriceEl = document.getElementById('sheetCurrentPrice');
         if (currentPriceEl) {
-          currentPriceEl.textContent = `$${currentSheetPrice.toFixed(2)}`;
+          currentPriceEl.textContent = `${pricePrefix}${formattedPrice}`;
           // Trigger celebration pulse micro-interaction on price display
           currentPriceEl.classList.remove('celebration-pulse');
           void currentPriceEl.offsetWidth; // trigger reflow
@@ -3510,12 +3658,13 @@
           });
         }
 
+        const promoDisplay = (currentSheetCurrency === 'INR') ? '₹10 INR (UPI Active)' : '$0.10 USD';
         if (msg) {
-          msg.innerHTML = `<span class="material-symbols-outlined text-sm text-[#2dd4bf]">verified</span><span class="text-[#2dd4bf] font-bold">Promo unlocked! Special price: $${currentSheetPrice.toFixed(2)} USD.</span>`;
+          msg.innerHTML = `<span class="material-symbols-outlined text-sm text-[#2dd4bf]">verified</span><span class="text-[#2dd4bf] font-bold">Promo unlocked! Special price: ${promoDisplay}.</span>`;
           msg.className = 'text-xs font-medium mt-2 flex items-center gap-1.5 p-2 rounded-lg bg-teal-500/10 border border-teal-500/30 celebration-pulse';
           msg.classList.remove('hidden');
         }
-        showToast('Promo unlocked! Price reduced to $0.10 USD');
+        showToast(`Promo unlocked! Price reduced to ${promoDisplay}`);
       } else {
         if (msg) {
           msg.innerHTML = '<span class="material-symbols-outlined text-sm text-red-400">cancel</span><span class="text-red-400">Invalid or expired promo code.</span>';
@@ -3552,9 +3701,9 @@
       let serverOrderId = null;
       let finalAmountSubunits = Math.round(currentSheetPrice * 100);
 
-      // 1. Attempt Server-side Order Creation
+      // 1. Attempt Server-side Order Creation with dynamic currency
       try {
-        const orderRes = await fetch('/api/create-order', {
+        const orderRes = await fetch('/api/create-razorpay-order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -3570,6 +3719,25 @@
             serverOrderId = orderData.orderId;
             finalAmountSubunits = orderData.amount;
           }
+        } else {
+          // Fallback to /api/create-order
+          const orderFallback = await fetch('/api/create-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              productId: activeCheckoutItem.id,
+              couponCode: appliedCoupon ? appliedCoupon.code : null,
+              currency: currentSheetCurrency,
+              email: customerEmail
+            })
+          });
+          if (orderFallback.ok) {
+            const fbData = await orderFallback.json();
+            if (fbData.orderId && !fbData.orderId.startsWith('order_sim_')) {
+              serverOrderId = fbData.orderId;
+              finalAmountSubunits = fbData.amount;
+            }
+          }
         }
       } catch (err) {
         console.warn('Backend order creation offline, using client SDK direct flow');
@@ -3582,13 +3750,13 @@
         return;
       }
 
-      const buyerCountry = (currentUser && currentUser.countryCode) || userLocation.countryCode || 'US';
-      const isIndia = (buyerCountry === 'IN');
+      const isINR = (currentSheetCurrency === 'INR');
+      const buyerCountry = isINR ? 'IN' : ((currentUser && currentUser.countryCode) || userLocation.countryCode || 'US');
 
       const options = {
         key: RAZORPAY_KEY_ID,
         amount: finalAmountSubunits,
-        currency: 'USD',
+        currency: currentSheetCurrency,
         name: 'WebCraftly',
         description: `${activeCheckoutItem.title} - Digital Asset License`,
         image: 'https://raw.githubusercontent.com/ashique7242-ui/WebCraftly-Store/main/assets/creators/mars_kowalski.png',
@@ -3597,7 +3765,7 @@
           productId: activeCheckoutItem.id,
           productTitle: activeCheckoutItem.title,
           customerEmail: customerEmail,
-          currency: 'USD',
+          currency: currentSheetCurrency,
           buyerCountry: buyerCountry
         },
         handler: async function(response) {
@@ -3613,29 +3781,29 @@
         config: {
           display: {
             blocks: {
-              global: {
-                name: 'Global & US (Cards, Apple Pay, Google Pay)',
-                instruments: [
-                  { method: 'card' },
-                  { method: 'wallet' }
-                ]
-              },
               india_upi: {
                 name: 'India Domestic (Instant UPI, PhonePe, Paytm, QR & NetBanking)',
                 instruments: [
                   { method: 'upi' },
                   { method: 'netbanking' }
                 ]
+              },
+              global: {
+                name: 'Global & US (Cards, Apple Pay, Google Pay)',
+                instruments: [
+                  { method: 'card' },
+                  { method: 'wallet' }
+                ]
               }
             },
-            sequence: isIndia ? ['block.india_upi', 'block.global'] : ['block.global', 'block.india_upi'],
+            sequence: isINR ? ['block.india_upi', 'block.global'] : ['block.global', 'block.india_upi'],
             preferences: {
               show_default_blocks: true
             }
           }
         },
         theme: {
-          color: '#FF6600' // Innovation Orange
+          color: isINR ? '#FF6600' : '#2dd4bf'
         },
         modal: {
           ondismiss: function() {
