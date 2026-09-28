@@ -366,13 +366,12 @@
           <span class="material-symbols-outlined text-[22px]">favorite</span>
         </button>
 
-        <!-- Auto-detected Country & Age Badge / Selector -->
-        <button type="button" id="countrySelectorBtn" onclick="openCountryAgeModal();" title="Your detected region & currency settings" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 hover:bg-white text-xs font-heading font-semibold text-[#003441] border border-slate-200 shadow-sm transition-all">
+        <!-- Auto-detected Region Indicator (Strictly USD ($) globally, no currency switcher) -->
+        <div id="countryRegionBadge" title="Detected Region (All marketplace items strictly billed in USD $)" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 text-xs font-heading font-semibold text-[#003441] border border-slate-200 shadow-sm select-none">
           <span id="navCountryFlag" class="text-base leading-none">🇺🇸</span>
           <span id="navCountryCode" class="tracking-wide">US · USD ($)</span>
           <span id="navAgeBadge" class="hidden text-[10px] px-1 rounded bg-slate-100 text-slate-600 font-mono font-normal"></span>
-          <span class="material-symbols-outlined text-sm text-slate-400">expand_more</span>
-        </button>
+        </div>
 
         <!-- Log In / Log Out & User State -->
         <div id="authContainer" class="flex items-center gap-3">
@@ -1389,62 +1388,7 @@
         </div>
       </div>
     </div>
-  <!-- ============================================================ -->
-  <!-- MODAL 5: COUNTRY & AGE SELECTION MODAL                       -->
-  <!-- ============================================================ -->
-  <div id="countryAgeModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative transform transition-all">
-      <button type="button" onclick="closeCountryAgeModal();" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 transition-colors">
-        <span class="material-symbols-outlined text-2xl">close</span>
-      </button>
-
-      <div class="text-center mb-6">
-        <div class="w-12 h-12 rounded-2xl bg-teal-50 border border-teal-200 text-[#0F4C5C] flex items-center justify-center mx-auto mb-3 shadow-sm">
-          <span class="material-symbols-outlined text-2xl">public</span>
-        </div>
-        <h3 class="font-heading font-extrabold text-2xl text-[#003441]">Your Region & Age</h3>
-        <p class="font-body text-xs sm:text-sm text-[#475569] mt-1">We auto-detect your location so you see standard global prices in USD ($) and localized community circles.</p>
-      </div>
-
-      <form onsubmit="handleCountryAgeSave(event);" class="space-y-4">
-        <div>
-          <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Select Country</label>
-          <select id="userCountrySelect" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none">
-            <option value="US">🇺🇸 United States (US)</option>
-            <option value="GB">🇬🇧 United Kingdom (UK)</option>
-            <option value="CA">🇨🇦 Canada (CA)</option>
-            <option value="AU">🇦🇺 Australia (AU)</option>
-            <option value="DE">🇩🇪 Germany (DE)</option>
-            <option value="FR">🇫🇷 France (FR)</option>
-            <option value="IN">🇮🇳 India (IN)</option>
-            <option value="NL">🇳🇱 Netherlands (NL)</option>
-            <option value="ES">🇪🇸 Spain (ES)</option>
-            <option value="IT">🇮🇹 Italy (IT)</option>
-            <option value="BR">🇧🇷 Brazil (BR)</option>
-            <option value="JP">🇯🇵 Japan (JP)</option>
-            <option value="SG">🇸🇬 Singapore (SG)</option>
-            <option value="AE">🇦🇪 United Arab Emirates (AE)</option>
-            <option value="GLOBAL">🌐 Global / Other Region</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Your Age (Years)</label>
-          <input id="userAgeInput" type="number" min="16" max="110" placeholder="e.g. 58" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
-          <p class="text-[11px] text-slate-400 mt-1">Used to curate peer circles and workbook age-planning resources.</p>
-        </div>
-
-        <div class="pt-2 flex items-center justify-end gap-3">
-          <button type="button" onclick="closeCountryAgeModal();" class="px-5 py-2.5 rounded-xl text-sm font-heading font-semibold text-slate-500 hover:bg-slate-100 transition-colors">
-            Cancel
-          </button>
-          <button type="submit" class="coral-btn px-6 py-2.5 text-sm font-semibold shadow-md">
-            Save Preferences
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
+  <!-- Region and Currency are locked strictly to USD ($). Currency selector removed per specification. -->
 
   <!-- TOAST NOTIFICATION -->
   <div id="toast" class="hidden fixed bottom-6 right-6 z-50 bg-[#003441] text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2 text-sm font-heading font-medium border border-teal-800 transition-all">
@@ -1991,16 +1935,9 @@
       console.error(e);
     }
 
-    // Auto-detect visitor location from browser locale & timezone with manual fallback
+    // Auto-detect visitor location from browser locale & timezone
     async function autoDetectVisitorCountry() {
-      // If user already saved a manual choice, honor it
-      if (userLocation && userLocation.userSelected) {
-        updateCountryBadgeUI();
-        return;
-      }
-
       try {
-        // Fast client-side timezone & locale detection
         const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
         const lang = navigator.language || navigator.userLanguage || '';
 
@@ -2017,7 +1954,7 @@
           detectedCode = 'CA';
         } else if (timeZone.includes('Sydney') || timeZone.includes('Melbourne') || lang.includes('en-AU')) {
           detectedCode = 'AU';
-        } else if (timeZone.includes('Amsterdam')) {
+        } else if (timeZone.includes('Amsterdam') || lang.includes('nl')) {
           detectedCode = 'NL';
         } else if (timeZone.includes('Madrid') || lang.includes('es')) {
           detectedCode = 'ES';
@@ -2027,7 +1964,7 @@
           detectedCode = 'JP';
         } else if (timeZone.includes('Singapore')) {
           detectedCode = 'SG';
-        } else if (timeZone.includes('Dubai')) {
+        } else if (timeZone.includes('Dubai') || timeZone.includes('Asia/Dubai')) {
           detectedCode = 'AE';
         } else if (timeZone.includes('Sao_Paulo') || lang.includes('pt-BR')) {
           detectedCode = 'BR';
@@ -2041,6 +1978,16 @@
         userLocation.flag = data.flag;
         userLocation.autoDetected = true;
         saveLocationState();
+
+        // Tag profile with detected region if user is already logged in
+        if (currentUser) {
+          currentUser.countryCode = data.code;
+          currentUser.countryName = data.name;
+          currentUser.flag = data.flag;
+          currentUser.currency = 'USD';
+          saveUserState();
+          updateAuthUI();
+        }
       } catch (err) {
         console.warn('Geolocation fallback to US:', err);
       }
@@ -2051,31 +1998,23 @@
       const flagEl = document.getElementById('navCountryFlag');
       const codeEl = document.getElementById('navCountryCode');
       const ageEl = document.getElementById('navAgeBadge');
-      const selectEl = document.getElementById('userCountrySelect');
-      const ageInput = document.getElementById('userAgeInput');
 
-      if (flagEl) flagEl.textContent = userLocation.flag || '🇺🇸';
-      if (codeEl) codeEl.textContent = `${userLocation.countryCode} · USD ($)`;
+      const activeCountry = (currentUser && currentUser.countryCode) ? currentUser : userLocation;
+      if (flagEl) flagEl.textContent = activeCountry.flag || '🇺🇸';
+      if (codeEl) codeEl.textContent = `${activeCountry.countryCode || 'US'} · USD ($)`;
 
       if (ageEl) {
-        if (userLocation.age) {
-          ageEl.textContent = `${userLocation.age}y`;
+        if (activeCountry.age) {
+          ageEl.textContent = `${activeCountry.age}y`;
           ageEl.classList.remove('hidden');
         } else {
           ageEl.classList.add('hidden');
         }
       }
 
-      if (selectEl && userLocation.countryCode) {
-        selectEl.value = userLocation.countryCode;
-      }
-      if (ageInput && userLocation.age) {
-        ageInput.value = userLocation.age;
-      }
-
       const checkoutBuyerRegion = document.getElementById('checkoutBuyerRegion');
       if (checkoutBuyerRegion) {
-        checkoutBuyerRegion.innerHTML = `${userLocation.flag} ${userLocation.countryName}`;
+        checkoutBuyerRegion.innerHTML = `${activeCountry.flag || '🌐'} ${activeCountry.countryName || 'Global'} <span class="text-slate-400 font-normal">· Billed in USD ($)</span>`;
       }
     }
 
@@ -2085,35 +2024,6 @@
       } catch (e) {
         console.error(e);
       }
-    }
-
-    function openCountryAgeModal() {
-      updateCountryBadgeUI();
-      document.getElementById('countryAgeModal').classList.remove('hidden');
-    }
-
-    function closeCountryAgeModal() {
-      document.getElementById('countryAgeModal').classList.add('hidden');
-    }
-
-    function handleCountryAgeSave(e) {
-      e.preventDefault();
-      const selCode = document.getElementById('userCountrySelect').value;
-      const ageVal = document.getElementById('userAgeInput').value;
-
-      const cData = COUNTRY_DATA[selCode] || COUNTRY_DATA['GLOBAL'];
-      userLocation = {
-        countryCode: cData.code,
-        countryName: cData.name,
-        flag: cData.flag,
-        age: ageVal ? parseInt(ageVal, 10) : null,
-        userSelected: true
-      };
-
-      saveLocationState();
-      updateCountryBadgeUI();
-      closeCountryAgeModal();
-      showToast(`Saved: ${userLocation.flag} ${userLocation.countryName} · Prices in USD ($)`);
     }
 
     // --- 3. RENDER VAULT CARDS (100% UI MOCKUPS, STANDARDIZED MICROCOPY) ---
@@ -2659,10 +2569,15 @@
                      class="w-full h-full object-cover"/>
               </div>
             </button>
-            <div class="hidden group-hover:block absolute right-0 top-12 w-48 bg-white rounded-2xl shadow-2xl border border-slate-200 py-2 z-50">
+            <div class="hidden group-hover:block absolute right-0 top-12 w-52 bg-white rounded-2xl shadow-2xl border border-slate-200 py-2 z-50">
               <div class="px-4 py-2 border-b border-slate-100">
                 <div class="font-heading font-bold text-xs text-[#003441] truncate">${currentUser.name}</div>
                 <div class="text-[11px] text-slate-400 truncate">${currentUser.email}</div>
+                <div class="text-[11px] font-semibold text-slate-600 mt-1 flex items-center gap-1.5">
+                  <span>${currentUser.flag || userLocation.flag || '🇺🇸'}</span>
+                  <span class="truncate">${currentUser.countryName || userLocation.countryName || 'United States'}</span>
+                  <span class="text-[10px] font-mono px-1 rounded bg-slate-100 text-slate-500 font-normal">USD ($)</span>
+                </div>
               </div>
               <button onclick="showCommunityView();" class="w-full text-left px-4 py-2 text-xs font-heading font-semibold text-[#003441] hover:bg-slate-50 flex items-center gap-2">
                 <span class="material-symbols-outlined text-sm">groups</span>
@@ -2719,10 +2634,15 @@
             name: user.displayName || user.email.split('@')[0] || 'Creator',
             email: user.email,
             avatar: user.photoURL || 'https://lh3.googleusercontent.com/aida-public/AB6AXuAQZI3EACbKwTLk4nWrb2j4MnaQcI1lXvAfspiCdxwHUTgUwDotDeRgYGt7tgSt3nSKxjyB1p_u-zUgj9ujIDplgLJ8ZT0GeBOF8ImCgUMNEVpbzTYscFv9qo9ACpZxZjX9Fv42q8SZZ4vHk75YwwN_czH0bUFE_ZFU2yirUJ3X2EunCqutSRSX4dGhVtAYXsxx31vVuxAQCVv-RpUK-CB8Oztn3hnZihCnR17G2H1qR2qpl-v_I0NRFw',
-            hasContributed: currentUser ? currentUser.hasContributed : false
+            hasContributed: currentUser ? currentUser.hasContributed : false,
+            countryCode: (currentUser && currentUser.countryCode) || userLocation.countryCode || 'US',
+            countryName: (currentUser && currentUser.countryName) || userLocation.countryName || 'United States',
+            flag: (currentUser && currentUser.flag) || userLocation.flag || '🇺🇸',
+            currency: 'USD'
           };
           saveUserState();
           updateAuthUI();
+          updateCountryBadgeUI();
           if (pendingAction) {
             const action = pendingAction;
             pendingAction = null;
@@ -2806,12 +2726,17 @@
         name,
         email,
         avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAQZI3EACbKwTLk4nWrb2j4MnaQcI1lXvAfspiCdxwHUTgUwDotDeRgYGt7tgSt3nSKxjyB1p_u-zUgj9ujIDplgLJ8ZT0GeBOF8ImCgUMNEVpbzTYscFv9qo9ACpZxZjX9Fv42q8SZZ4vHk75YwwN_czH0bUFE_ZFU2yirUJ3X2EunCqutSRSX4dGhVtAYXsxx31vVuxAQCVv-RpUK-CB8Oztn3hnZihCnR17G2H1qR2qpl-v_I0NRFw',
-        hasContributed
+        hasContributed,
+        countryCode: userLocation.countryCode || 'US',
+        countryName: userLocation.countryName || 'United States',
+        flag: userLocation.flag || '🇺🇸',
+        currency: 'USD'
       };
       saveUserState();
       closeAuthModal();
       updateAuthUI();
-      showToast(`Welcome, ${name}!`);
+      updateCountryBadgeUI();
+      showToast(`Welcome, ${name}! (${currentUser.flag} ${currentUser.countryName})`);
 
       if (pendingAction) {
         const action = pendingAction;
@@ -2851,7 +2776,6 @@
     let couponRateLimitReset = 0;
     let currentSheetCurrency = 'USD';
     let currentSheetPrice = 11;
-    let isIndiaUser = false;
 
     // Micro-interaction: Radial ripple effect on button click
     function createRipple(event) {
@@ -2900,14 +2824,10 @@
       activeCheckoutItem = prod;
       appliedCoupon = null;
 
-      // Auto-detect India user
-      isIndiaUser = (userLocation && userLocation.countryCode === 'IN') ||
-                    (typeof Intl !== 'undefined' && Intl.DateTimeFormat().resolvedOptions().timeZone.includes('Kolkata')) ||
-                    (navigator.language && navigator.language.toLowerCase().includes('en-in'));
-
-      currentSheetCurrency = isIndiaUser ? 'INR' : 'USD';
-      currentSheetPrice = isIndiaUser ? 915 : (prod.price || 11);
-      const originalDisplayPrice = isIndiaUser ? 2249 : (prod.originalPrice || 27);
+      // Platform currency is strictly locked to USD ($) globally
+      currentSheetCurrency = 'USD';
+      currentSheetPrice = prod.price || 11;
+      const originalDisplayPrice = prod.originalPrice || 27;
 
       // Populate Sheet Content
       const thumb = document.getElementById('sheetProductThumb');
@@ -2917,16 +2837,16 @@
       if (title) title.textContent = prod.title;
 
       const currencyBadge = document.getElementById('sheetCurrencyBadge');
-      if (currencyBadge) currencyBadge.textContent = isIndiaUser ? 'INR (₹) · India' : 'USD ($)';
+      if (currencyBadge) currencyBadge.textContent = 'USD ($)';
 
       const currentPriceEl = document.getElementById('sheetCurrentPrice');
-      if (currentPriceEl) currentPriceEl.textContent = isIndiaUser ? `₹${currentSheetPrice}` : `$${currentSheetPrice}`;
+      if (currentPriceEl) currentPriceEl.textContent = `$${currentSheetPrice}`;
 
       const origPriceEl = document.getElementById('sheetOriginalPrice');
-      if (origPriceEl) origPriceEl.textContent = isIndiaUser ? `₹${originalDisplayPrice}` : `$${originalDisplayPrice}`;
+      if (origPriceEl) origPriceEl.textContent = `$${originalDisplayPrice}`;
 
       const payBtnLabel = document.getElementById('sheetPayBtnLabel');
-      if (payBtnLabel) payBtnLabel.textContent = isIndiaUser ? `Pay Securely – ₹${currentSheetPrice}` : `Pay Securely – $${currentSheetPrice}`;
+      if (payBtnLabel) payBtnLabel.textContent = `Pay Securely – $${currentSheetPrice}`;
 
       // Reset & prefill customer inputs
       const emailInput = document.getElementById('sheetCustomerEmail');
@@ -2936,7 +2856,7 @@
 
       const phoneInput = document.getElementById('sheetCustomerPhone');
       if (phoneInput) {
-        phoneInput.value = localStorage.getItem('webcraftly_customer_phone') || (isIndiaUser ? '+91 ' : '');
+        phoneInput.value = localStorage.getItem('webcraftly_customer_phone') || '';
       }
 
       // Reset coupon box
@@ -3056,8 +2976,8 @@
         const hashed = await hashStringSHA256(code);
         if (hashed === HASHED_OFFLINE_COUPON) {
           validDiscount = {
-            price: isIndiaUser ? 9.00 : 0.10,
-            currency: currentSheetCurrency
+            price: 0.10,
+            currency: 'USD'
           };
         }
       }
@@ -3070,16 +2990,16 @@
         currentSheetPrice = validDiscount.price;
 
         const currentPriceEl = document.getElementById('sheetCurrentPrice');
-        if (currentPriceEl) currentPriceEl.textContent = isIndiaUser ? `₹${currentSheetPrice.toFixed(2)}` : `$${currentSheetPrice.toFixed(2)}`;
+        if (currentPriceEl) currentPriceEl.textContent = `$${currentSheetPrice.toFixed(2)}`;
 
         const payBtnLabel = document.getElementById('sheetPayBtnLabel');
-        if (payBtnLabel) payBtnLabel.textContent = isIndiaUser ? `Pay Securely – ₹${currentSheetPrice.toFixed(2)}` : `Pay Securely – $${currentSheetPrice.toFixed(2)}`;
+        if (payBtnLabel) payBtnLabel.textContent = `Pay Securely – $${currentSheetPrice.toFixed(2)}`;
 
         if (msg) {
-          msg.innerHTML = `<span class="material-symbols-outlined text-sm text-emerald-600">check_circle</span><span class="text-emerald-700 font-bold">Coupon applied! New price: ${isIndiaUser ? `₹${currentSheetPrice.toFixed(2)}` : `$${currentSheetPrice.toFixed(2)}`}.</span>`;
+          msg.innerHTML = `<span class="material-symbols-outlined text-sm text-emerald-600">check_circle</span><span class="text-emerald-700 font-bold">Coupon applied! New price: $${currentSheetPrice.toFixed(2)} USD.</span>`;
           msg.classList.remove('hidden');
         }
-        showToast('Coupon verified successfully!');
+        showToast('Coupon verified! Price dropped to $0.10 USD');
       } else {
         if (msg) {
           msg.innerHTML = '<span class="material-symbols-outlined text-sm text-red-500">cancel</span><span class="text-red-600">Invalid or expired coupon code.</span>';
@@ -3145,11 +3065,18 @@
       const options = {
         key: RAZORPAY_KEY_ID,
         amount: finalAmountSubunits,
-        currency: currentSheetCurrency,
+        currency: 'USD',
         name: 'WebCraftly',
-        description: `${activeCheckoutItem.title} - Digital Asset License`,
+        description: `${activeCheckoutItem.title} - Digital Asset License (USD)`,
         image: 'https://raw.githubusercontent.com/ashique7242-ui/WebCraftly-Store/main/assets/creators/mars_kowalski.png',
         order_id: serverOrderId || undefined,
+        notes: {
+          productId: activeCheckoutItem.id,
+          productTitle: activeCheckoutItem.title,
+          customerEmail: customerEmail,
+          currency: 'USD',
+          buyerCountry: (currentUser && currentUser.countryCode) || userLocation.countryCode || 'US'
+        },
         handler: async function(response) {
           if (payBtn) payBtn.disabled = false;
           if (payBtnLabel) payBtnLabel.textContent = originalBtnText;

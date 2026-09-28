@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Razorpay from 'razorpay';
 
-// Server-side secret coupons registry (never exposed to client)
-const SERVER_COUPONS: Record<string, { discountPriceUSD: number; discountPriceINR: number }> = {
-  '242': { discountPriceUSD: 0.10, discountPriceINR: 9.00 } // Special $0.10 / ₹9 test price
+// Server-side secret coupons registry (strictly fixed in USD)
+const SERVER_COUPONS: Record<string, { discountPriceUSD: number }> = {
+  '242': { discountPriceUSD: 0.10 } // Special $0.10 USD coupon price
 };
 
 // In-memory rate limiting map (IP -> { count, resetTime })
@@ -29,14 +29,11 @@ export async function POST(req: NextRequest) {
   try {
     const ip = req.headers.get('x-forwarded-for') || 'anonymous';
     const body = await req.json();
-    const { productId, couponCode, currency = 'USD' } = body;
+    const { productId, couponCode } = body;
 
-    // Default product base prices on server
+    // Platform currency is strictly locked to USD ($)
     const basePriceUSD = 11.00;
-    const basePriceINR = 915.00;
-
     let finalPriceUSD = basePriceUSD;
-    let finalPriceINR = basePriceINR;
     let couponApplied = false;
 
     // Validate coupon securely on server with rate limiting
@@ -53,7 +50,6 @@ export async function POST(req: NextRequest) {
 
       if (validCoupon) {
         finalPriceUSD = validCoupon.discountPriceUSD;
-        finalPriceINR = validCoupon.discountPriceINR;
         couponApplied = true;
       } else {
         return NextResponse.json(
@@ -63,11 +59,9 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Determine currency and subunit
-    const isINR = currency === 'INR';
-    const chosenCurrency = isINR ? 'INR' : 'USD';
-    const chosenPrice = isINR ? finalPriceINR : finalPriceUSD;
-    const amountSubunits = Math.round(chosenPrice * 100);
+    // Subunit calculations strictly in USD cents (e.g. 1100 = $11.00, 10 = $0.10)
+    const chosenCurrency = 'USD';
+    const amountSubunits = Math.round(finalPriceUSD * 100);
 
     const keyId = process.env.RAZORPAY_KEY_ID || 'rzp_test_ThKSjkVYF2Ikrj';
     const keySecret = process.env.RAZORPAY_KEY_SECRET;
