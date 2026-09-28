@@ -896,31 +896,31 @@
           <div id="couponFeedback" class="hidden text-xs font-medium mt-2 flex items-center gap-1"></div>
         </div>
 
-        <!-- Payment Methods -->
-        <div class="space-y-3 mb-6">
-          <label class="flex items-center justify-between p-3 rounded-xl border border-blue-500 bg-blue-50/50 cursor-pointer">
-            <div class="flex items-center gap-3">
-              <input type="radio" name="paymethod" checked class="text-[#2b83ea] focus:ring-0"/>
-              <span class="font-heading font-semibold text-xs text-[#0c2340]">Credit / Debit Card (Visa, MC, Amex)</span>
+        <!-- Payment Gateway Info -->
+        <div class="mb-5 p-3.5 rounded-xl border border-blue-200 bg-blue-50/60 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-[#003441] flex items-center justify-center text-white font-heading font-extrabold text-sm shadow-sm">
+              ₹
             </div>
-            <span class="material-symbols-outlined text-[#2b83ea] text-lg">credit_card</span>
-          </label>
-          <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer">
-            <div class="flex items-center gap-3">
-              <input type="radio" name="paymethod" class="text-[#2b83ea] focus:ring-0"/>
-              <span class="font-heading font-semibold text-xs text-[#0c2340]">UPI &amp; QR Code / NetBanking</span>
+            <div>
+              <div class="font-heading font-bold text-xs text-[#003441] flex items-center gap-1.5">
+                <span>Razorpay Checkout</span>
+                <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300">Test Key Active</span>
+              </div>
+              <div class="text-[11px] text-slate-500">Cards (Visa, MC), UPI (GPay, PhonePe, Paytm), NetBanking</div>
             </div>
-            <span class="material-symbols-outlined text-slate-500 text-lg">qr_code</span>
-          </label>
+          </div>
+          <span class="material-symbols-outlined text-blue-600 text-xl">verified</span>
         </div>
 
-        <button type="button" id="payNowBtn" onclick="processMockPayment();" class="w-full py-3.5 px-4 rounded-xl bg-[#2b83ea] hover:bg-[#1a73e8] text-white font-heading font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2">
-          <span>Pay Securely</span>
-          <span id="payBtnAmount">$39.00</span>
+        <button type="button" id="payNowBtn" onclick="initiateRazorpayCheckout();" class="coral-btn w-full py-3.5 px-4 text-sm font-semibold shadow-md flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-base">lock</span>
+          <span>Pay Securely with Razorpay</span>
+          <span id="payBtnAmount">$11.00</span>
         </button>
         <div class="text-[11px] text-center text-slate-400 mt-3 flex items-center justify-center gap-1">
           <span class="material-symbols-outlined text-xs">verified_user</span>
-          <span>Dummy Test Mode — No actual bank charges</span>
+          <span>Secured by Razorpay Test API (Key: <code class="font-mono text-[10px] text-slate-500">rzp_test_...Ikrj</code>)</span>
         </div>
       </div>
 
@@ -1227,6 +1227,12 @@
   <!-- TOAST NOTIFICATION -->
   <div id="toast" class="hidden fixed bottom-6 right-6 z-50 bg-[#003441] text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2 text-sm font-heading font-medium border border-teal-800 transition-all">
     <span class="material-symbols-outlined text-lg text-[#82d0e3]" id="toastIcon">info</span>
+    <span id="toastMsg">Notification message</span>
+  </div>
+
+  <!-- RAZORPAY STANDARD CHECKOUT SDK -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
   <!-- FIREBASE SCRIPTS (v10 COMPAT / MODULAR VIA CDN) -->
   <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
@@ -2697,6 +2703,102 @@
 
     function closeCheckoutModal() {
       document.getElementById('checkoutModal').classList.add('hidden');
+    }
+
+    const RAZORPAY_KEY_ID = 'rzp_test_ThKSjkVYF2Ikrj';
+
+    function initiateRazorpayCheckout() {
+      if (!activeCheckoutItem) {
+        showToast('Please select a product first.');
+        return;
+      }
+
+      // Calculate final payable price
+      const finalPriceUSD = (appliedCoupon && appliedCoupon.price !== undefined) ? appliedCoupon.price : activeCheckoutItem.price;
+
+      // Currency & subunit configuration:
+      // Razorpay USD minimum transaction is $0.50. If price is < $0.50 (e.g. $0.10 with coupon 242),
+      // we convert to INR (e.g. ₹9) so Razorpay accepts it without throwing minimum amount errors.
+      let currency = 'USD';
+      let amountSubunits = Math.round(finalPriceUSD * 100);
+
+      if (finalPriceUSD < 0.50) {
+        currency = 'INR';
+        amountSubunits = Math.max(100, Math.round(finalPriceUSD * 86 * 100)); // ~₹9 in paise
+      }
+
+      // Fallback if Razorpay SDK failed to load
+      if (typeof Razorpay === 'undefined') {
+        processMockPayment();
+        return;
+      }
+
+      const options = {
+        key: RAZORPAY_KEY_ID,
+        amount: amountSubunits,
+        currency: currency,
+        name: 'WebCraftly',
+        description: `${activeCheckoutItem.title} - Digital Asset License`,
+        image: 'https://raw.githubusercontent.com/ashique7242-ui/WebCraftly-Store/main/assets/creators/mars_kowalski.png',
+        handler: function(response) {
+          handleRazorpaySuccess(response);
+        },
+        prefill: {
+          name: currentUser ? currentUser.name : '',
+          email: currentUser ? currentUser.email : '',
+          contact: ''
+        },
+        notes: {
+          product_id: activeCheckoutItem.id,
+          product_title: activeCheckoutItem.title,
+          coupon_code: appliedCoupon ? appliedCoupon.code : 'NONE',
+          original_price_usd: activeCheckoutItem.price,
+          final_price_usd: finalPriceUSD
+        },
+        theme: {
+          color: '#003441'
+        },
+        modal: {
+          ondismiss: function() {
+            showToast('Razorpay payment modal closed.');
+          }
+        }
+      };
+
+      try {
+        const rzp = new Razorpay(options);
+        rzp.on('payment.failed', function(response) {
+          console.warn('Razorpay payment failed:', response.error);
+          // If merchant account hasn't activated international currency USD:
+          if (currency === 'USD' && response.error && response.error.description && response.error.description.toLowerCase().includes('currency')) {
+            showToast('Switching to domestic INR test mode...');
+            options.currency = 'INR';
+            options.amount = Math.max(100, Math.round(finalPriceUSD * 86 * 100));
+            const rzpRetry = new Razorpay(options);
+            rzpRetry.open();
+            return;
+          }
+          showToast(response.error.description || 'Payment was not completed.');
+        });
+        rzp.open();
+      } catch (err) {
+        console.error('Razorpay invocation error:', err);
+        processMockPayment();
+      }
+    }
+
+    function handleRazorpaySuccess(response) {
+      const paymentId = response.razorpay_payment_id || ('pay_' + Math.random().toString(36).substring(2, 10));
+
+      document.getElementById('checkoutBody').classList.add('hidden');
+      document.getElementById('checkoutProcessing').classList.remove('hidden');
+
+      setTimeout(() => {
+        document.getElementById('checkoutProcessing').classList.add('hidden');
+        document.getElementById('checkoutSuccess').classList.remove('hidden');
+        document.getElementById('successOrderId').textContent = paymentId;
+        showToast(`Payment Confirmed! Reference ID: ${paymentId}`);
+      }, 700);
     }
 
     function processMockPayment() {
