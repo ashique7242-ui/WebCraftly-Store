@@ -161,12 +161,11 @@ export default function RootLayout({
                 </div>
               </div>
               <div className="flex flex-wrap gap-x-8 gap-y-3 font-medium text-[13px]">
-                <a href="#" className="text-espresso-light hover:text-primary transition-colors">Community Pledge</a>
-                <a href="#" className="text-espresso-light hover:text-primary transition-colors">Code Review Standards</a>
+                <a href="/privacy" className="text-espresso-light hover:text-primary transition-colors">Privacy Policy</a>
+                <a href="/terms" className="text-espresso-light hover:text-primary transition-colors">Terms &amp; Conditions</a>
+                <a href="/refund" className="text-espresso-light hover:text-primary transition-colors">Refund/Cancellation Policy</a>
+                <a href="/contact" className="text-espresso-light hover:text-primary transition-colors">Contact Us</a>
                 <a href="#atelier" className="text-primary font-bold hover:underline transition-colors">Creator Atelier</a>
-                <a href="#" className="text-espresso-light hover:text-primary transition-colors">Terms of Craft</a>
-                <a href="#" className="text-espresso-light hover:text-primary transition-colors">Privacy Sanctuary</a>
-                <a href="#reviews" className="text-espresso-light hover:text-primary transition-colors">Gratitude & Notes</a>
               </div>
             </div>
             <div className="pt-8 border-t border-[#E5E2DB] flex flex-col sm:flex-row items-center justify-between text-[13px] text-espresso-light gap-4">
