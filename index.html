@@ -173,15 +173,8 @@
         <a href="#seller" onclick="showSellerModal(); return false;" class="text-[#40484b] hover:text-[#003441] transition-colors">Become a Seller</a>
       </nav>
 
-      <!-- Right: Country Picker, Search, Favorites, Auth / Avatar / CTA Button -->
-      <div class="flex items-center gap-2 sm:gap-3">
-        <!-- Visitor Detected Country Pill / Selector -->
-        <button type="button" onclick="openCountrySelectorModal();" title="Click to change your country or age" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-xs font-heading font-semibold text-[#003441] shadow-sm transition-all">
-          <span id="navCountryFlag" class="text-base">🇺🇸</span>
-          <span id="navCountryCode" class="hidden sm:inline">US ($)</span>
-          <span class="material-symbols-outlined text-sm text-slate-400">expand_more</span>
-        </button>
-
+      <!-- Right: Search, Favorites, Auth / Avatar / CTA Button -->
+      <div class="flex items-center gap-3 sm:gap-4">
         <button type="button" onclick="focusSearch();" aria-label="Search digital products" class="w-10 h-10 rounded-full flex items-center justify-center text-[#40484b] hover:text-[#003441] hover:bg-white/80 transition-colors">
           <span class="material-symbols-outlined text-[22px]">search</span>
         </button>
@@ -294,47 +287,13 @@
 
             <!-- RIGHT COLUMN (5 cols): Stacked product preview cards -->
             <div class="lg:col-span-5 relative flex flex-col gap-5 lg:pl-6">
-              <!-- Card 1 Preview (Newest Featured Workbook: What Nobody Tells You About Getting Old) -->
-              <div onclick="openProductDetail('getting-old-workbook');" class="frosted-card rounded-2xl p-4 sm:p-5 text-[#131b2e] shadow-2xl relative transform lg:rotate-1 hover:rotate-0 transition-transform duration-300 cursor-pointer border border-white/80">
+              <!-- Card 1 Preview (Aura Design System v2.4) -->
+              <div onclick="openProductDetail('business');" class="frosted-card rounded-2xl p-4 sm:p-5 text-[#131b2e] shadow-2xl relative transform lg:rotate-1 hover:rotate-0 transition-transform duration-300 cursor-pointer border border-white/80">
                 <div class="flex items-center justify-between mb-3">
-                  <div class="flex items-center gap-2">
-                    <span class="px-2.5 py-1 rounded-md bg-[#EA580C]/15 text-[#EA580C] font-heading font-bold text-[11px] tracking-wider uppercase">🔥 Newest Release</span>
-                    <span class="inline-flex items-center gap-1 text-[11px] font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200">🇺🇸 United States</span>
-                  </div>
+                  <span class="px-2.5 py-1 rounded-md bg-[#0F4C5C]/15 text-[#0F4C5C] font-heading font-bold text-[11px] tracking-wider uppercase">Trending #1 Release</span>
                   <div class="flex items-center gap-1 text-amber-500 font-heading font-bold text-xs">
                     <span>★</span>
-                    <span>4.7</span>
-                    <span class="text-[10px] text-slate-400 font-normal">(1,126)</span>
-                  </div>
-                </div>
-                <div class="flex gap-4 items-center">
-                  <img src="assets/products/getting_old_workbook.jpg"
-                       alt="What Nobody Tells You About Getting Old preview"
-                       class="w-20 h-24 sm:w-24 sm:h-28 rounded-xl object-cover shadow-sm flex-shrink-0 border border-slate-200"/>
-                  <div class="flex-1 min-w-0">
-                    <h3 class="font-heading font-bold text-base sm:text-lg text-[#003441] truncate">What Nobody Tells You About Getting Old</h3>
-                    <p class="font-body text-xs text-[#40484b] mt-0.5 line-clamp-2">"The blunt version of aging well nobody's selling you."</p>
-                    <div class="mt-2.5 flex items-center justify-between">
-                      <div class="flex items-baseline gap-1.5">
-                        <span class="font-heading font-extrabold text-xl text-[#003441]">$11</span>
-                        <span class="text-xs text-slate-400 line-through">$27</span>
-                      </div>
-                      <button type="button" class="coral-btn px-4 py-1.5 text-xs font-semibold">Get the Workbook</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Card 2 Preview (ProposalKit Pro) -->
-              <div onclick="openProductDetail('business');" class="frosted-card rounded-2xl p-4 sm:p-5 text-[#131b2e] shadow-2xl relative transform lg:-rotate-1 hover:rotate-0 transition-transform duration-300 cursor-pointer border border-white/80">
-                <div class="flex items-center justify-between mb-3">
-                  <div class="flex items-center gap-2">
-                    <span class="px-2.5 py-1 rounded-md bg-[#0F4C5C]/15 text-[#0F4C5C] font-heading font-bold text-[11px] tracking-wider uppercase">Trending Release</span>
-                    <span class="inline-flex items-center gap-1 text-[11px] font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200">🇳🇱 Netherlands</span>
-                  </div>
-                  <div class="flex items-center gap-1 text-amber-500 font-heading font-bold text-xs">
-                    <span>★</span>
-                    <span>4.8</span>
+                    <span>5.0</span>
                   </div>
                 </div>
                 <div class="flex gap-4 items-center">
@@ -346,6 +305,30 @@
                     <p class="font-body text-xs text-[#40484b] mt-0.5 line-clamp-1">50-page proposal system &amp; client onboarding</p>
                     <div class="mt-3 flex items-center justify-between">
                       <span class="font-heading font-extrabold text-lg text-[#003441]">$49</span>
+                      <button type="button" class="coral-btn px-4 py-1.5 text-xs font-semibold">Get Asset</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 2 Preview (FinanceOS Spreadsheet) -->
+              <div onclick="openProductDetail('finance');" class="frosted-card rounded-2xl p-4 sm:p-5 text-[#131b2e] shadow-2xl relative transform lg:-rotate-1 hover:rotate-0 transition-transform duration-300 cursor-pointer border border-white/80">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="px-2.5 py-1 rounded-md bg-[#006398]/15 text-[#006398] font-heading font-bold text-[11px] tracking-wider uppercase">Staff Pick</span>
+                  <div class="flex items-center gap-1 text-amber-500 font-heading font-bold text-xs">
+                    <span>★</span>
+                    <span>4.9</span>
+                  </div>
+                </div>
+                <div class="flex gap-4 items-center">
+                  <img src="assets/products/finance.jpg"
+                       alt="FinanceOS Spreadsheet Bundle preview"
+                       class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover shadow-sm flex-shrink-0 border border-slate-200"/>
+                  <div class="flex-1 min-w-0">
+                    <h3 class="font-heading font-bold text-base sm:text-lg text-[#003441] truncate">FinanceOS Spreadsheet</h3>
+                    <p class="font-body text-xs text-[#40484b] mt-0.5 line-clamp-1">10 plug-and-play Excel &amp; Google Sheets models</p>
+                    <div class="mt-3 flex items-center justify-between">
+                      <span class="font-heading font-extrabold text-lg text-[#003441]">$39</span>
                       <button type="button" class="coral-btn px-4 py-1.5 text-xs font-semibold">Get Asset</button>
                     </div>
                   </div>
@@ -832,33 +815,6 @@
           <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Password</label>
           <input id="authPasswordInput" type="password" required minlength="6" placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
         </div>
-        <!-- Visitor Country and Age Details (Auto-detected + Manual Override) -->
-        <div class="grid grid-cols-2 gap-3 pt-1">
-          <div>
-            <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Your Country</label>
-            <select id="authCountrySelect" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-[#003441] focus:outline-none">
-              <option value="US" data-flag="🇺🇸" data-name="United States">🇺🇸 United States</option>
-              <option value="GB" data-flag="🇬🇧" data-name="United Kingdom">🇬🇧 United Kingdom</option>
-              <option value="CA" data-flag="🇨🇦" data-name="Canada">🇨🇦 Canada</option>
-              <option value="AU" data-flag="🇦🇺" data-name="Australia">🇦🇺 Australia</option>
-              <option value="IN" data-flag="🇮🇳" data-name="India">🇮🇳 India</option>
-              <option value="DE" data-flag="🇩🇪" data-name="Germany">🇩🇪 Germany</option>
-              <option value="FR" data-flag="🇫🇷" data-name="France">🇫🇷 France</option>
-              <option value="NL" data-flag="🇳🇱" data-name="Netherlands">🇳🇱 Netherlands</option>
-              <option value="AE" data-flag="🇦🇪" data-name="United Arab Emirates">🇦🇪 UAE</option>
-              <option value="SG" data-flag="🇸🇬" data-name="Singapore">🇸🇬 Singapore</option>
-              <option value="OTHER" data-flag="🌐" data-name="Global Visitor">🌐 Other Country</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Age</label>
-            <input id="authAgeInput" type="number" min="13" max="110" placeholder="e.g. 35" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
-          </div>
-        </div>
-        <p class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
-          <span class="material-symbols-outlined text-xs text-emerald-600">travel_explore</span>
-          <span id="geoDetectionStatus">Location auto-detected</span>
-        </p>
 
         <button type="submit" id="authSubmitBtn" class="coral-btn w-full py-3 text-sm font-semibold shadow-md mt-2 flex items-center justify-center gap-2">
           <span>Sign In / Create Account</span>
@@ -891,31 +847,12 @@
       <!-- Modal Body -->
       <div id="checkoutBody" class="p-6">
         <!-- Order Summary -->
-        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 mb-4">
+        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 mb-6">
           <div class="flex items-center justify-between mb-1">
-            <span id="checkoutItemTitle" class="font-heading font-bold text-sm text-[#003441] truncate max-w-[220px]">Product Name</span>
-            <span id="checkoutItemPrice" class="font-heading font-extrabold text-base text-[#003441]">$11.00</span>
+            <span id="checkoutItemTitle" class="font-heading font-bold text-sm text-[#003441]">Product Name</span>
+            <span id="checkoutItemPrice" class="font-heading font-extrabold text-base text-[#003441]">$39.00</span>
           </div>
-          <div id="checkoutDiscountNotice" class="hidden text-xs text-emerald-600 font-bold mb-1">Coupon "242" Applied: Reduced to $0.10!</div>
-          <div class="text-xs text-slate-500">Commercial Single License · Instant Access (Worldwide in USD $)</div>
-        </div>
-
-        <!-- Apply Coupon Code Box -->
-        <div class="mb-5 bg-teal-50/60 p-3 rounded-xl border border-teal-200">
-          <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1.5 flex items-center justify-between">
-            <span class="flex items-center gap-1">
-              <span class="material-symbols-outlined text-sm text-[#EA580C]">sell</span>
-              <span>Apply Promo Coupon</span>
-            </span>
-            <span class="text-[11px] text-teal-800 font-medium font-mono">Use code: <b class="bg-teal-200/70 px-1.5 py-0.5 rounded text-[#003441]">242</b> for $0.10</span>
-          </label>
-          <div class="flex gap-2">
-            <input id="checkoutCouponInput" type="text" placeholder="Enter coupon code (e.g. 242)" class="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-mono uppercase focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
-            <button type="button" onclick="applyCheckoutCoupon();" class="px-3.5 py-1.5 rounded-lg bg-[#003441] hover:bg-[#0c424f] text-white font-heading font-bold text-xs transition-colors">
-              Apply
-            </button>
-          </div>
-          <p id="couponFeedback" class="hidden text-[11px] mt-1 font-medium"></p>
+          <div class="text-xs text-slate-500">Commercial Single License · Instant Access</div>
         </div>
 
         <!-- Payment Methods -->
@@ -1194,51 +1131,6 @@
   <!-- TOAST NOTIFICATION -->
   <div id="toast" class="hidden fixed bottom-6 right-6 z-50 bg-[#003441] text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2 text-sm font-heading font-medium border border-teal-800 transition-all">
     <span class="material-symbols-outlined text-lg text-[#82d0e3]" id="toastIcon">info</span>
-    <span id="toastMsg">Notification message</span>
-  </div>
-
-  <!-- MODAL: MANUAL COUNTRY & AGE SELECTOR -->
-  <div id="countryModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
-    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 relative">
-      <button type="button" onclick="closeCountrySelectorModal();" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
-        <span class="material-symbols-outlined text-xl">close</span>
-      </button>
-      <div class="flex items-center gap-2 mb-4">
-        <div class="w-10 h-10 rounded-xl bg-teal-50 border border-teal-200 text-[#0F4C5C] flex items-center justify-center">
-          <span class="material-symbols-outlined text-xl">public</span>
-        </div>
-        <div>
-          <h4 class="font-heading font-bold text-base text-[#003441]">Your Region &amp; Age</h4>
-          <p class="text-xs text-slate-500">All tools accessible globally in USD ($)</p>
-        </div>
-      </div>
-      <div class="space-y-3">
-        <div>
-          <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Select Country</label>
-          <select id="modalCountrySelect" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none">
-            <option value="US" data-flag="🇺🇸" data-name="United States">🇺🇸 United States</option>
-            <option value="GB" data-flag="🇬🇧" data-name="United Kingdom">🇬🇧 United Kingdom</option>
-            <option value="CA" data-flag="🇨🇦" data-name="Canada">🇨🇦 Canada</option>
-            <option value="AU" data-flag="🇦🇺" data-name="Australia">🇦🇺 Australia</option>
-            <option value="IN" data-flag="🇮🇳" data-name="India">🇮🇳 India</option>
-            <option value="DE" data-flag="🇩🇪" data-name="Germany">🇩🇪 Germany</option>
-            <option value="FR" data-flag="🇫🇷" data-name="France">🇫🇷 France</option>
-            <option value="NL" data-flag="🇳🇱" data-name="Netherlands">🇳🇱 Netherlands</option>
-            <option value="AE" data-flag="🇦🇪" data-name="United Arab Emirates">🇦🇪 UAE</option>
-            <option value="SG" data-flag="🇸🇬" data-name="Singapore">🇸🇬 Singapore</option>
-            <option value="OTHER" data-flag="🌐" data-name="Global Visitor">🌐 Other Country</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Your Age (Optional)</label>
-          <input id="modalAgeInput" type="number" min="13" max="110" placeholder="e.g. 28" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
-        </div>
-        <button type="button" onclick="saveManualLocation();" class="coral-btn w-full py-2.5 text-xs font-semibold shadow-md mt-2">
-          Save Preferences
-        </button>
-      </div>
-    </div>
-  </div>
   <!-- FIREBASE SCRIPTS (v10 COMPAT / MODULAR VIA CDN) -->
   <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
@@ -1270,88 +1162,6 @@
   <script>
     // --- 1. PRODUCT CATALOG DATA ---
     const PRODUCTS = {
-      'getting-old-workbook': {
-        id: 'getting-old-workbook',
-        category: 'healthcare',
-        categoryLabel: '🧑‍⚕️ Healthcare & Aging',
-        title: 'What Nobody Tells You About Getting Old',
-        subtitle: "Mars Kowalski's Blunt Workbook on Aging Well",
-        tagline: "The blunt version of aging well nobody's selling you. Eight honest conversations and practical checklists on care directives, nightstand safety, wills, and real independence.",
-        coverPromise: "The blunt version of aging well nobody's selling you.",
-        buttonLabel: 'Get the Workbook',
-        price: 11,
-        originalPrice: 27,
-        rating: 4.7,
-        reviewsCount: 1126,
-        badge: '🔥 Newest Release',
-        isLocked: false,
-        img: 'assets/products/getting_old_workbook.jpg',
-        creator: {
-          name: 'Marlene Kowalski',
-          role: 'Retired ICU Nurse of 22 Years · Author',
-          country: 'US',
-          countryName: 'United States',
-          countryFlag: '🇺🇸',
-          avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAQZI3EACbKwTLk4nWrb2j4MnaQcI1lXvAfspiCdxwHUTgUwDotDeRgYGt7tgSt3nSKxjyB1p_u-zUgj9ujIDplgLJ8ZT0GeBOF8ImCgUMNEVpbzTYscFv9qo9ACpZxZjX9Fv42q8SZZ4vHk75YwwN_czH0bUFE_ZFU2yirUJ3X2EunCqutSRSX4dGhVtAYXsxx31vVuxAQCVv-RpUK-CB8Oztn3hnZihCnR17G2H1qR2qpl-v_I0NRFw',
-          verified: true
-        },
-        reviewsList: [
-          {
-            name: 'Patricia Vance',
-            country: 'US',
-            countryName: 'United States',
-            countryFlag: '🇺🇸',
-            rating: 5,
-            date: '2 days ago',
-            comment: 'Unit 3 (Paperwork) and Unit 4 (The Casserole Rule) literally saved my siblings from an all-out war when our dad had a fall last week. Every family in America needs this workbook on their nightstand.'
-          },
-          {
-            name: 'Robert C. Miller',
-            country: 'US',
-            countryName: 'United States',
-            countryFlag: '🇺🇸',
-            rating: 5,
-            date: '1 week ago',
-            comment: 'No sugarcoating, no wellness spa nonsense. Marlene tells you the ground reality of ICU emergency rooms and how to be prepared without feeling morbid. Best $11 investment I have made in years.'
-          },
-          {
-            name: 'Eleanor Sterling',
-            country: 'GB',
-            countryName: 'United Kingdom',
-            countryFlag: '🇬🇧',
-            rating: 5,
-            date: '2 weeks ago',
-            comment: 'Read this in one sitting from London. The phone call script alone gave me the courage to have that crucial conversation with my elderly mum without it feeling awkward. Immensely practical.'
-          },
-          {
-            name: 'Dr. Gregory Hayes',
-            country: 'US',
-            countryName: 'United States',
-            countryFlag: '🇺🇸',
-            rating: 4,
-            date: '3 weeks ago',
-            comment: 'As a primary care physician in Ohio, I see patients make the mistakes Mars outlines on day one of retirement. Unit 7 (Purpose Isn’t Optional) is spot on. Clear, compassionate, and actionable.'
-          },
-          {
-            name: 'Brenda Washington',
-            country: 'US',
-            countryName: 'United States',
-            countryFlag: '🇺🇸',
-            rating: 5,
-            date: '1 month ago',
-            comment: 'The Master Checklist on page 13 is taped to my refrigerator right now. It cut right through my denial and gave me peace of mind.'
-          }
-        ],
-        included: [
-          'Full 15-Page High-Impact Digital Workbook (.PDF & Print-Ready format)',
-          'The 8 Core Rules: The Nightstand, One Phone Call, Paperwork, Casserole, Body, Empty Chair, Purpose, and Last Conversation',
-          'The Master 1-Page Emergency Checklist (Tape to Fridge or Nightstand)',
-          'Bonus: 2 Tested Phone Call Scripts for reconnecting without awkwardness',
-          'Annotated Paperwork Guide: Healthcare Directives, POA, and Will essentials'
-        ],
-        formats: ['.PDF INTERACTIVE WORKBOOK', '.PRINT-READY PDF (A4 / US LETTER)'],
-        license: 'Worldwide Personal & Family License — Accessible globally in USD ($).'
-      },
       finance: {
         id: 'finance',
         category: 'finance',
@@ -1368,16 +1178,9 @@
         creator: {
           name: 'Elena Rostova',
           role: 'Financial Systems Architect',
-          country: 'US',
-          countryName: 'United States',
-          countryFlag: '🇺🇸',
           avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuABddTw1mS2cU5g1-pcWG9Q8Z_3vIKtzG6ZdfhhU0JyXjLWStKg6qkOPy0BqIIpBfPpUxCXtkYvkRPrchHR999HpzGdZgzK4xN5zYhp13XmIVs7muLkJlEICmu1miuKfqh-K0i-uc3yOebtJYhF7FP6QhHBOOSyTlgok2rh258jfOlr9GaiXzQj7bdxPlScfRvHQnPqGFFE8jU9l-pnCaHZ3801BjaFY-WBckuEaqDDoW0tiGw1qMs5tA',
           verified: true
         },
-        reviewsList: [
-          { name: 'David Miller', country: 'US', countryName: 'United States', countryFlag: '🇺🇸', rating: 5, date: '1 week ago', comment: 'Replaced 4 different apps with this single spreadsheet. Super clean formulas.' },
-          { name: 'Sarah Jenkins', country: 'CA', countryName: 'Canada', countryFlag: '🇨🇦', rating: 5, date: '2 weeks ago', comment: 'The debt amortization dashboard gave me an exact roadmap to pay off my mortgage.' }
-        ],
         included: [
           'Monthly Budget & Cash Flow Planner with dynamic variance charts',
           'Multi-scenario Loan Amortization Schedule (Mortgage, Auto, Business)',
@@ -1404,16 +1207,9 @@
         creator: {
           name: 'Karel Van Der Berg',
           role: 'Agency Operations Director',
-          country: 'NL',
-          countryName: 'Netherlands',
-          countryFlag: '🇳🇱',
           avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBIfJ7_MAxQurNvSxyGBEmq5rAns42oSCS8S2kVtJMv3aHz-g3YdPJzXnyyh9rzovnWL2kf3RbrwS-TV3U4kI7nNQU2h0UzYf9fLC-1Zbidw1AZlwAC_ztRmOr6aDJyzOUtlCyxTIFjOoAy5vlSmykR6qyos_JoNhG8Ek13BTxPfYE5vh6uXdS9Bvfvyqx5hkSz77YxNuqHNLf6vk7_Ekc76Wavkc-3TLTqHecOIp7DGvsWPGzYPEEVTg',
           verified: true
         },
-        reviewsList: [
-          { name: 'Marcus Sterling', country: 'GB', countryName: 'United Kingdom', countryFlag: '🇬🇧', rating: 5, date: '3 days ago', comment: 'Landed our biggest retain client with this proposal layout.' },
-          { name: 'Jessica Vance', country: 'US', countryName: 'United States', countryFlag: '🇺🇸', rating: 5, date: '1 week ago', comment: 'The Google Docs invoice automation saved me 5 hours this month.' }
-        ],
         included: [
           '50-Page High-Conversion Proposal Pitch Deck (Figma & InDesign)',
           'Automated Google Docs Invoice Generator with tax calculation',
@@ -1440,15 +1236,9 @@
         creator: {
           name: 'Devon Vance',
           role: 'Growth Marketing Lead',
-          country: 'US',
-          countryName: 'United States',
-          countryFlag: '🇺🇸',
           avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA-zHZS3LNVxvZ5t2HWg9kmXt4RYQbWeW6kCaY2c1FFvjnFJ2x8OZnW0txQy4Ksy8UwHLclNYd5vl5nqwRTCu-JM-k_-yVtl4Zgxc7NhKKDKr7mezAZ3Gjty9XiuNBO43kGjKeYA62r1Bz9FWfpdo1YPk1XkcYNpUlrSjQ3-W21KoHDKEjNAA_ie_GKIxsE78tvwzHG4_PrhA78DjoICOQ8AQ75wYVJq16Cdj-ep8f-_UZ5rpD_5n9MlQ',
           verified: true
         },
-        reviewsList: [
-          { name: 'Alex Wong', country: 'SG', countryName: 'Singapore', countryFlag: '🇸🇬', rating: 5, date: '5 days ago', comment: 'Our organic search impressions increased 140% after fixing the 120-item checklist.' }
-        ],
         included: [
           'Technical SEO Site Audit Matrix (120+ inspection criteria)',
           '365-Day Omnichannel Content Marketing Calendar',
@@ -1475,15 +1265,9 @@
         creator: {
           name: 'Sarah Chen',
           role: 'Learning Experience Designer',
-          country: 'CA',
-          countryName: 'Canada',
-          countryFlag: '🇨🇦',
           avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuApzTCphVfJKP8rbFpAFIxxfWx3_ZK7Wp-s0uy6Sqmd8pn-Kc3Nt2HYKifjt5HSzG370foy92Fa59oYaeszBpayLbHdLD8WN_kL3-K5mizeeu0hMdlNIHeqdxUdO_FF8qvsTvOUAM4TISQrx-HcWh-EK1J8R-cQZ1DLmWLLHi6oQfQU1tnZv9zselU3KzDEAMhvjmGwqpzcWaycAX_Osy3EeOFuL3kGuuWZblLjARF841DQhbUOvPGiLQ',
           verified: true
         },
-        reviewsList: [
-          { name: 'Emily Clark', country: 'US', countryName: 'United States', countryFlag: '🇺🇸', rating: 5, date: '1 week ago', comment: 'Active recall database kept me sane during med school finals.' }
-        ],
         included: [
           'Comprehensive Notion University & High-School Dashboard',
           'Active Recall Spaced Repetition flashcard system',
@@ -1510,15 +1294,9 @@
         creator: {
           name: 'Julian Thorne',
           role: 'Healthcare Systems Director',
-          country: 'GB',
-          countryName: 'United Kingdom',
-          countryFlag: '🇬🇧',
           avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBQ4aSyhCMUV9HfH8ZbnH2_noQXPUuONdr_zjdzaQWklZMGsD0-yvs8b5ECZoJlzLXAOg0yRBK0jN0m8KBzxoA9IEp_S3g60b7AI4AACFT0kYcOO4TwUe0cBRTz-WJOG1oMFI1Ubx7lmbSUuEFXwQk08cR_NkRaw49jzpB5WNeZx5CbJ3XNm0qelpZA1NU4dz-28RtwCF7_oqDpK4PKRyNzwU4LOxQ-2nOAlz8nG5UQvrmxX_MYNyyFaw',
           verified: true
         },
-        reviewsList: [
-          { name: 'Nurse Clara', country: 'AU', countryName: 'Australia', countryFlag: '🇦🇺', rating: 5, date: '3 weeks ago', comment: 'The emergency triage protocol sheet is an everyday reference on our floor.' }
-        ],
         included: [
           'Clinical Dosage & IV Infusion Rate Calculation Sheets',
           'Pediatric & Adult BMI assessment matrices',
@@ -1545,15 +1323,9 @@
         creator: {
           name: 'Lucas Moretti',
           role: 'Principal Fullstack Engineer',
-          country: 'DE',
-          countryName: 'Germany',
-          countryFlag: '🇩🇪',
           avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCbCLmmvdGxpmNhUHgRq2KqcXyQIBlzx1gLPWCqG93MfcbvxjExBT9C68B7caqxkdUeA30SpB87uA48OgyjHfQAsm8GNCkq9RCbZWe62Kf2UdFQx7clWzOLg62l-f849CFv_QQfdXAp9YhpSerUXX77y2eeu-6cLGXioSri56h_IqKgGCyzuK_bKH-UUvCHOPv28C1bHaqdWpPfg2b8HT6otJSL3QpQ_Grrt6ISy5cJllMj8_E75CPGRA',
           verified: true
         },
-        reviewsList: [
-          { name: 'Klaus Richter', country: 'DE', countryName: 'Germany', countryFlag: '🇩🇪', rating: 5, date: '4 days ago', comment: 'Runs offline in a docker container. Perfect developer companion.' }
-        ],
         included: [
           'Offline-capable Web-based Developer Utility Suite',
           'JSON Schema validator, minifier, and TypeScript type generator',
@@ -1580,15 +1352,9 @@
         creator: {
           name: 'Elena Rostova',
           role: 'Digital Design Architect',
-          country: 'US',
-          countryName: 'United States',
-          countryFlag: '🇺🇸',
           avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCDRUwxJ3Y4cVkUUjCHrn6g1VXedUns9ivyE3amQx3z1sSZHO5UqhOp-XhKB9vydoS73YhMPyYjDNWaykLKb8kI-7ihOJsUmnUD15dt04vzYSRdgoGGG3Nd2tGaBQRMcy29F2UWInjB7lFfKcJ8Jj8lTND7wOfzA77MsqanKCdenpo8ttTa-ydwcpTXAKxt1-Wpf4yt02SZXJtTKkyZThxK0fxO4SfeXsWxitltvDwqGicc_w2w7h2MBQ',
           verified: true
         },
-        reviewsList: [
-          { name: 'Sophie Martin', country: 'FR', countryName: 'France', countryFlag: '🇫🇷', rating: 5, date: '2 weeks ago', comment: 'The thumbnail templates elevated my YouTube CTR from 3.2% to 7.8%.' }
-        ],
         included: [
           'High-CTR YouTube & TikTok Thumbnail Design System (30 layouts)',
           'Dynamic Color Palette Generator with accessible contrast checks',
@@ -1615,15 +1381,9 @@
         creator: {
           name: 'Devon Vance',
           role: 'Productivity Systems Engineer',
-          country: 'US',
-          countryName: 'United States',
-          countryFlag: '🇺🇸',
           avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDUZnZFSwNvl-V8AY8ZVsS1_rnXWQFV-cL0SZL11VRXaWJEAWjMJD5sX3b9EfdIV8Cbs3ILC1Vp3lc9ckAot3a6-8aWwuO0aIX8Famqtw2cEixcoHSEAz9FOTbPUKgDqX-Szs5AoPAQaGktdvKunM3QTthAD8OCCGSBaSZv_azGxzn8KxvBQ9zj70fDvJ6XkomeLyJu9v-P5d5kuAXp5ehb8HvBeKAogf6p3v_J5UyqRVtSfMpozvvyDQ',
           verified: true
         },
-        reviewsList: [
-          { name: 'Priya Sharma', country: 'IN', countryName: 'India', countryFlag: '🇮🇳', rating: 5, date: '1 week ago', comment: 'No files are sent to servers, everything runs local. Essential tool.' }
-        ],
         included: [
           'Client-Side Zero-Cloud PDF Merging and Splitting engine',
           'Lossless WebAssembly PDF compression tool',
@@ -1683,17 +1443,14 @@
               </button>
             </div>
 
-            <!-- Creator Info with Country Flag -->
+            <!-- Creator Info -->
             <div class="flex items-center justify-between mb-3">
               <div class="flex items-center gap-2">
                 <img loading="lazy"
                      src="${prod.creator.avatar}"
                      alt="${prod.creator.name} avatar"
                      class="w-6 h-6 rounded-full object-cover ring-1 ring-slate-200"/>
-                <span class="font-body text-xs font-medium text-[#40484b] flex items-center gap-1">
-                  <span>${prod.creator.name}</span>
-                  <span title="${prod.creator.countryName || 'Global'}" class="text-sm cursor-help">${prod.creator.countryFlag || '🌐'}</span>
-                </span>
+                <span class="font-body text-xs font-medium text-[#40484b]">${prod.creator.name}</span>
                 <span class="material-symbols-outlined text-[#006398] text-sm fill-icon" title="Verified Creator">verified</span>
               </div>
               ${prod.badge ? `<span class="px-2 py-0.5 rounded-full bg-[#006398]/10 text-[#006398] font-heading font-semibold text-[11px]">${prod.badge}</span>` : ''}
@@ -1724,7 +1481,7 @@
               </div>
               <button type="button" onclick="handleCardAction('${prod.id}');" class="coral-btn px-4 py-2 text-sm font-semibold inline-flex items-center gap-1.5">
                 ${lockIconHtml}
-                <span>${prod.isLocked ? 'Members Only' : (prod.buttonLabel || 'Get Asset')}</span>
+                <span>${btnLabel}</span>
               </button>
             </div>
           </div>
@@ -1890,17 +1647,13 @@
 
               <hr class="border-slate-200 my-6"/>
 
-              <!-- Seller Card with Country Flag -->
+              <!-- Seller Card -->
               <div class="flex items-center gap-3">
                 <img src="${prod.creator.avatar}" alt="${prod.creator.name}" class="w-12 h-12 rounded-full object-cover ring-2 ring-slate-200"/>
                 <div>
-                  <div class="flex items-center gap-1.5 flex-wrap">
+                  <div class="flex items-center gap-1.5">
                     <span class="font-heading font-bold text-sm text-[#003441]">${prod.creator.name}</span>
-                    <span class="inline-flex items-center gap-1 text-[11px] font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200">
-                      <span>${prod.creator.countryFlag || '🇺🇸'}</span>
-                      <span>${prod.creator.countryName || 'United States'}</span>
-                    </span>
-                    <span class="material-symbols-outlined text-[#006398] text-base fill-icon" title="Verified Contributor">verified</span>
+                    <span class="material-symbols-outlined text-[#006398] text-base fill-icon" title="Verified Creator">verified</span>
                   </div>
                   <div class="font-body text-xs text-slate-500">${prod.creator.role}</div>
                 </div>
@@ -1923,63 +1676,8 @@
           </button>
         </div>
 
-        <!-- Verified Customer Reviews Section (1,126 Reviews & Sample Comments) -->
-        <div class="mt-16 pt-10 border-t border-slate-200">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-            <div>
-              <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 text-[#0F4C5C] font-heading font-bold text-xs tracking-wider uppercase mb-2 border border-teal-200">
-                <span>Verified Global Reader Reviews</span>
-              </div>
-              <h3 class="font-heading font-extrabold text-2xl sm:text-3xl text-[#003441]">Customer Reviews &amp; Feedback</h3>
-              <p class="font-body text-xs sm:text-sm text-slate-500 mt-0.5">Real feedback from verified purchasers worldwide</p>
-            </div>
-            <div class="flex items-center gap-3 bg-white p-3.5 rounded-2xl border border-slate-200 shadow-sm">
-              <div class="font-heading font-extrabold text-3xl text-[#003441]">${prod.rating}</div>
-              <div>
-                <div class="flex items-center text-amber-500 text-sm">
-                  <span>★</span><span>★</span><span>★</span><span>★</span><span class="text-amber-300">★</span>
-                </div>
-                <div class="font-body text-xs text-slate-500">Based on ${prod.reviewsCount.toLocaleString()} ratings</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Sample Comments Grid with Automated Country Flags -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            ${(prod.reviewsList || [
-              { name: 'Patricia Vance', country: 'US', countryName: 'United States', countryFlag: '🇺🇸', rating: 5, date: '2 days ago', comment: 'Every family in America needs this workbook on their nightstand.' },
-              { name: 'Robert Miller', country: 'US', countryName: 'United States', countryFlag: '🇺🇸', rating: 5, date: '1 week ago', comment: 'Best $11 investment I have made in years. Ground reality of ICU emergency rooms.' },
-              { name: 'Eleanor Sterling', country: 'GB', countryName: 'United Kingdom', countryFlag: '🇬🇧', rating: 5, date: '2 weeks ago', comment: 'Read this in one sitting from London. Immensely practical.' },
-              { name: 'Dr. Gregory Hayes', country: 'US', countryName: 'United States', countryFlag: '🇺🇸', rating: 4, date: '3 weeks ago', comment: 'Clear, compassionate, and actionable for retirees.' },
-              { name: 'Brenda Washington', country: 'US', countryName: 'United States', countryFlag: '🇺🇸', rating: 5, date: '1 month ago', comment: 'The Master Checklist on page 13 is taped to my refrigerator right now.' }
-            ]).map(rev => `
-              <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between mb-2.5">
-                    <div class="flex items-center gap-1.5 flex-wrap">
-                      <span class="font-heading font-bold text-sm text-[#003441]">${rev.name}</span>
-                      <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">
-                        <span>${rev.countryFlag}</span>
-                        <span>${rev.countryName}</span>
-                      </span>
-                    </div>
-                    <span class="text-[11px] text-slate-400 font-body">${rev.date}</span>
-                  </div>
-                  <div class="flex items-center text-amber-500 text-xs mb-3">
-                    ${'★'.repeat(rev.rating)}${'☆'.repeat(5 - rev.rating)}
-                    <span class="ml-1.5 text-[10px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-bold uppercase tracking-wider">Verified Purchase</span>
-                  </div>
-                  <p class="font-body text-xs sm:text-[13px] leading-relaxed text-[#334155] italic">
-                    "${rev.comment}"
-                  </p>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-
         <!-- Similar Products Carousel/Grid -->
-        <div class="mt-16 pt-10 border-t border-slate-200">
+        <div class="mt-20 pt-10 border-t border-slate-200">
           <div class="flex items-center justify-between mb-8">
             <div>
               <h3 class="font-heading font-bold text-2xl text-[#003441]">Similar Digital Tools</h3>
@@ -2174,14 +1872,10 @@
                      class="w-full h-full object-cover"/>
               </div>
             </button>
-            <div class="hidden group-hover:block absolute right-0 top-12 w-52 bg-white rounded-2xl shadow-2xl border border-slate-200 py-2 z-50">
-              <div class="px-4 py-2.5 border-b border-slate-100">
-                <div class="font-heading font-bold text-xs text-[#003441] flex items-center justify-between">
-                  <span class="truncate">${currentUser.name}</span>
-                  <span class="text-sm cursor-help" title="${currentUser.countryName || 'Global'}">${currentUser.countryFlag || '🇺🇸'}</span>
-                </div>
+            <div class="hidden group-hover:block absolute right-0 top-12 w-48 bg-white rounded-2xl shadow-2xl border border-slate-200 py-2 z-50">
+              <div class="px-4 py-2 border-b border-slate-100">
+                <div class="font-heading font-bold text-xs text-[#003441] truncate">${currentUser.name}</div>
                 <div class="text-[11px] text-slate-400 truncate">${currentUser.email}</div>
-                ${currentUser.age ? `<div class="text-[10px] text-slate-400 font-medium">Age: ${currentUser.age}</div>` : ''}
               </div>
               <button onclick="showCommunityView();" class="w-full text-left px-4 py-2 text-xs font-heading font-semibold text-[#003441] hover:bg-slate-50 flex items-center gap-2">
                 <span class="material-symbols-outlined text-sm">groups</span>
@@ -2237,10 +1931,6 @@
           currentUser = {
             name: user.displayName || user.email.split('@')[0] || 'Creator',
             email: user.email,
-            country: visitorLocation.country || 'US',
-            countryFlag: visitorLocation.countryFlag || '🇺🇸',
-            countryName: visitorLocation.countryName || 'United States',
-            age: visitorLocation.age || null,
             avatar: user.photoURL || 'https://lh3.googleusercontent.com/aida-public/AB6AXuAQZI3EACbKwTLk4nWrb2j4MnaQcI1lXvAfspiCdxwHUTgUwDotDeRgYGt7tgSt3nSKxjyB1p_u-zUgj9ujIDplgLJ8ZT0GeBOF8ImCgUMNEVpbzTYscFv9qo9ACpZxZjX9Fv42q8SZZ4vHk75YwwN_czH0bUFE_ZFU2yirUJ3X2EunCqutSRSX4dGhVtAYXsxx31vVuxAQCVv-RpUK-CB8Oztn3hnZihCnR17G2H1qR2qpl-v_I0NRFw',
             hasContributed: currentUser ? currentUser.hasContributed : false
           };
@@ -2325,35 +2015,16 @@
     }
 
     function performLogin(name, email, hasContributed = false) {
-      const countrySelect = document.getElementById('authCountrySelect');
-      const ageInput = document.getElementById('authAgeInput');
-
-      if (countrySelect && countrySelect.value) {
-        const opt = countrySelect.options[countrySelect.selectedIndex];
-        visitorLocation.country = countrySelect.value;
-        visitorLocation.countryFlag = opt ? (opt.getAttribute('data-flag') || '🌐') : '🌐';
-        visitorLocation.countryName = opt ? (opt.getAttribute('data-name') || countrySelect.value) : countrySelect.value;
-      }
-      if (ageInput && ageInput.value) {
-        visitorLocation.age = parseInt(ageInput.value, 10);
-      }
-      localStorage.setItem('webcraftly_visitor_loc', JSON.stringify(visitorLocation));
-      updateVisitorLocationUI();
-
       currentUser = {
         name,
         email,
-        country: visitorLocation.country,
-        countryFlag: visitorLocation.countryFlag,
-        countryName: visitorLocation.countryName,
-        age: visitorLocation.age,
         avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAQZI3EACbKwTLk4nWrb2j4MnaQcI1lXvAfspiCdxwHUTgUwDotDeRgYGt7tgSt3nSKxjyB1p_u-zUgj9ujIDplgLJ8ZT0GeBOF8ImCgUMNEVpbzTYscFv9qo9ACpZxZjX9Fv42q8SZZ4vHk75YwwN_czH0bUFE_ZFU2yirUJ3X2EunCqutSRSX4dGhVtAYXsxx31vVuxAQCVv-RpUK-CB8Oztn3hnZihCnR17G2H1qR2qpl-v_I0NRFw',
         hasContributed
       };
       saveUserState();
       closeAuthModal();
       updateAuthUI();
-      showToast(`Welcome, ${name}! (${visitorLocation.countryFlag} ${visitorLocation.countryName})`);
+      showToast(`Welcome, ${name}!`);
 
       if (pendingAction) {
         const action = pendingAction;
@@ -2385,111 +2056,7 @@
       }
     }
 
-    // --- 8. CARD ACTIONS, CHECKOUT GATE & PROMO ENGINE ---
-    let activeCheckoutItem = null;
-    let appliedCoupon = null;
-
-    // Visitor Location State (Auto-detected + Manual Override)
-    let visitorLocation = {
-      country: 'US',
-      countryName: 'United States',
-      countryFlag: '🇺🇸',
-      age: null,
-      detected: false
-    };
-
-    // Auto-detect visitor location from browser locale or timezone
-    async function initVisitorGeo() {
-      try {
-        const savedLoc = localStorage.getItem('webcraftly_visitor_loc');
-        if (savedLoc) {
-          visitorLocation = JSON.parse(savedLoc);
-          updateVisitorLocationUI();
-          return;
-        }
-
-        // Fast timezone-based detection fallback
-        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-        let detectedCountry = 'US';
-        let detectedFlag = '🇺🇸';
-        let detectedName = 'United States';
-
-        if (tz.includes('London') || tz.includes('Europe/Belfast')) {
-          detectedCountry = 'GB'; detectedFlag = '🇬🇧'; detectedName = 'United Kingdom';
-        } else if (tz.includes('Calcutta') || tz.includes('Kolkata') || tz.includes('Asia/Kolkata')) {
-          detectedCountry = 'IN'; detectedFlag = '🇮🇳'; detectedName = 'India';
-        } else if (tz.includes('Toronto') || tz.includes('Vancouver') || tz.includes('Montreal')) {
-          detectedCountry = 'CA'; detectedFlag = '🇨🇦'; detectedName = 'Canada';
-        } else if (tz.includes('Sydney') || tz.includes('Melbourne')) {
-          detectedCountry = 'AU'; detectedFlag = '🇦🇺'; detectedName = 'Australia';
-        } else if (tz.includes('Berlin') || tz.includes('Frankfurt')) {
-          detectedCountry = 'DE'; detectedFlag = '🇩🇪'; detectedName = 'Germany';
-        } else if (tz.includes('Paris')) {
-          detectedCountry = 'FR'; detectedFlag = '🇫🇷'; detectedName = 'France';
-        } else if (tz.includes('Amsterdam')) {
-          detectedCountry = 'NL'; detectedFlag = '🇳🇱'; detectedName = 'Netherlands';
-        } else if (tz.includes('Dubai')) {
-          detectedCountry = 'AE'; detectedFlag = '🇦🇪'; detectedName = 'United Arab Emirates';
-        } else if (tz.includes('Singapore')) {
-          detectedCountry = 'SG'; detectedFlag = '🇸🇬'; detectedName = 'Singapore';
-        }
-
-        visitorLocation.country = detectedCountry;
-        visitorLocation.countryFlag = detectedFlag;
-        visitorLocation.countryName = detectedName;
-        visitorLocation.detected = true;
-        updateVisitorLocationUI();
-      } catch (e) {
-        console.warn('Geo detect fallback:', e);
-      }
-    }
-
-    function updateVisitorLocationUI() {
-      const flagEl = document.getElementById('navCountryFlag');
-      const codeEl = document.getElementById('navCountryCode');
-      const selectEl = document.getElementById('authCountrySelect');
-      const modalSelect = document.getElementById('modalCountrySelect');
-      const geoStatus = document.getElementById('geoDetectionStatus');
-
-      if (flagEl) flagEl.textContent = visitorLocation.countryFlag;
-      if (codeEl) codeEl.textContent = `${visitorLocation.country} ($)`;
-      if (selectEl && visitorLocation.country) selectEl.value = visitorLocation.country;
-      if (modalSelect && visitorLocation.country) modalSelect.value = visitorLocation.country;
-      if (geoStatus) geoStatus.textContent = `Auto-detected: ${visitorLocation.countryName} ${visitorLocation.countryFlag}`;
-    }
-
-    function openCountrySelectorModal() {
-      const modal = document.getElementById('countryModal');
-      const modalSelect = document.getElementById('modalCountrySelect');
-      const modalAge = document.getElementById('modalAgeInput');
-      if (modalSelect) modalSelect.value = visitorLocation.country || 'US';
-      if (modalAge && visitorLocation.age) modalAge.value = visitorLocation.age;
-      if (modal) modal.classList.remove('hidden');
-    }
-
-    function closeCountrySelectorModal() {
-      const modal = document.getElementById('countryModal');
-      if (modal) modal.classList.add('hidden');
-    }
-
-    function saveManualLocation() {
-      const modalSelect = document.getElementById('modalCountrySelect');
-      const modalAge = document.getElementById('modalAgeInput');
-      if (modalSelect) {
-        const opt = modalSelect.options[modalSelect.selectedIndex];
-        visitorLocation.country = modalSelect.value;
-        visitorLocation.countryFlag = opt.getAttribute('data-flag') || '🌐';
-        visitorLocation.countryName = opt.getAttribute('data-name') || modalSelect.value;
-      }
-      if (modalAge && modalAge.value) {
-        visitorLocation.age = parseInt(modalAge.value, 10);
-      }
-      localStorage.setItem('webcraftly_visitor_loc', JSON.stringify(visitorLocation));
-      updateVisitorLocationUI();
-      closeCountrySelectorModal();
-      showToast(`Location set to ${visitorLocation.countryName} ${visitorLocation.countryFlag}`);
-    }
-
+    // --- 8. CARD ACTIONS & CHECKOUT GATE ---
     function handleCardAction(productId) {
       const prod = PRODUCTS[productId];
       if (!prod) return;
@@ -2514,60 +2081,20 @@
 
     function openCheckoutModal(prod) {
       activeCheckoutItem = prod;
-      appliedCoupon = null;
-
-      const titleEl = document.getElementById('checkoutItemTitle');
-      const priceEl = document.getElementById('checkoutItemPrice');
-      const payAmountEl = document.getElementById('payBtnAmount');
-      const discountNotice = document.getElementById('checkoutDiscountNotice');
-      const couponInput = document.getElementById('checkoutCouponInput');
-      const feedback = document.getElementById('couponFeedback');
-
-      if (titleEl) titleEl.textContent = prod.title;
-      if (priceEl) priceEl.textContent = `$${prod.price.toFixed(2)}`;
-      if (payAmountEl) payAmountEl.textContent = `$${prod.price.toFixed(2)}`;
-      if (discountNotice) discountNotice.classList.add('hidden');
-      if (couponInput) couponInput.value = '';
-      if (feedback) feedback.classList.add('hidden');
+      document.getElementById('checkoutItemTitle').textContent = prod.title;
+      document.getElementById('checkoutItemPrice').textContent = `$${prod.price}.00`;
+      document.getElementById('payBtnAmount').textContent = `$${prod.price}.00`;
 
       // Reset modal screens
       document.getElementById('checkoutBody').classList.remove('hidden');
       document.getElementById('checkoutProcessing').classList.add('hidden');
       document.getElementById('checkoutSuccess').classList.add('hidden');
+
       document.getElementById('checkoutModal').classList.remove('hidden');
     }
 
     function closeCheckoutModal() {
       document.getElementById('checkoutModal').classList.add('hidden');
-    }
-
-    function applyCheckoutCoupon() {
-      const input = document.getElementById('checkoutCouponInput');
-      const feedback = document.getElementById('couponFeedback');
-      const discountNotice = document.getElementById('checkoutDiscountNotice');
-      const priceEl = document.getElementById('checkoutItemPrice');
-      const payAmountEl = document.getElementById('payBtnAmount');
-
-      if (!input || !activeCheckoutItem) return;
-      const code = input.value.trim().toUpperCase();
-
-      if (code === '242') {
-        appliedCoupon = '242';
-        const discountedPrice = 0.10;
-        priceEl.innerHTML = `<span class="line-through text-slate-400 text-xs mr-1">$${activeCheckoutItem.price.toFixed(2)}</span> $0.10`;
-        payAmountEl.textContent = '$0.10';
-        if (discountNotice) discountNotice.classList.remove('hidden');
-        if (feedback) {
-          feedback.textContent = 'Coupon "242" applied! Price reduced to $0.10 USD.';
-          feedback.className = 'text-[11px] mt-1 text-emerald-600 font-bold block';
-        }
-        showToast('Promo code 242 applied: $0.10 USD!');
-      } else {
-        if (feedback) {
-          feedback.textContent = 'Invalid promo code. Use "242" for promotional pricing.';
-          feedback.className = 'text-[11px] mt-1 text-red-500 font-medium block';
-        }
-      }
     }
 
     function processMockPayment() {
@@ -2617,61 +2144,9 @@
 
     function handleSellerSubmit(e) {
       e.preventDefault();
-      const title = document.getElementById('sellerTitle').value.trim();
-      const subtitle = document.getElementById('sellerSubtitle').value.trim();
-      const btnLabel = document.getElementById('sellerBtnLabel').value.trim() || 'Get Asset';
-      const originalPrice = parseFloat(document.getElementById('sellerPrice').value) || 29;
-      const discountInput = document.getElementById('sellerDiscountPrice');
-      const discountedPrice = (discountInput && !discountInput.disabled && discountInput.value) 
-        ? parseFloat(discountInput.value) 
-        : originalPrice;
-      const category = document.getElementById('sellerCategory').value || 'developer';
-      const desc = document.getElementById('sellerDesc').value.trim() || subtitle;
-
-      // Create new dynamic product listing in live memory
-      const newId = 'custom-' + Date.now();
-      PRODUCTS[newId] = {
-        id: newId,
-        category: category,
-        categoryLabel: `✨ ${category.toUpperCase()}`,
-        title: title,
-        subtitle: subtitle,
-        tagline: desc,
-        buttonLabel: btnLabel,
-        price: discountedPrice,
-        originalPrice: originalPrice > discountedPrice ? originalPrice : null,
-        rating: 5.0,
-        reviewsCount: 1,
-        badge: 'New Seller Listing',
-        isLocked: false,
-        img: 'assets/products/business.jpg',
-        creator: {
-          name: currentUser ? currentUser.name : 'Creator',
-          role: 'Independent Digital Creator',
-          country: visitorLocation.country || 'US',
-          countryName: visitorLocation.countryName || 'United States',
-          countryFlag: visitorLocation.countryFlag || '🇺🇸',
-          avatar: currentUser ? currentUser.avatar : 'https://lh3.googleusercontent.com/aida-public/AB6AXuAQZI3EACbKwTLk4nWrb2j4MnaQcI1lXvAfspiCdxwHUTgUwDotDeRgYGt7tgSt3nSKxjyB1p_u-zUgj9ujIDplgLJ8ZT0GeBOF8ImCgUMNEVpbzTYscFv9qo9ACpZxZjX9Fv42q8SZZ4vHk75YwwN_czH0bUFE_ZFU2yirUJ3X2EunCqutSRSX4dGhVtAYXsxx31vVuxAQCVv-RpUK-CB8Oztn3hnZihCnR17G2H1qR2qpl-v_I0NRFw',
-          verified: true
-        },
-        reviewsList: [
-          { name: 'Community Member', country: 'US', countryName: 'United States', countryFlag: '🇺🇸', rating: 5, date: 'Just now', comment: 'Excited to try this new tool!' }
-        ],
-        included: [
-          'Full Production Source Package',
-          'Step-by-step Setup Documentation',
-          'Commercial Usage License'
-        ],
-        formats: ['.ZIP ARCHIVE', '.PDF GUIDE'],
-        license: 'Commercial Single License — unrestricted worldwide usage in USD ($).'
-      };
-
-      // Re-render marketplace grid so seller instantly sees their product live!
-      renderProductGrid();
-
       document.getElementById('sellerForm').classList.add('hidden');
       document.getElementById('sellerConfirmation').classList.remove('hidden');
-      showToast(`Listing "${title}" is now published live on WebCraftly!`);
+      showToast('Listing draft created in mock Firestore!');
     }
 
     // --- 10. COMMUNITY CONTRIBUTION FLOW ---
@@ -2746,7 +2221,6 @@
 
     // DOM Ready Initialization
     document.addEventListener('DOMContentLoaded', () => {
-      initVisitorGeo();
       renderProductGrid();
       updateAuthUI();
 
