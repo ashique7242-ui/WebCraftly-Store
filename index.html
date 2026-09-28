@@ -1279,8 +1279,8 @@
           country: 'United States',
           countryCode: 'US',
           flag: '🇺🇸',
-          role: 'Retired ICU Nurse of 22 Years',
-          avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=256&q=80',
+          role: '',
+          avatar: 'assets/creators/mars_kowalski.png',
           verified: true
         },
         included: [
@@ -2138,7 +2138,7 @@
                     ${prod.creator.flag ? `<span class="text-base leading-none" title="${prod.creator.country}">${prod.creator.flag}</span>` : ''}
                     <span class="material-symbols-outlined text-[#006398] text-base fill-icon" title="Verified Creator">verified</span>
                   </div>
-                  <div class="font-body text-xs text-slate-500">${prod.creator.role} · <span class="font-medium text-slate-700">${prod.creator.country}</span></div>
+                  <div class="font-body text-xs text-slate-500">${prod.creator.role ? `${prod.creator.role} · ` : ''}<span class="font-medium text-slate-700">${prod.creator.country}</span></div>
                 </div>
               </div>
 
