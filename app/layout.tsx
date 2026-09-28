@@ -38,6 +38,46 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=JetBrains+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  "@id": "https://www.webcraftly.site/#website",
+                  "url": "https://www.webcraftly.site/",
+                  "name": "WebCraftly",
+                  "alternateName": "WebCraftly Digital Marketplace Community",
+                  "description": "A premium marketplace for masterfully crafted digital products, vetted tools, and a community for visionary creators and digital builders.",
+                  "inLanguage": "en-US",
+                  "publisher": {
+                    "@id": "https://www.webcraftly.site/#organization"
+                  }
+                },
+                {
+                  "@type": "Organization",
+                  "@id": "https://www.webcraftly.site/#organization",
+                  "name": "WebCraftly",
+                  "alternateName": "WebCraftly Digital Marketplace Community",
+                  "url": "https://www.webcraftly.site/",
+                  "description": "A premium marketplace for masterfully crafted digital products, vetted tools, and a community for visionary creators and digital builders.",
+                  "logo": {
+                    "@type": "ImageObject",
+                    "@id": "https://www.webcraftly.site/#logo",
+                    "url": "https://www.webcraftly.site/favicon-512x512.png",
+                    "contentUrl": "https://www.webcraftly.site/favicon-512x512.png",
+                    "caption": "WebCraftly Logo",
+                    "width": 512,
+                    "height": 512
+                  },
+                  "image": "https://www.webcraftly.site/favicon-512x512.png"
+                }
+              ]
+            })
+          }}
+        />
       </head>
       <body>
         <AuthProvider>
