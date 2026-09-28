@@ -4,8 +4,8 @@ import React from "react";
 import { AuthProvider } from "@/components/AuthProvider";
 
 export const metadata: Metadata = {
-  title: "WebCraftly — Curated Digital Products, Tools & Creator Collective",
-  description: "WebCraftly is a curated digital marketplace and creator collective. Discover vetted workbooks, spreadsheets, developer assets, and guides across Education, Healthcare, Finance, and Business.",
+  title: "WebCraftly — Masterfully Crafted Digital Products",
+  description: "Discover vetted tools across Finance, Business, Marketing, Education, Healthcare, Dev, Creator, and Productivity — with direct access to a peer collective of digital builders.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48" },
