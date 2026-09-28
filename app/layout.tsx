@@ -4,8 +4,20 @@ import React from "react";
 import { AuthProvider } from "@/components/AuthProvider";
 
 export const metadata: Metadata = {
-  title: "WebCraftly — Ultra Useful Crafts & Tools for Tech Builders",
-  description: "Handcrafted utilities & digital treasures, built with reverence for your craft. Every tool and craft here is hand-audited.",
+  title: "WebCraftly — Curated Digital Products, Tools & Creator Collective",
+  description: "WebCraftly is a curated digital marketplace and creator collective. Discover vetted workbooks, spreadsheets, developer assets, and guides across Education, Healthcare, Finance, and Business.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/favicon-512x512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({

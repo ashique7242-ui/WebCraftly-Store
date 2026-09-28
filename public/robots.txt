@@ -6,3 +6,5 @@ Allow: /
 
 User-agent: Googlebot-Image
 Allow: /
+
+Sitemap: https://www.webcraftly.site/sitemap.xml

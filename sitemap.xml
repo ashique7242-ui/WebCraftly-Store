@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://www.webcraftly.site/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.webcraftly.site/favicon-512x512.png</image:loc>
+      <image:title>WebCraftly Logo</image:title>
+      <image:caption>Official logo for WebCraftly digital marketplace and creator collective</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.webcraftly.site/assets/products/aging_well_workbook.jpg</image:loc>
+      <image:title>What Nobody Tells You About Getting Old - Book Cover</image:title>
+      <image:caption>What Nobody Tells You About Getting Old: Mars Kowalski's Blunt Workbook on Aging Well</image:caption>
+    </image:image>
+  </url>
+</urlset>

@@ -1,5 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="16" fill="#003441"/>
-  <path d="M12 18 L22 46 L32 26 L42 46 L52 18" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <circle cx="50" cy="14" r="7" fill="#EA580C" stroke="#003441" stroke-width="3"/>
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0E5664"/>
+      <stop offset="100%" stop-color="#0A3A43"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#bgGrad)"/>
+  <!-- Modern Geometric W -->
+  <path d="M15 23 L22 43 L32 27 L39 43 L45 27" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Floating Orange Brand Dot -->
+  <circle cx="48" cy="19" r="6.5" fill="#FF5F00"/>
 </svg>
