@@ -379,18 +379,23 @@
       color: rgba(255, 255, 255, 0.35);
     }
 
-    /* Core Primary Checkout Button - The Primary Light Source */
+    /* Core Primary Checkout Button - "Strongest Subtle" Power Aesthetic */
     .btn-electric-primary {
       position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #FF8533 0%, #FF6600 50%, #E65100 100%);
-      box-shadow: 0 8px 32px rgba(255, 102, 0, 0.55),
-                  0 0 20px rgba(255, 133, 51, 0.35);
+      gap: 0.5rem;
+      background: linear-gradient(180deg, #FF6600 0%, #ea5200 60%, #c43800 100%);
+      box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.65),
+                  0 4px 14px rgba(255, 102, 0, 0.22),
+                  inset 0 1px 1px rgba(255, 255, 255, 0.35),
+                  inset 0 -2px 4px rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-top-color: rgba(255, 255, 255, 0.28);
       color: #ffffff;
-      font-weight: 800;
-      letter-spacing: -0.01em;
+      font-weight: 700;
+      letter-spacing: 0.01em;
       transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
                   box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
                   filter 0.22s ease;
@@ -398,14 +403,16 @@
       overflow: hidden;
     }
     .btn-electric-primary:hover {
-      transform: translateY(-3px) scale(1.01);
-      box-shadow: 0 12px 42px rgba(255, 102, 0, 0.75),
-                  0 0 35px rgba(255, 133, 51, 0.6);
-      filter: brightness(1.06);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.75),
+                  0 6px 20px rgba(255, 102, 0, 0.32),
+                  inset 0 1px 1px rgba(255, 255, 255, 0.45);
+      filter: brightness(1.05);
     }
     .btn-electric-primary:active {
-      transform: translateY(0) scale(0.98);
-      box-shadow: 0 4px 16px rgba(255, 102, 0, 0.5);
+      transform: translateY(0) scale(0.985);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6),
+                  inset 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     /* Open Craft Post-Purchase Button */
@@ -1292,9 +1299,6 @@
             <span class="w-1.5 h-1.5 rounded-full bg-[#2dd4bf] animate-ping"></span>
             Instant Checkout
           </span>
-          <span id="sheetCurrencyBadge" class="text-xs font-mono font-semibold text-white/70 bg-white/10 px-2 py-0.5 rounded-md border border-white/10">
-            USD ($)
-          </span>
         </div>
         <button type="button" onclick="closeCheckoutSheet();" aria-label="Close checkout" class="w-8 h-8 rounded-full flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 transition-colors">
           <span class="material-symbols-outlined text-xl">close</span>
@@ -1336,8 +1340,8 @@
             <span class="font-medium">Lifetime personal access &amp; future edition updates</span>
           </div>
           <div class="flex items-center gap-2.5">
-            <span class="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-[11px] flex-shrink-0 shadow-[0_0_8px_rgba(6,182,212,0.3)]">🛡️</span>
-            <span class="font-medium">7-day risk-free refund promise — no questions asked</span>
+            <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-[11px] flex-shrink-0 shadow-[0_0_8px_rgba(245,158,11,0.3)]">★</span>
+            <span class="font-medium text-white/85">Only from top <span class="font-bold text-[#FF8533] drop-shadow-[0_0_10px_rgba(255,102,0,0.35)]">Expert Creators</span></span>
           </div>
         </div>
 
@@ -1354,7 +1358,7 @@
                  class="electric-input w-full px-4 py-3 rounded-xl text-sm font-medium focus:outline-none"/>
         </div>
 
-        <!-- Seamless Coupon Interaction (Celebration Pulse & Neon Glow) -->
+        <!-- Seamless Coupon Interaction (Sanitized Generic Placeholder) -->
         <div id="couponSectionContainer" class="pt-0.5">
           <button type="button"
                   id="sheetCouponToggleBtn"
@@ -1368,8 +1372,8 @@
             <div class="flex gap-2">
               <input type="text"
                      id="sheetCouponInput"
-                     placeholder="ENTER CODE (e.g. 242)"
-                     class="electric-input uppercase font-mono font-bold flex-1 px-3.5 py-2.5 rounded-xl text-xs tracking-wider"/>
+                     placeholder="Enter promo code..."
+                     class="electric-input uppercase font-mono font-semibold flex-1 px-3.5 py-2.5 rounded-xl text-xs tracking-wider"/>
               <button type="button"
                       id="sheetApplyCouponBtn"
                       onclick="validateAndApplyCoupon();"
@@ -1381,41 +1385,67 @@
           </div>
         </div>
 
-        <!-- Core Primary Checkout Button - The Primary Light Source -->
+        <!-- Core Primary Checkout Button - "Strongest Subtle" Power Aesthetic -->
         <div class="pt-1">
           <button type="button"
                   id="sheetPayBtn"
                   onclick="launchDirectRazorpayPayment(event);"
-                  class="btn-electric-primary w-full py-4 px-5 rounded-2xl text-base shadow-2xl flex items-center justify-center gap-2.5 cursor-pointer">
-            <span class="material-symbols-outlined text-xl">lock</span>
-            <span id="sheetPayBtnLabel">Pay Securely – $11</span>
-            <span class="material-symbols-outlined text-lg">arrow_forward</span>
+                  class="btn-electric-primary w-full py-3.5 sm:py-4 px-5 rounded-2xl text-base flex items-center justify-center gap-2 cursor-pointer">
+            <span class="material-symbols-outlined text-lg">lock</span>
+            <span id="sheetPayBtnLabel">Pay Securely</span>
           </button>
         </div>
 
-        <!-- Trust Badges (High Contrast White & Soft Silver in Dark Environment) -->
-        <div class="pt-2 flex flex-col items-center gap-2 text-[11px] text-white/70">
-          <div class="flex items-center justify-center gap-3 text-white/80 font-medium">
-            <span class="flex items-center gap-1.5 text-white">
+        <!-- Dual-Market Razorpay Intelligent Routing Footer -->
+        <div class="pt-1.5 pb-0.5 space-y-2.5">
+          <!-- Gateway Trust & Encryption Badges -->
+          <div class="flex items-center justify-between text-[11px] px-1 text-white/75">
+            <div class="flex items-center gap-1.5 font-medium text-white">
               <span class="material-symbols-outlined text-sm text-emerald-400">verified_user</span>
-              <span>Razorpay Secured</span>
-            </span>
-            <span class="text-white/30">•</span>
-            <span class="flex items-center gap-1.5 text-white">
-              <span class="material-symbols-outlined text-sm text-cyan-400">lock</span>
-              <span>256-Bit SSL</span>
-            </span>
-            <span class="text-white/30">•</span>
-            <span class="text-white/90">Global Cards &amp; UPI</span>
+              <span>Razorpay Secured Gateway</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-white/60">
+              <span class="material-symbols-outlined text-xs text-cyan-400">lock</span>
+              <span>256-Bit SSL Encrypted</span>
+            </div>
           </div>
 
-          <!-- Subtle Neon Opacity Payment Badges -->
-          <div class="flex items-center justify-center gap-2 opacity-75 pt-0.5">
-            <span class="px-2 py-0.5 bg-white/10 rounded text-[10px] font-bold text-white/90 tracking-wider border border-white/10">VISA</span>
-            <span class="px-2 py-0.5 bg-white/10 rounded text-[10px] font-bold text-white/90 tracking-wider border border-white/10">MASTERCARD</span>
-            <span class="px-2 py-0.5 bg-white/10 rounded text-[10px] font-bold text-white/90 tracking-wider border border-white/10">AMEX</span>
-            <span class="px-2 py-0.5 bg-white/10 rounded text-[10px] font-bold text-white/90 tracking-wider border border-white/10">UPI</span>
-            <span class="px-2 py-0.5 bg-white/10 rounded text-[10px] font-bold text-white/90 tracking-wider border border-white/10">GPAY</span>
+          <!-- Dual-Market Rails Container -->
+          <div class="grid grid-cols-2 gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/10 text-left">
+            <!-- Rail A: Global / US & International -->
+            <div class="space-y-1.5 pr-2 border-r border-white/10">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-heading font-bold text-white flex items-center gap-1">
+                  <span>🌐</span> Global &amp; US
+                </span>
+                <span class="text-[9px] font-mono text-teal-300 font-semibold uppercase">Cards &amp; Wallets</span>
+              </div>
+              <div class="flex flex-wrap items-center gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 rounded bg-white/10 text-[9px] font-bold text-white/90 tracking-wide border border-white/10">CARDS</span>
+                <span class="px-1.5 py-0.5 rounded bg-white/10 text-[9px] font-bold text-white/90 tracking-wide border border-white/10">APPLE PAY</span>
+                <span class="px-1.5 py-0.5 rounded bg-white/10 text-[9px] font-bold text-white/90 tracking-wide border border-white/10">GPAY</span>
+              </div>
+            </div>
+
+            <!-- Rail B: India Domestic Instant UPI -->
+            <div class="space-y-1.5 pl-1">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-heading font-bold text-white flex items-center gap-1">
+                  <span>🇮🇳</span> India Instant
+                </span>
+                <span class="text-[9px] font-mono text-[#FF8533] font-semibold uppercase">Zero-Fee UPI</span>
+              </div>
+              <div class="flex flex-wrap items-center gap-1 pt-0.5">
+                <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-[9px] font-bold text-emerald-300 tracking-wide border border-emerald-500/30">UPI QR</span>
+                <span class="px-1.5 py-0.5 rounded bg-white/10 text-[9px] font-bold text-white/90 tracking-wide border border-white/10">PHONEPE</span>
+                <span class="px-1.5 py-0.5 rounded bg-white/10 text-[9px] font-bold text-white/90 tracking-wide border border-white/10">PAYTM</span>
+                <span class="px-1.5 py-0.5 rounded bg-white/10 text-[9px] font-bold text-white/90 tracking-wide border border-white/10">GPAY</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center text-[10px] text-white/40 tracking-wide">
+            Automated regional checkout routing • Instant digital delivery globally
           </div>
         </div>
 
@@ -3218,9 +3248,6 @@
       const successTitle = document.getElementById('sheetSuccessProductTitle');
       if (successTitle) successTitle.textContent = prod.title;
 
-      const currencyBadge = document.getElementById('sheetCurrencyBadge');
-      if (currencyBadge) currencyBadge.textContent = 'USD ($)';
-
       const currentPriceEl = document.getElementById('sheetCurrentPrice');
       if (currentPriceEl) currentPriceEl.textContent = `$${currentSheetPrice}`;
 
@@ -3228,7 +3255,7 @@
       if (origPriceEl) origPriceEl.textContent = `$${originalDisplayPrice}`;
 
       const payBtnLabel = document.getElementById('sheetPayBtnLabel');
-      if (payBtnLabel) payBtnLabel.textContent = `Pay Securely – $${currentSheetPrice}`;
+      if (payBtnLabel) payBtnLabel.textContent = 'Pay Securely';
 
       // Reset & prefill email input (frictionless 1-input checkout)
       const emailInput = document.getElementById('sheetCustomerEmail');
@@ -3377,7 +3404,7 @@
         }
 
         const payBtnLabel = document.getElementById('sheetPayBtnLabel');
-        if (payBtnLabel) payBtnLabel.textContent = `Pay Securely – $${currentSheetPrice.toFixed(2)}`;
+        if (payBtnLabel) payBtnLabel.textContent = 'Pay Securely';
 
         // Coupon Celebration Micro-Interaction (Subtle confetti burst & glowing neon reveal)
         if (typeof confetti === 'function') {
@@ -3424,9 +3451,9 @@
       localStorage.setItem('webcraftly_customer_email', customerEmail);
 
       // Loading state on button
-      const originalBtnText = payBtnLabel ? payBtnLabel.textContent : 'Pay Securely';
+      const originalBtnText = 'Pay Securely';
       if (payBtn) payBtn.disabled = true;
-      if (payBtnLabel) payBtnLabel.innerHTML = '<span class="inline-block animate-spin mr-1.5">⌛</span> Opening Secure Checkout...';
+      if (payBtnLabel) payBtnLabel.innerHTML = '<span class="inline-block animate-spin mr-1.5">⌛</span> Processing Secure Checkout...';
 
       let serverOrderId = null;
       let finalAmountSubunits = Math.round(currentSheetPrice * 100);
@@ -3461,12 +3488,15 @@
         return;
       }
 
+      const buyerCountry = (currentUser && currentUser.countryCode) || userLocation.countryCode || 'US';
+      const isIndia = (buyerCountry === 'IN');
+
       const options = {
         key: RAZORPAY_KEY_ID,
         amount: finalAmountSubunits,
         currency: 'USD',
         name: 'WebCraftly',
-        description: `${activeCheckoutItem.title} - Digital Asset License (USD)`,
+        description: `${activeCheckoutItem.title} - Digital Asset License`,
         image: 'https://raw.githubusercontent.com/ashique7242-ui/WebCraftly-Store/main/assets/creators/mars_kowalski.png',
         order_id: serverOrderId || undefined,
         notes: {
@@ -3474,7 +3504,7 @@
           productTitle: activeCheckoutItem.title,
           customerEmail: customerEmail,
           currency: 'USD',
-          buyerCountry: (currentUser && currentUser.countryCode) || userLocation.countryCode || 'US'
+          buyerCountry: buyerCountry
         },
         handler: async function(response) {
           if (payBtn) payBtn.disabled = false;
@@ -3489,22 +3519,22 @@
         config: {
           display: {
             blocks: {
-              upi: {
-                name: 'Pay using UPI (Google Pay, PhonePe, Paytm, QR)',
-                instruments: [
-                  { method: 'upi' }
-                ]
-              },
-              other: {
-                name: 'Cards, NetBanking & Wallets',
+              global: {
+                name: 'Global & US (Cards, Apple Pay, Google Pay)',
                 instruments: [
                   { method: 'card' },
-                  { method: 'netbanking' },
                   { method: 'wallet' }
+                ]
+              },
+              india_upi: {
+                name: 'India Domestic (Instant UPI, PhonePe, Paytm, QR & NetBanking)',
+                instruments: [
+                  { method: 'upi' },
+                  { method: 'netbanking' }
                 ]
               }
             },
-            sequence: ['block.upi', 'block.other'],
+            sequence: isIndia ? ['block.india_upi', 'block.global'] : ['block.global', 'block.india_upi'],
             preferences: {
               show_default_blocks: true
             }
