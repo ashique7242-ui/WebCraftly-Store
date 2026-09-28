@@ -201,30 +201,47 @@
       scrollbar-width: none;
     }
 
-    /* Energetic Button Micro-interactions */
-    @keyframes orangeGlowPulse {
+    /* High-Energy CTA Button with Orange Glow & Micro-Interactions */
+    @keyframes ctaOrangePulse {
       0%, 100% {
-        box-shadow: 0 4px 14px rgba(234, 88, 12, 0.4), 0 0 0 0 rgba(234, 88, 12, 0.4);
+        transform: scale(1);
+        box-shadow: 0 4px 14px rgba(255, 102, 0, 0.4);
       }
       50% {
-        box-shadow: 0 6px 22px rgba(234, 88, 12, 0.65), 0 0 0 7px rgba(234, 88, 12, 0.15);
+        transform: scale(1.02);
+        box-shadow: 0 6px 20px rgba(255, 102, 0, 0.58), 0 0 0 4px rgba(255, 102, 0, 0.12);
       }
     }
     .btn-energetic {
       position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      background: linear-gradient(135deg, #FF8533 0%, #FF6600 100%);
+      box-shadow: 0 4px 14px rgba(255, 102, 0, 0.4);
+      color: #ffffff;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      border-radius: 0.75rem;
       overflow: hidden;
-      background: linear-gradient(135deg, #EA580C 0%, #f97316 100%);
-      animation: orangeGlowPulse 2.6s infinite ease-in-out;
-      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
       cursor: pointer;
+      animation: ctaOrangePulse 3.5s infinite ease-in-out;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease;
     }
     .btn-energetic:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 28px rgba(234, 88, 12, 0.6);
-      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+      box-shadow: 0 8px 22px rgba(255, 102, 0, 0.58);
+      background: linear-gradient(135deg, #ffa05c 0%, #FF6600 100%);
     }
     .btn-energetic:active {
-      transform: scale(0.97);
+      transform: translateY(0) scale(0.98);
+      box-shadow: 0 2px 8px rgba(255, 102, 0, 0.4);
+    }
+    .btn-energetic:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.35), 0 4px 14px rgba(255, 102, 0, 0.5);
     }
     .btn-ripple {
       position: absolute;
@@ -481,9 +498,9 @@
                         <span class="font-heading font-extrabold text-lg text-[#003441]">$11</span>
                         <span class="text-xs text-slate-400 line-through">$27</span>
                       </div>
-                      <button type="button" onclick="event.stopPropagation(); triggerInstantCheckout('aging_well', event);" class="btn-energetic px-3.5 py-2 text-xs font-heading font-bold text-white rounded-xl shadow-md inline-flex items-center gap-1.5">
-                        <span>Get Instant Access – $11</span>
-                        <span class="material-symbols-outlined text-sm">bolt</span>
+                      <button type="button" onclick="event.stopPropagation(); triggerInstantCheckout('aging_well', event);" class="btn-energetic px-3.5 py-2 text-xs font-heading font-bold text-white rounded-xl shadow-md inline-flex items-center gap-1.5 cursor-pointer">
+                        <span>Get Instant Access</span>
+                        <svg class="w-3.5 h-3.5 text-white fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                       </button>
                     </div>
                   </div>
@@ -508,7 +525,10 @@
                     <p class="font-body text-xs text-[#40484b] mt-0.5 line-clamp-1">10 plug-and-play Excel &amp; Google Sheets models</p>
                     <div class="mt-3 flex items-center justify-between">
                       <span class="font-heading font-extrabold text-lg text-[#003441]">$39</span>
-                      <button type="button" class="coral-btn px-4 py-1.5 text-xs font-semibold">Get Asset</button>
+                      <button type="button" onclick="event.stopPropagation(); openProductDetail('finance');" class="btn-energetic px-3.5 py-2 text-xs font-heading font-bold text-white rounded-xl shadow-md inline-flex items-center gap-1.5 cursor-pointer">
+                        <span>Get Instant Access</span>
+                        <svg class="w-3.5 h-3.5 text-white fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -1185,7 +1205,7 @@
         <!-- 3. Button Label -->
         <div>
           <label class="block text-xs font-heading font-bold text-[#003441] uppercase tracking-wider mb-1">Button Label</label>
-          <input id="sellerBtnLabel" type="text" placeholder="Get Asset (or 'Get My Guide')" value="Get Asset" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
+          <input id="sellerBtnLabel" type="text" placeholder="Get Instant Access (or 'Get My Guide')" value="Get Instant Access" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-[#003441] focus:outline-none"/>
         </div>
 
         <!-- 4. Price & Discount Price Toggle -->
@@ -1465,7 +1485,7 @@
         title: 'What Nobody Tells You About Getting Old',
         subtitle: "Mars Kowalski's Blunt Workbook on Aging Well",
         tagline: "The blunt version of aging well nobody's selling you. Eight honest conversations on nightstands, emergency contacts, legal directives, bank account lists, and daily movement before it's too late.",
-        buttonText: 'Get Asset',
+        buttonText: 'Get Instant Access',
         price: 11,
         originalPrice: 27,
         rating: 4.7,
@@ -1551,7 +1571,7 @@
         title: 'FinanceOS Spreadsheet Bundle',
         subtitle: '10 plug-and-play Excel & Google Sheets models',
         tagline: '10 plug-and-play Excel & Google Sheets models — budget trackers, loan calculators, net worth dashboards.',
-        buttonText: 'Get Asset',
+        buttonText: 'Get Instant Access',
         price: 39,
         originalPrice: 69,
         rating: 4.9,
@@ -1605,7 +1625,7 @@
         title: 'ProposalKit Pro',
         subtitle: '50-page proposal system & client onboarding',
         tagline: '50-page proposal system, invoice generator, and client onboarding templates — close deals faster.',
-        buttonText: 'Get Asset',
+        buttonText: 'Get Instant Access',
         price: 49,
         originalPrice: 89,
         rating: 4.8,
@@ -1650,7 +1670,7 @@
         title: 'SEO Accelerator Toolkit',
         subtitle: 'Content calendar, SEO audit template & viral hooks',
         tagline: 'Content calendar, SEO audit template, 200+ social media hooks, and a keyword research spreadsheet.',
-        buttonText: 'Get Asset',
+        buttonText: 'Get Instant Access',
         price: 29,
         originalPrice: 59,
         rating: 5.0,
@@ -1695,7 +1715,7 @@
         title: 'StudyStack Ultimate Planner',
         subtitle: 'Notion study system & spaced repetition cards',
         tagline: 'Notion study system, flashcard sets, and weekly planner templates used by 3,000+ students.',
-        buttonText: 'Get Asset',
+        buttonText: 'Get Instant Access',
         price: 19,
         originalPrice: 35,
         rating: 4.9,
@@ -1785,7 +1805,7 @@
         title: 'DevKit Essentials',
         subtitle: '15 browser dev utilities in one bundle',
         tagline: 'JSON formatter, regex tester, base64 converter, and 12 other browser-based dev utilities in one bundle.',
-        buttonText: 'Get Asset',
+        buttonText: 'Get Instant Access',
         price: 24,
         originalPrice: 45,
         rating: 4.8,
@@ -1875,7 +1895,7 @@
         title: 'DocFlow PDF Toolkit',
         subtitle: 'Browser-based PDF merger, compressor & forms',
         tagline: 'PDF merger, splitter, compressor, and form builder — all browser-based, no installs, privacy-first.',
-        buttonText: 'Get Asset',
+        buttonText: 'Get Instant Access',
         price: 18,
         originalPrice: 32,
         rating: 4.8,
@@ -2098,7 +2118,7 @@
         article.className = 'product-card frosted-card rounded-2xl p-5 flex flex-col justify-between';
         article.setAttribute('data-category', prod.category);
 
-        const btnLabel = prod.isLocked ? 'Members Only' : 'Get Asset';
+        const btnLabel = prod.isLocked ? 'Members Only' : 'Get Instant Access';
         const lockIconHtml = prod.isLocked ? '<span class="material-symbols-outlined text-base">lock</span>' : '';
 
         article.innerHTML = `
@@ -2161,14 +2181,15 @@
                 </div>
               </div>
               ${prod.id === 'aging_well' ? `
-                <button type="button" onclick="triggerInstantCheckout('${prod.id}', event);" class="btn-energetic px-3.5 py-2.5 text-xs sm:text-sm font-heading font-bold text-white rounded-xl shadow-md inline-flex items-center gap-1.5 cursor-pointer">
-                  <span>Get Instant Access – $11</span>
-                  <span class="material-symbols-outlined text-sm">bolt</span>
+                <button type="button" onclick="triggerInstantCheckout('${prod.id}', event);" class="btn-energetic px-3.5 py-2 text-xs sm:text-sm font-heading font-bold text-white rounded-xl shadow-md inline-flex items-center gap-1.5 cursor-pointer">
+                  <span>Get Instant Access</span>
+                  <svg class="w-3.5 h-3.5 text-white fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                 </button>
               ` : `
-                <button type="button" onclick="handleCardAction('${prod.id}');" class="coral-btn px-4 py-2 text-sm font-semibold inline-flex items-center gap-1.5">
+                <button type="button" onclick="handleCardAction('${prod.id}');" class="btn-energetic px-3.5 py-2 text-xs sm:text-sm font-heading font-bold text-white rounded-xl shadow-md inline-flex items-center gap-1.5 cursor-pointer">
                   ${lockIconHtml}
-                  <span>${prod.buttonText || btnLabel}</span>
+                  <span>Get Instant Access</span>
+                  <svg class="w-3.5 h-3.5 text-white fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                 </button>
               `}
             </div>
@@ -2223,7 +2244,7 @@
       if (!container) return;
 
       const discountPercent = prod.originalPrice ? Math.round(((prod.originalPrice - prod.price) / prod.originalPrice) * 100) : 0;
-      const btnLabel = prod.isLocked ? 'Members Only' : 'Get Asset';
+      const btnLabel = prod.isLocked ? 'Members Only' : 'Get Instant Access';
       const lockIconHtml = prod.isLocked ? '<span class="material-symbols-outlined text-base">lock</span>' : '';
 
       container.innerHTML = `
@@ -2325,13 +2346,14 @@
               <!-- Main CTA Button -->
               ${prod.id === 'aging_well' ? `
                 <button type="button" onclick="triggerInstantCheckout('${prod.id}', event);" class="btn-energetic w-full py-4 text-base font-heading font-bold text-white rounded-2xl shadow-xl flex items-center justify-center gap-2 mb-4 cursor-pointer">
-                  <span>Get Instant Access – $11</span>
-                  <span class="material-symbols-outlined text-lg">bolt</span>
+                  <span>Get Instant Access</span>
+                  <svg class="w-5 h-5 text-white fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                 </button>
               ` : `
-                <button type="button" onclick="handleCardAction('${prod.id}');" class="coral-btn w-full py-4 text-base font-semibold shadow-lg flex items-center justify-center gap-2 mb-4">
+                <button type="button" onclick="handleCardAction('${prod.id}');" class="btn-energetic w-full py-4 text-base font-heading font-bold text-white rounded-2xl shadow-xl flex items-center justify-center gap-2 mb-4 cursor-pointer">
                   ${lockIconHtml}
-                  <span>${btnLabel}</span>
+                  <span>Get Instant Access</span>
+                  <svg class="w-5 h-5 text-white fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                 </button>
               `}
 
@@ -2449,7 +2471,10 @@
                 <h4 class="font-heading font-bold text-sm text-[#003441] truncate mb-2">${p.title}</h4>
                 <div class="flex items-center justify-between">
                   <span class="font-heading font-extrabold text-base text-[#003441]">$${p.price}</span>
-                  <button type="button" class="coral-btn px-3 py-1 text-xs font-semibold">${p.buttonText || 'Get Asset'}</button>
+                  <button type="button" class="btn-energetic px-3 py-1.5 text-xs font-bold inline-flex items-center gap-1 cursor-pointer">
+                    <span>Get Instant Access</span>
+                    <svg class="w-3 h-3 text-white fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                  </button>
                 </div>
               </div>
             `).join('')}
@@ -3259,7 +3284,7 @@
       e.preventDefault();
       const title = document.getElementById('sellerTitle').value.trim();
       const subtitle = document.getElementById('sellerSubtitle').value.trim();
-      const buttonText = (document.getElementById('sellerBtnLabel').value.trim()) || 'Get Asset';
+      const buttonText = (document.getElementById('sellerBtnLabel').value.trim()) || 'Get Instant Access';
       const originalPrice = parseFloat(document.getElementById('sellerPrice').value) || 29;
       const discountVal = parseFloat(document.getElementById('sellerDiscountPrice').value);
       const category = document.getElementById('sellerCategory').value || 'developer';
