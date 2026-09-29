@@ -360,23 +360,52 @@
       z-index: 10;
     }
 
-    /* Frictionless Electric Input */
-    .electric-input {
-      background-color: rgba(2, 23, 30, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: #ffffff;
+    /* Frictionless Electric Input - Guaranteed Dark-Mode Contrast */
+    .electric-input,
+    input.electric-input,
+    input[type="text"].electric-input,
+    input[type="email"].electric-input {
+      background-color: #0b1528 !important;
+      border: 1px solid #334155 !important;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      caret-color: #2dd4bf !important;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .electric-input:focus {
-      background-color: rgba(3, 32, 42, 0.95);
-      border-color: transparent;
-      outline: none;
-      box-shadow: 0 0 0 2px #2dd4bf,
-                  0 0 20px rgba(45, 212, 191, 0.5),
-                  inset 0 0 12px rgba(45, 212, 191, 0.15);
+    .electric-input:focus,
+    input.electric-input:focus,
+    input[type="text"].electric-input:focus,
+    input[type="email"].electric-input:focus {
+      background-color: #0f1c34 !important;
+      border-color: #2dd4bf !important;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      outline: none !important;
+      box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.4),
+                  0 0 20px rgba(45, 212, 191, 0.35),
+                  inset 0 0 12px rgba(45, 212, 191, 0.15) !important;
     }
-    .electric-input::placeholder {
-      color: rgba(255, 255, 255, 0.35);
+    .electric-input::placeholder,
+    input.electric-input::placeholder {
+      color: #94a3b8 !important;
+      -webkit-text-fill-color: #94a3b8 !important;
+      opacity: 1 !important;
+    }
+    /* Prevent browser autofill from turning inputs white with black/invisible text */
+    .electric-input:-webkit-autofill,
+    .electric-input:-webkit-autofill:hover,
+    .electric-input:-webkit-autofill:focus,
+    .electric-input:-webkit-autofill:active,
+    input.electric-input:-webkit-autofill,
+    input.electric-input:-webkit-autofill:hover,
+    input.electric-input:-webkit-autofill:focus,
+    input.electric-input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 1000px #0b1528 inset !important;
+      box-shadow: 0 0 0 1000px #0b1528 inset !important;
+      -webkit-text-fill-color: #ffffff !important;
+      color: #ffffff !important;
+      caret-color: #2dd4bf !important;
+      transition: background-color 5000s ease-in-out 0s;
     }
 
     /* Core Primary Checkout Button - "Strongest Subtle" Power Aesthetic */
@@ -1400,7 +1429,7 @@
                  id="sheetCustomerEmail"
                  placeholder="you@example.com"
                  required
-                 class="electric-input w-full px-4 py-3 rounded-xl text-sm font-medium focus:outline-none"/>
+                 class="electric-input w-full px-4 py-3 rounded-xl text-sm font-medium bg-slate-900 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-400/40"/>
         </div>
 
         <!-- Seamless Coupon Interaction (Sanitized Generic Placeholder) -->
@@ -1418,7 +1447,7 @@
               <input type="text"
                      id="sheetCouponInput"
                      placeholder="Enter promo code..."
-                     class="electric-input uppercase font-mono font-semibold flex-1 px-3.5 py-2.5 rounded-xl text-xs tracking-wider"/>
+                     class="electric-input uppercase font-mono font-semibold flex-1 px-3.5 py-2.5 rounded-xl text-xs tracking-wider bg-slate-900 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-400/40"/>
               <button type="button"
                       id="sheetApplyCouponBtn"
                       onclick="validateAndApplyCoupon();"
