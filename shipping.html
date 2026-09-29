@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shipping and Exchange Policy — WebCraftly</title>
+  <meta name="description" content="Shipping, digital delivery, returns, and exchange policy for WebCraftly digital products marketplace. Instant automated delivery, 14-day exchange resolution, and global payment compliance."/>
+  <link rel="canonical" href="https://www.webcraftly.site/shipping"/>
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    h1, h2, h3, h4, .font-heading { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+    
+    /* Accordion animation styles */
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, padding 0.3s ease;
+    }
+    .accordion-item.active .accordion-content {
+      max-height: 1200px;
+      opacity: 1;
+    }
+    .accordion-item.active .accordion-chevron {
+      transform: rotate(180deg);
+    }
+    .accordion-item.active {
+      border-color: rgba(255, 102, 0, 0.4);
+      background-color: rgba(11, 30, 34, 0.95);
+      box-shadow: 0 0 25px rgba(255, 102, 0, 0.08);
+    }
+  </style>
+</head>
+<body class="bg-[#00171f] text-slate-200 antialiased min-h-screen flex flex-col selection:bg-[#FF6600] selection:text-white">
+
+  <!-- Top Sticky Navbar -->
+  <header class="sticky top-0 z-50 bg-[#00171f]/90 backdrop-blur-xl border-b border-white/10">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3 group focus:outline-none">
+        <img src="/favicon-96x96.png" alt="WebCraftly Logo" class="w-9 h-9 rounded-xl shadow border border-white/20" width="36" height="36"/>
+        <span class="font-heading font-extrabold text-xl tracking-tight text-white">WebCraftly</span>
+      </a>
+      <div class="flex items-center gap-4 text-xs font-heading font-semibold">
+        <a href="/" class="text-white/70 hover:text-white transition-colors flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-base">arrow_back</span>
+          <span>Back to Marketplace</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 py-12 sm:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      
+      <!-- Header Badge, Title & Metadata -->
+      <div class="mb-10 text-center sm:text-left">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/10 text-teal-400 text-xs font-heading font-bold uppercase tracking-wider border border-teal-500/25 mb-4">
+          <span class="material-symbols-outlined text-sm">local_shipping</span>
+          <span>Fulfillment, Delivery &amp; Exchange Terms</span>
+        </div>
+        <h1 class="font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight">
+          Shipping &amp; Exchange Policy
+        </h1>
+        <p class="text-sm text-slate-400 mt-3 font-medium">
+          Effective Date: January 1, 2026 • Last Updated: September 29, 2026 • Applicable Globally (USD / INR)
+        </p>
+      </div>
+
+      <!-- Quick Trust Summary Banner -->
+      <div class="mb-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="bg-[#00222c] border border-white/10 rounded-2xl p-4 sm:p-5 flex items-center gap-3.5">
+          <div class="w-10 h-10 rounded-xl bg-orange-500/20 text-[#FF8533] flex items-center justify-center font-bold shrink-0">
+            <span class="material-symbols-outlined text-xl">bolt</span>
+          </div>
+          <div>
+            <div class="font-heading font-bold text-xs uppercase tracking-wide text-white">Instant Delivery</div>
+            <div class="text-xs text-slate-400 mt-0.5">Automated dispatch in 0–5 min</div>
+          </div>
+        </div>
+
+        <div class="bg-[#00222c] border border-white/10 rounded-2xl p-4 sm:p-5 flex items-center gap-3.5">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold shrink-0">
+            <span class="material-symbols-outlined text-xl">published_with_changes</span>
+          </div>
+          <div>
+            <div class="font-heading font-bold text-xs uppercase tracking-wide text-white">14-Day Exchanges</div>
+            <div class="text-xs text-slate-400 mt-0.5">Defect &amp; version replacement</div>
+          </div>
+        </div>
+
+        <div class="bg-[#00222c] border border-white/10 rounded-2xl p-4 sm:p-5 flex items-center gap-3.5">
+          <div class="w-10 h-10 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold shrink-0">
+            <span class="material-symbols-outlined text-xl">public</span>
+          </div>
+          <div>
+            <div class="font-heading font-bold text-xs uppercase tracking-wide text-white">Global Compliance</div>
+            <div class="text-xs text-slate-400 mt-0.5">Razorpay multi-currency rules</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Utility Control: Expand/Collapse All Accordions -->
+      <div class="flex items-center justify-between mb-4 px-1">
+        <div class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Click any clause below to expand details</span>
+        </div>
+        <button type="button"
+                id="toggleAllBtn"
+                onclick="toggleAllAccordions();"
+                class="text-xs font-heading font-semibold text-teal-400 hover:text-teal-300 transition-colors flex items-center gap-1 cursor-pointer">
+          <span id="toggleAllLabel">Expand All Clauses</span>
+          <span class="material-symbols-outlined text-sm" id="toggleAllIcon">unfold_more</span>
+        </button>
+      </div>
+
+      <!-- Interactive Accordion Container -->
+      <div class="space-y-4" id="policyAccordionGroup">
+        
+        <!-- SECTION 1: ORDER PROCESSING & DIGITAL DELIVERY TIMELINES -->
+        <div class="accordion-item active bg-[#00222c] border border-white/10 rounded-2xl overflow-hidden transition-all duration-300">
+          <button type="button"
+                  onclick="toggleAccordion(this);"
+                  aria-expanded="true"
+                  class="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-none">
+            <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+              <span class="w-8 h-8 rounded-xl bg-teal-500/20 text-[#2dd4bf] flex items-center justify-center text-xs font-mono font-bold shrink-0">
+                01
+              </span>
+              <div class="min-w-0">
+                <h2 class="font-heading font-bold text-base sm:text-lg text-white">
+                  Order Processing &amp; Shipping Timelines
+                </h2>
+                <p class="text-xs text-slate-400 mt-0.5 truncate">
+                  Instant electronic fulfillment, automated email dispatches, and processing windows.
+                </p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-slate-400 accordion-chevron transition-transform duration-300 shrink-0">
+              expand_more
+            </span>
+          </button>
+          
+          <div class="accordion-content px-5 sm:px-6 pb-6 text-sm text-slate-300 leading-relaxed space-y-3.5 border-t border-white/5 pt-4">
+            <p>
+              WebCraftly operates as a curated digital marketplace delivering digital tools, production-grade workbooks, spreadsheets, developer codebases, and creative assets. All orders are processed using an automated digital delivery engine.
+            </p>
+            <div class="bg-white/[0.03] rounded-xl p-4 border border-white/10 space-y-2">
+              <div class="font-heading font-bold text-xs uppercase tracking-wider text-teal-400">Electronic Delivery Schedule:</div>
+              <ul class="list-disc list-inside space-y-1.5 text-xs sm:text-sm text-slate-300">
+                <li><strong class="text-white">Processing Time:</strong> Automated instantly upon successful payment authorization (<strong class="text-white">0 to 5 minutes</strong>).</li>
+                <li><strong class="text-white">Immediate Screen Access:</strong> Once your transaction verifies, you are instantly redirected to the download screen with active temporary signed download tokens.</li>
+                <li><strong class="text-white">Email Notification &amp; Backup Link:</strong> A formal purchase confirmation, invoice receipt, and direct access link are automatically dispatched to the email provided at checkout.</li>
+                <li><strong class="text-white">My Library Dashboard:</strong> If you are logged in to WebCraftly, purchased digital assets are permanently linked to your verified account and accessible anytime under <a href="/library" class="text-teal-400 hover:underline">My Library</a>.</li>
+              </ul>
+            </div>
+            <p class="text-xs text-slate-400">
+              <em>Physical Merchandise Notice:</em> In the event that a creator offers a physical companion (e.g. printed spiral-bound workbooks or physical development kits), order handling and warehouse processing requires <strong>1 to 2 business days</strong>, followed by standard carrier transit of <strong>3 to 5 business days</strong> for domestic addresses.
+            </p>
+          </div>
+        </div>
+
+        <!-- SECTION 2: DOMESTIC & INTERNATIONAL DELIVERY (PAYMENT & CUSTOMS REGULATIONS) -->
+        <div class="accordion-item bg-[#00222c] border border-white/10 rounded-2xl overflow-hidden transition-all duration-300">
+          <button type="button"
+                  onclick="toggleAccordion(this);"
+                  aria-expanded="false"
+                  class="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-none">
+            <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+              <span class="w-8 h-8 rounded-xl bg-teal-500/20 text-[#2dd4bf] flex items-center justify-center text-xs font-mono font-bold shrink-0">
+                02
+              </span>
+              <div class="min-w-0">
+                <h2 class="font-heading font-bold text-base sm:text-lg text-white">
+                  Domestic &amp; International Delivery &amp; Gateway Compliance
+                </h2>
+                <p class="text-xs text-slate-400 mt-0.5 truncate">
+                  Customs, duties, international payments via Razorpay, and regional cross-border rules.
+                </p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-slate-400 accordion-chevron transition-transform duration-300 shrink-0">
+              expand_more
+            </span>
+          </button>
+          
+          <div class="accordion-content px-5 sm:px-6 pb-6 text-sm text-slate-300 leading-relaxed space-y-3.5 border-t border-white/5 pt-4">
+            <p>
+              WebCraftly serves a global community of builders, developers, and knowledge workers. Our electronic infrastructure complies with international e-commerce delivery and financial gateway standards:
+            </p>
+            <div class="space-y-3">
+              <div class="p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                <h3 class="font-heading font-bold text-sm text-white flex items-center gap-2 mb-1.5">
+                  <span class="material-symbols-outlined text-base text-teal-400">payments</span>
+                  <span>International Payment Gateway Regulations (Razorpay)</span>
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-300">
+                  Transactions are routed through our authorized banking partner, <strong>Razorpay</strong>. Indian domestic orders support UPI, NetBanking, and RuPay cards (denominated in INR ₹). International transactions support Visa, Mastercard, American Express, and Apple Pay (denominated in USD $). Currency conversion rates and any nominal foreign transaction fees are determined transparently by your issuing financial institution.
+                </p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                <h3 class="font-heading font-bold text-sm text-white flex items-center gap-2 mb-1.5">
+                  <span class="material-symbols-outlined text-base text-teal-400">gavel</span>
+                  <span>Customs, Duties &amp; Cross-Border Taxes</span>
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-300">
+                  Because digital products are delivered over the internet, they are exempt from standard physical freight customs tariffs and import clearance delays. However, customers are responsible for any statutory local digital service taxes (such as GST in India, VAT in the European Union / United Kingdom, or applicable state sales taxes in the US) that are mandatory under applicable tax laws.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: RETURNS & EXCHANGES POLICY -->
+        <div class="accordion-item bg-[#00222c] border border-white/10 rounded-2xl overflow-hidden transition-all duration-300">
+          <button type="button"
+                  onclick="toggleAccordion(this);"
+                  aria-expanded="false"
+                  class="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-none">
+            <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+              <span class="w-8 h-8 rounded-xl bg-teal-500/20 text-[#2dd4bf] flex items-center justify-center text-xs font-mono font-bold shrink-0">
+                03
+              </span>
+              <div class="min-w-0">
+                <h2 class="font-heading font-bold text-base sm:text-lg text-white">
+                  Returns &amp; Exchanges
+                </h2>
+                <p class="text-xs text-slate-400 mt-0.5 truncate">
+                  Eligibility criteria, 14-day window, and step-by-step exchange procedures.
+                </p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-slate-400 accordion-chevron transition-transform duration-300 shrink-0">
+              expand_more
+            </span>
+          </button>
+          
+          <div class="accordion-content px-5 sm:px-6 pb-6 text-sm text-slate-300 leading-relaxed space-y-3.5 border-t border-white/5 pt-4">
+            <p>
+              We want you to be completely satisfied with the craft and utility of your digital purchases. If you encounter issues with a purchased digital asset, we provide a structured exchange and resolution process:
+            </p>
+            
+            <div class="bg-teal-950/40 border border-teal-500/30 rounded-xl p-4 text-xs sm:text-sm text-teal-200">
+              <strong>Eligibility Window:</strong> Exchange requests must be submitted within <strong class="text-white">14 calendar days</strong> of the original order timestamp.
+            </div>
+
+            <div class="space-y-2">
+              <div class="font-heading font-bold text-xs uppercase tracking-wider text-white">Step-by-Step Exchange Procedure:</div>
+              <ol class="list-decimal list-inside space-y-2 pl-2 text-xs sm:text-sm text-slate-300">
+                <li>
+                  <strong class="text-white">Initiate Request:</strong> Email our support desk at <a href="mailto:contact@webcraftly.site" class="text-[#FF6600] font-semibold hover:underline">contact@webcraftly.site</a> or submit a ticket through our <a href="/contact" class="text-teal-400 hover:underline">Contact Portal</a>.
+                </li>
+                <li>
+                  <strong class="text-white">Provide Order Details:</strong> Specify your registered checkout email, Razorpay Payment ID (e.g. <code class="bg-white/10 px-1 py-0.5 rounded text-[#2dd4bf]">pay_...</code>), and the title of the digital product.
+                </li>
+                <li>
+                  <strong class="text-white">State the Exchange Reason:</strong> Describe the technical difficulty (e.g. corrupted PDF archive, incompatible version, or accidental purchase of an alternate tool bundle).
+                </li>
+                <li>
+                  <strong class="text-white">Rapid Resolution:</strong> Our engineering team reviews the request and dispatches a verified, corrected archive, updated license token, or an exchange voucher of equal value within <strong>24 business hours</strong>.
+                </li>
+              </ol>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/10 space-y-1.5 text-xs sm:text-sm">
+              <div class="font-bold text-white">Condition Requirements for Replacement:</div>
+              <p class="text-slate-300">
+                The product must demonstrate a verified technical flaw, missing module, or incompatibility with advertised environment specifications. For physical companions (if applicable), the item must be unused, in its original packaging, and free from user-inflicted wear.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 4: EXCEPTIONS & NON-RETURNABLE ITEMS -->
+        <div class="accordion-item bg-[#00222c] border border-white/10 rounded-2xl overflow-hidden transition-all duration-300">
+          <button type="button"
+                  onclick="toggleAccordion(this);"
+                  aria-expanded="false"
+                  class="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-none">
+            <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+              <span class="w-8 h-8 rounded-xl bg-teal-500/20 text-[#2dd4bf] flex items-center justify-center text-xs font-mono font-bold shrink-0">
+                04
+              </span>
+              <div class="min-w-0">
+                <h2 class="font-heading font-bold text-base sm:text-lg text-white">
+                  Exceptions &amp; Non-Returnable Items
+                </h2>
+                <p class="text-xs text-slate-400 mt-0.5 truncate">
+                  Unreturnable digital downloads, custom development, and copyright protections.
+                </p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-slate-400 accordion-chevron transition-transform duration-300 shrink-0">
+              expand_more
+            </span>
+          </button>
+          
+          <div class="accordion-content px-5 sm:px-6 pb-6 text-sm text-slate-300 leading-relaxed space-y-3.5 border-t border-white/5 pt-4">
+            <p>
+              To protect the intellectual property rights of our independent creators and maintain marketplace integrity, certain items are strictly exempt from return or exchange:
+            </p>
+            <ul class="space-y-2.5 text-xs sm:text-sm text-slate-300">
+              <li class="flex items-start gap-2.5 p-3 rounded-xl bg-white/[0.03] border border-white/10">
+                <span class="material-symbols-outlined text-red-400 text-lg shrink-0 mt-0.5">block</span>
+                <div>
+                  <strong class="text-white">Fully Consumed Digital Downloads:</strong> Digital files that have been successfully downloaded, extracted, and accessed without any verifiable technical defect or error cannot be returned for arbitrary change of mind.
+                </div>
+              </li>
+              <li class="flex items-start gap-2.5 p-3 rounded-xl bg-white/[0.03] border border-white/10">
+                <span class="material-symbols-outlined text-red-400 text-lg shrink-0 mt-0.5">block</span>
+                <div>
+                  <strong class="text-white">Custom Commissioned Assets:</strong> Bespoke consulting, tailored code modifications, or personalized spreadsheets commissioned specifically for a client's requirements.
+                </div>
+              </li>
+              <li class="flex items-start gap-2.5 p-3 rounded-xl bg-white/[0.03] border border-white/10">
+                <span class="material-symbols-outlined text-red-400 text-lg shrink-0 mt-0.5">block</span>
+                <div>
+                  <strong class="text-white">Community Gifts &amp; Free Promotional Drops:</strong> Assets acquired as complimentary bonuses, community drops, or free promotional giveaways have no monetary redemption value and cannot be exchanged for cash or alternative paid products.
+                </div>
+              </li>
+              <li class="flex items-start gap-2.5 p-3 rounded-xl bg-white/[0.03] border border-white/10">
+                <span class="material-symbols-outlined text-red-400 text-lg shrink-0 mt-0.5">block</span>
+                <div>
+                  <strong class="text-white">Requests Beyond 14 Calendar Days:</strong> Inquiries submitted after the 14-day return and exchange window has expired.
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- SECTION 5: REFUND PROCESSING TIMELINES -->
+        <div class="accordion-item bg-[#00222c] border border-white/10 rounded-2xl overflow-hidden transition-all duration-300">
+          <button type="button"
+                  onclick="toggleAccordion(this);"
+                  aria-expanded="false"
+                  class="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-none">
+            <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+              <span class="w-8 h-8 rounded-xl bg-teal-500/20 text-[#2dd4bf] flex items-center justify-center text-xs font-mono font-bold shrink-0">
+                05
+              </span>
+              <div class="min-w-0">
+                <h2 class="font-heading font-bold text-base sm:text-lg text-white">
+                  Refund Processing &amp; Banking Timelines
+                </h2>
+                <p class="text-xs text-slate-400 mt-0.5 truncate">
+                  Resolution approval steps, gateway reversals, and bank settlement cycles.
+                </p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-slate-400 accordion-chevron transition-transform duration-300 shrink-0">
+              expand_more
+            </span>
+          </button>
+          
+          <div class="accordion-content px-5 sm:px-6 pb-6 text-sm text-slate-300 leading-relaxed space-y-3.5 border-t border-white/5 pt-4">
+            <p>
+              When an exchange cannot satisfy the customer's request and a refund is approved under our <a href="/refund" class="text-teal-400 hover:underline">7-Day Risk-Free Guarantee</a>, funds are returned directly to the original payment source:
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
+              <div class="p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                <div class="font-heading font-bold text-xs uppercase tracking-wider text-teal-400 mb-1">Approval &amp; Gateway Reversal</div>
+                <div class="text-xs text-slate-300">
+                  Approved refunds are submitted immediately into Razorpay within <strong class="text-white">24 hours</strong> of claim verification. An official gateway confirmation email with refund ARN/RRN tracking is sent.
+                </div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                <div class="font-heading font-bold text-xs uppercase tracking-wider text-[#FF8533] mb-1">Bank Settlement Cycles</div>
+                <div class="text-xs text-slate-300">
+                  Depending on your card issuer or banking network, the credit will appear on your account within <strong class="text-white">5 to 7 business days</strong>. Domestic UPI reversals typically settle within 24 to 48 hours.
+                </div>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 pt-1">
+              Please note: Banks do not process external settlement runs over weekends or recognized statutory bank holidays.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Prominent "Need Help?" Support CTA Block -->
+      <div class="mt-12 bg-gradient-to-br from-[#0B1E22] via-[#00222c] to-[#071317] border border-teal-500/30 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+        <div class="absolute -right-16 -top-16 w-60 h-60 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          <div class="space-y-2 max-w-lg">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/20 text-[#FF8533] text-xs font-mono font-bold uppercase tracking-wider border border-orange-500/30">
+              <span class="material-symbols-outlined text-sm">support_agent</span>
+              <span>Dedicated Support Desk</span>
+            </div>
+            <h3 class="font-heading font-bold text-2xl text-white">
+              Need Help with Your Order or Delivery?
+            </h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              If your download link did not arrive, or you need an exchange or invoice clarification, our creator operations team is ready to assist you. Average response time: under 12 hours.
+            </p>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
+            <a href="/contact"
+               class="px-6 py-3.5 rounded-xl font-heading font-bold text-sm text-white bg-gradient-to-r from-[#FF8533] to-[#FF6600] hover:from-[#FF6600] hover:to-[#E65100] shadow-lg shadow-orange-500/25 transition-all text-center flex items-center justify-center gap-2 hover:scale-[1.02]">
+              <span class="material-symbols-outlined text-lg">mail</span>
+              <span>Open Support Ticket</span>
+            </a>
+            <a href="mailto:contact@webcraftly.site"
+               class="px-5 py-3.5 rounded-xl font-heading font-semibold text-sm text-slate-200 bg-white/10 hover:bg-white/15 border border-white/20 transition-all text-center flex items-center justify-center gap-2">
+              <span>Email Support</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#001015] border-t border-white/10 py-8 text-xs text-slate-400 text-center">
+    <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>© 2026 WebCraftly. Masterfully Crafted Digital Products.</div>
+      <div class="flex flex-wrap items-center justify-center gap-5 font-medium">
+        <a href="/privacy" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="/terms" class="hover:text-white transition-colors">Terms &amp; Conditions</a>
+        <a href="/refund" class="hover:text-white transition-colors">Refund Policy</a>
+        <a href="/shipping" class="text-white hover:underline">Shipping &amp; Exchange</a>
+        <a href="/contact" class="hover:text-white transition-colors">Contact Us</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive Accordion JavaScript Engine -->
+  <script>
+    function toggleAccordion(btn) {
+      const item = btn.closest('.accordion-item');
+      if (!item) return;
+
+      const isActive = item.classList.contains('active');
+      
+      // Toggle current item
+      if (isActive) {
+        item.classList.remove('active');
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        item.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+      updateToggleAllBtn();
+    }
+
+    function toggleAllAccordions() {
+      const items = document.querySelectorAll('.accordion-item');
+      const allActive = Array.from(items).every(it => it.classList.contains('active'));
+
+      items.forEach(item => {
+        const btn = item.querySelector('button');
+        if (allActive) {
+          item.classList.remove('active');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+        } else {
+          item.classList.add('active');
+          if (btn) btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+
+      updateToggleAllBtn();
+    }
+
+    function updateToggleAllBtn() {
+      const items = document.querySelectorAll('.accordion-item');
+      const allActive = Array.from(items).every(it => it.classList.contains('active'));
+      const label = document.getElementById('toggleAllLabel');
+      const icon = document.getElementById('toggleAllIcon');
+
+      if (label && icon) {
+        if (allActive) {
+          label.textContent = 'Collapse All Clauses';
+          icon.textContent = 'unfold_less';
+        } else {
+          label.textContent = 'Expand All Clauses';
+          icon.textContent = 'unfold_more';
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>

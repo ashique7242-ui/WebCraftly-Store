@@ -1220,6 +1220,7 @@
               <li><a href="/privacy" class="hover:text-white transition-colors">Privacy Policy</a></li>
               <li><a href="/terms" class="hover:text-white transition-colors">Terms &amp; Conditions</a></li>
               <li><a href="/refund" class="hover:text-white transition-colors">Refund/Cancellation Policy</a></li>
+              <li><a href="/shipping" class="hover:text-white transition-colors">Shipping &amp; Exchange Policy</a></li>
               <li><a href="/contact" class="hover:text-white transition-colors">Contact Us</a></li>
             </ul>
           </div>
@@ -3032,7 +3033,7 @@
       } else if (route.startsWith('/product/')) {
         const prodId = route.replace('/product/', '');
         openProductDetail(prodId, true);
-      } else if (route === '/privacy' || route === '/terms' || route === '/refund' || route === '/contact') {
+      } else if (route === '/privacy' || route === '/terms' || route === '/refund' || route === '/shipping' || route === '/contact') {
         window.location.href = route;
       } else {
         window.location.href = route;
