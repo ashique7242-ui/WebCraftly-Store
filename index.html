@@ -3366,7 +3366,24 @@
     }
 
     // --- 8. CARD ACTIONS & RESPONSIVE SLIDE-UP CHECKOUT SHEET ---
-    const RAZORPAY_KEY_ID = 'rzp_test_ThKSjkVYF2Ikrj';
+    // Dynamic public key fetched from environment endpoint, falling back to production public key ID
+    let RAZORPAY_KEY_ID = window.__RAZORPAY_KEY_ID__ || 'rzp_live_Thrv1hWKAEAggL';
+
+    // Auto-fetch current public key ID from server environment on initialization
+    (async function initRazorpayConfig() {
+      try {
+        const res = await fetch('/api/razorpay-config');
+        if (res.ok) {
+          const cfg = await res.json();
+          if (cfg.keyId) {
+            RAZORPAY_KEY_ID = cfg.keyId;
+          }
+        }
+      } catch (e) {
+        // Fallback to default production public key
+      }
+    })();
+
     // SHA-256 hash of secret test coupon (no plaintext coupon code exposed in frontend source)
     const HASHED_OFFLINE_COUPON = '14063697603e22d600d336bee6cff12c8be93509ce84a0642918d89b2aef1753';
     let couponAttempts = 0;
@@ -3765,11 +3782,25 @@
         });
         if (orderRes.ok) {
           const orderData = await orderRes.json();
+          if (orderData.keyId) {
+            RAZORPAY_KEY_ID = orderData.keyId;
+          }
           if (orderData.orderId && !orderData.orderId.startsWith('order_sim_')) {
             serverOrderId = orderData.orderId;
             finalAmountSubunits = orderData.amount;
           }
         } else {
+          // Check for explicit server configuration error
+          try {
+            const errData = await orderRes.json();
+            if (errData.code === 'RAZORPAY_CONFIG_MISSING') {
+              showToast(errData.error || 'Payment gateway configuration missing.');
+              if (payBtn) payBtn.disabled = false;
+              if (payBtnLabel) payBtnLabel.textContent = originalBtnText;
+              return;
+            }
+          } catch(e) {}
+
           // Fallback to /api/create-order
           const orderFallback = await fetch('/api/create-order', {
             method: 'POST',
@@ -3783,6 +3814,9 @@
           });
           if (orderFallback.ok) {
             const fbData = await orderFallback.json();
+            if (fbData.keyId) {
+              RAZORPAY_KEY_ID = fbData.keyId;
+            }
             if (fbData.orderId && !fbData.orderId.startsWith('order_sim_')) {
               serverOrderId = fbData.orderId;
               finalAmountSubunits = fbData.amount;

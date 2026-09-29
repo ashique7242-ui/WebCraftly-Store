@@ -44,6 +44,23 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { productId, couponCode, currency, email } = body;
 
+    // -------------------------------------------------------------------------
+    // 1. Strict Production Credentials Verification
+    // -------------------------------------------------------------------------
+    const keyId = process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+    const keySecret = process.env.RAZORPAY_KEY_SECRET;
+
+    if (!keyId || !keySecret) {
+      console.error('[SECURITY ALERT] Razorpay production credentials missing on server.');
+      return NextResponse.json(
+        {
+          error: 'Payment gateway configuration error. Razorpay API keys are not properly configured on the server.',
+          code: 'RAZORPAY_CONFIG_MISSING'
+        },
+        { status: 500 }
+      );
+    }
+
     // Normalize and determine selected currency: 'INR' or 'USD' (default USD)
     const chosenCurrency = (currency && String(currency).trim().toUpperCase() === 'INR') ? 'INR' : 'USD';
 
@@ -81,39 +98,36 @@ export async function POST(req: NextRequest) {
     // For USD: 1 USD = 100 cents (e.g., $11.00 = 1100 cents, $0.10 = 10 cents)
     const amountSubunits = Math.round(finalPrice * 100);
 
-    const keyId = process.env.RAZORPAY_KEY_ID || 'rzp_test_ThKSjkVYF2Ikrj';
-    const keySecret = process.env.RAZORPAY_KEY_SECRET;
+    // -------------------------------------------------------------------------
+    // 2. Initialize Razorpay Client & Create Live Order
+    // -------------------------------------------------------------------------
+    const razorpay = new Razorpay({
+      key_id: keyId,
+      key_secret: keySecret,
+    });
 
-    let orderId = `order_sim_${Date.now()}`;
-
-    // If real server secret is configured, call Razorpay Orders API
-    if (keySecret) {
-      const razorpay = new Razorpay({
-        key_id: keyId,
-        key_secret: keySecret,
-      });
-
-      const order = await razorpay.orders.create({
-        amount: amountSubunits,
+    const order = await razorpay.orders.create({
+      amount: amountSubunits,
+      currency: chosenCurrency,
+      receipt: `rcpt_${Date.now()}`,
+      notes: {
+        productId: productId || 'aging_well',
         currency: chosenCurrency,
-        receipt: `rcpt_${Date.now()}`,
-        notes: {
-          productId: productId || 'aging_well',
-          currency: chosenCurrency,
-          email: email || '',
-          couponApplied: couponApplied ? 'YES' : 'NO'
-        }
-      });
-      orderId = order.id;
-    }
+        email: email || '',
+        couponApplied: couponApplied ? 'YES' : 'NO',
+        mode: keyId.startsWith('rzp_live_') ? 'live' : 'test'
+      }
+    });
 
     return NextResponse.json({
       success: true,
-      orderId,
-      amount: amountSubunits,
-      currency: chosenCurrency,
+      orderId: order.id,
+      amount: order.amount,
+      currency: order.currency,
+      keyId: keyId, // Safely pass the public key ID to the client SDK
       finalPrice,
-      couponApplied
+      couponApplied,
+      mode: keyId.startsWith('rzp_live_') ? 'live' : 'test'
     });
   } catch (err: any) {
     console.error('Error creating Razorpay order:', err);
