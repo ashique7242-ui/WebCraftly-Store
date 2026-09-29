@@ -360,51 +360,57 @@
       z-index: 10;
     }
 
-    /* Frictionless Electric Input - Guaranteed Dark-Mode Contrast */
+    /* Force Dark Input Styling & High-Contrast Scoped Override */
+    #checkoutSheet input,
+    #checkoutSheet input.electric-input,
+    #checkoutSheet input[type="text"],
+    #checkoutSheet input[type="email"],
     .electric-input,
-    input.electric-input,
-    input[type="text"].electric-input,
-    input[type="email"].electric-input {
-      background-color: #0b1528 !important;
+    input.electric-input {
+      background-color: #0B1919 !important;
       border: 1px solid #334155 !important;
-      color: #ffffff !important;
-      -webkit-text-fill-color: #ffffff !important;
-      caret-color: #2dd4bf !important;
+      color: #FFFFFF !important;
+      -webkit-text-fill-color: #FFFFFF !important;
+      caret-color: #FF6600 !important;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
+    #checkoutSheet input:focus,
+    #checkoutSheet input.electric-input:focus,
+    #checkoutSheet input[type="text"]:focus,
+    #checkoutSheet input[type="email"]:focus,
     .electric-input:focus,
-    input.electric-input:focus,
-    input[type="text"].electric-input:focus,
-    input[type="email"].electric-input:focus {
-      background-color: #0f1c34 !important;
-      border-color: #2dd4bf !important;
-      color: #ffffff !important;
-      -webkit-text-fill-color: #ffffff !important;
+    input.electric-input:focus {
+      background-color: #081414 !important;
+      border-color: #FF6600 !important;
+      color: #FFFFFF !important;
+      -webkit-text-fill-color: #FFFFFF !important;
       outline: none !important;
-      box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.4),
-                  0 0 20px rgba(45, 212, 191, 0.35),
-                  inset 0 0 12px rgba(45, 212, 191, 0.15) !important;
+      box-shadow: 0 0 0 2px rgba(255, 102, 0, 0.5),
+                  0 0 20px rgba(255, 102, 0, 0.3),
+                  inset 0 0 10px rgba(255, 102, 0, 0.12) !important;
     }
+    #checkoutSheet input::placeholder,
+    #checkoutSheet input.electric-input::placeholder,
     .electric-input::placeholder,
     input.electric-input::placeholder {
       color: #94a3b8 !important;
       -webkit-text-fill-color: #94a3b8 !important;
       opacity: 1 !important;
     }
-    /* Prevent browser autofill from turning inputs white with black/invisible text */
+    /* Override browser autofill / forms plugin forcing solid white backgrounds */
+    #checkoutSheet input:-webkit-autofill,
+    #checkoutSheet input:-webkit-autofill:hover,
+    #checkoutSheet input:-webkit-autofill:focus,
+    #checkoutSheet input:-webkit-autofill:active,
     .electric-input:-webkit-autofill,
     .electric-input:-webkit-autofill:hover,
     .electric-input:-webkit-autofill:focus,
-    .electric-input:-webkit-autofill:active,
-    input.electric-input:-webkit-autofill,
-    input.electric-input:-webkit-autofill:hover,
-    input.electric-input:-webkit-autofill:focus,
-    input.electric-input:-webkit-autofill:active {
-      -webkit-box-shadow: 0 0 0 1000px #0b1528 inset !important;
-      box-shadow: 0 0 0 1000px #0b1528 inset !important;
-      -webkit-text-fill-color: #ffffff !important;
-      color: #ffffff !important;
-      caret-color: #2dd4bf !important;
+    .electric-input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 1000px #0B1919 inset !important;
+      box-shadow: 0 0 0 1000px #0B1919 inset !important;
+      -webkit-text-fill-color: #FFFFFF !important;
+      color: #FFFFFF !important;
+      caret-color: #FF6600 !important;
       transition: background-color 5000s ease-in-out 0s;
     }
 
@@ -1429,7 +1435,8 @@
                  id="sheetCustomerEmail"
                  placeholder="you@example.com"
                  required
-                 class="electric-input w-full px-4 py-3 rounded-xl text-sm font-medium bg-slate-900 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-400/40"/>
+                 style="background-color: #0B1919 !important; color: #FFFFFF !important; -webkit-text-fill-color: #FFFFFF !important; caret-color: #FF6600 !important;"
+                 class="electric-input w-full px-4 py-3 rounded-xl text-sm font-medium bg-[#0B1919] text-[#FFFFFF] placeholder:text-slate-400 border border-slate-700 focus:border-[#FF6600] focus:ring-2 focus:ring-[#FF6600]/50 focus:outline-none"/>
         </div>
 
         <!-- Seamless Coupon Interaction (Sanitized Generic Placeholder) -->
@@ -1447,7 +1454,8 @@
               <input type="text"
                      id="sheetCouponInput"
                      placeholder="Enter promo code..."
-                     class="electric-input uppercase font-mono font-semibold flex-1 px-3.5 py-2.5 rounded-xl text-xs tracking-wider bg-slate-900 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-400/40"/>
+                     style="background-color: #0B1919 !important; color: #FFFFFF !important; -webkit-text-fill-color: #FFFFFF !important; caret-color: #FF6600 !important;"
+                     class="electric-input uppercase font-mono font-semibold flex-1 px-3.5 py-2.5 rounded-xl text-xs tracking-wider bg-[#0B1919] text-[#FFFFFF] placeholder:text-slate-400 border border-slate-700 focus:border-[#FF6600] focus:ring-2 focus:ring-[#FF6600]/50 focus:outline-none"/>
               <button type="button"
                       id="sheetApplyCouponBtn"
                       onclick="validateAndApplyCoupon();"
