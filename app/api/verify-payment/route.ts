@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
+import { recordPurchase, generateSignedAssetToken } from '@/lib/purchases';
 
 export async function POST(req: NextRequest) {
   try {
@@ -51,13 +52,37 @@ export async function POST(req: NextRequest) {
     // -------------------------------------------------------------------------
     // 3. Payment Verified Successfully - Deliver Unlocked Asset
     // -------------------------------------------------------------------------
+    const customerUserId = body.userId || (email ? `user_${email.replace(/[^a-zA-Z0-9]/g, '_')}` : 'guest_purchaser');
+    const productId = body.productId || 'aging_well';
+
+    // Record verified purchase into secure mapping store
+    await recordPurchase({
+      userId: customerUserId,
+      productId: productId,
+      customerEmail: email || 'customer@webcraftly.site',
+      orderId: razorpay_order_id,
+      paymentId: razorpay_payment_id,
+      amount: body.amount || 11,
+      currency: body.currency || 'USD',
+      status: 'completed',
+      licenseType: 'Lifetime Commercial License'
+    });
+
+    // Generate signed temporary download token (15-minute expiry)
+    const { token, expiresAt } = generateSignedAssetToken(productId, customerUserId, email || '', 15 * 60 * 1000);
+    const secureDownloadUrl = `/api/library/download?token=${token}&productId=${encodeURIComponent(productId)}`;
+
     return NextResponse.json({
       verified: true,
-      message: 'Payment verified successfully.',
+      message: 'Payment verified successfully and asset unlocked.',
       paymentId: razorpay_payment_id,
       orderId: razorpay_order_id,
+      productId: productId,
+      userId: customerUserId,
       receiptSentTo: email || 'your email',
-      downloadUrl: '/assets/products/aging_well_workbook.jpg'
+      downloadUrl: secureDownloadUrl,
+      fileName: 'What_Nobody_Tells_You_About_Getting_Old_VERIFIED.pdf',
+      tokenExpiresAt: expiresAt
     });
   } catch (err: any) {
     console.error('Error verifying payment signature:', err);

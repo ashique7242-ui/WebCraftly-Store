@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
+import { recordPurchase } from '@/lib/purchases';
 
 export async function POST(req: NextRequest) {
   try {
@@ -37,8 +38,27 @@ export async function POST(req: NextRequest) {
     // Process payment events (e.g. payment.captured, order.paid)
     if (event.event === 'payment.captured' || event.event === 'order.paid') {
       const paymentEntity = event.payload?.payment?.entity;
-      console.log(`[PAYMENT CAPTURED] ID: ${paymentEntity?.id}, Amount: ${paymentEntity?.amount}, Email: ${paymentEntity?.email}`);
-      // Asset unlocking / automated fulfillment logic executed here
+      const orderEntity = event.payload?.order?.entity;
+      const email = paymentEntity?.email || orderEntity?.receipt || 'customer@webcraftly.site';
+      const orderId = paymentEntity?.order_id || orderEntity?.id || 'manual_order';
+      const paymentId = paymentEntity?.id || 'manual_payment';
+      const productId = paymentEntity?.notes?.productId || orderEntity?.notes?.productId || 'aging_well';
+      const customerUserId = paymentEntity?.notes?.userId || `user_${email.replace(/[^a-zA-Z0-9]/g, '_')}`;
+
+      console.log(`[PAYMENT CAPTURED] ID: ${paymentId}, Amount: ${paymentEntity?.amount}, Email: ${email}`);
+
+      // Automated digital asset fulfillment & database persistence
+      await recordPurchase({
+        userId: customerUserId,
+        productId,
+        customerEmail: email,
+        orderId,
+        paymentId,
+        amount: (paymentEntity?.amount ? paymentEntity.amount / 100 : 11),
+        currency: paymentEntity?.currency || 'USD',
+        status: 'completed',
+        licenseType: 'Lifetime Commercial License'
+      });
     }
 
     return NextResponse.json({ status: 'ok', received: true });

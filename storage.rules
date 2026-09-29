@@ -1,0 +1,38 @@
+rules_version = '2';
+
+// ===============================================================
+// Cloud Storage Security Rules: Public Marketing vs Private Assets
+// ===============================================================
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Default deny for all unspecified paths
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    // 1. Public Marketing Assets (e.g. image_701764.png, product thumbnails)
+    // Freely loadable across sales pages, CDN, and landing pages
+    match /public/{allPaths=**} {
+      allow read: if true;
+      allow write: if false; // Uploads restricted to authorized backend / admin
+    }
+
+    // 2. Private Digital Products (e.g. What_Nobody_Tells_You_About_Getting_Old_VERIFIED.pdf)
+    // Strictly blocked from unauthenticated or direct unauthorized public downloads.
+    // Client SDK direct access is completely blocked.
+    // Access is granted exclusively through backend-generated, time-limited Signed URLs.
+    match /secure_assets/{productId}/{fileName} {
+      // Direct client reading is completely forbidden
+      allow read: if false;
+      // Direct client writing is completely forbidden
+      allow write: if false;
+    }
+  }
+}

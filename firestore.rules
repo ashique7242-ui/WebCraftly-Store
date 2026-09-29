@@ -1,0 +1,107 @@
+rules_version = '2';
+
+// ===============================================================
+// Assumed Data Model & Security Architecture
+// ===============================================================
+//
+// 1. Collection: products
+//    Document ID: {productId} (e.g. 'aging_well', 'finance')
+//    Fields:
+//      - productId: string (required)
+//      - name: string (required)
+//      - title: string (required)
+//      - price: number (required, > 0)
+//      - currency: string (required, 'USD' or 'INR')
+//      - thumbnailUrl: string (required, public URL)
+//      - fileKey: string (required, private storage key)
+//      - isPublic: bool (required)
+//      - createdAt: timestamp (required)
+//    Access:
+//      - Read: Publicly readable by all users (for marketplace display)
+//      - Write: Denied to all clients (admin/backend only)
+//
+// 2. Collection: purchases
+//    Document ID: {purchaseId} (composite: {userId}_{productId})
+//    Fields:
+//      - userId: string (required, matches purchaser auth.uid)
+//      - productId: string (required, matches valid product)
+//      - customerEmail: string (required, valid email)
+//      - orderId: string (required, Razorpay order id)
+//      - paymentId: string (required, Razorpay payment id)
+//      - amount: number (required, >= 0)
+//      - currency: string (required, 'USD' or 'INR')
+//      - status: string (required, 'completed')
+//      - licenseType: string (required)
+//      - purchasedAt: timestamp (required)
+//    Access:
+//      - Read: Authenticated users can ONLY read their own purchase records
+//      - Write: Denied to all clients (created strictly by server webhook / verify API)
+//
+// 3. Collection: users
+//    Document ID: {userId} (matches auth.uid)
+//    Fields:
+//      - uid: string (required, immutable)
+//      - email: string (required)
+//      - displayName: string (optional)
+//      - photoURL: string (optional)
+//      - createdAt: timestamp (required)
+//      - updatedAt: timestamp (required)
+//    Access:
+//      - Read/Write: Authenticated user matching document ID only
+//
+// ===============================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isDocOwner() {
+      return isAuthenticated() && request.auth.uid == resource.data.userId;
+    }
+
+    // Default deny for all unspecified paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 1. Products Collection - Publicly readable catalog, server-only writes
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // 2. Purchases Collection - Strict user-specific ownership checks
+    match /purchases/{purchaseId} {
+      // User can only read their own purchase document
+      allow get: if isAuthenticated() && (
+        resource.data.userId == request.auth.uid ||
+        purchaseId.matches('^' + request.auth.uid + '_.*$')
+      );
+
+      // User can only list/query purchases belonging to their own UID
+      allow list: if isAuthenticated() && (
+        request.query.limit <= 50 &&
+        resource.data.userId == request.auth.uid
+      );
+
+      // Writes are strictly forbidden from client SDKs (trusted backend only)
+      allow write: if false;
+    }
+
+    // 3. Users Collection - Self profile management only
+    match /users/{userId} {
+      allow get, list: if isOwner(userId);
+      allow create: if isOwner(userId) && request.resource.data.uid == userId;
+      allow update: if isOwner(userId) && request.resource.data.uid == resource.data.uid;
+      allow delete: if false;
+    }
+  }
+}
