@@ -753,8 +753,8 @@
                     </div>
                     <div class="mt-3 flex items-center justify-between gap-2 w-full pt-2 border-t border-slate-100 sm:border-0 sm:pt-0">
                       <div class="flex items-baseline shrink-0">
-                        <span class="font-heading font-black text-xl text-slate-900">$11</span>
-                        <span class="text-xs text-slate-400 line-through font-medium ml-1.5">$27</span>
+                        <span id="heroCard1Price" class="font-heading font-black text-xl text-slate-900">$11</span>
+                        <span id="heroCard1OriginalPrice" class="text-xs text-slate-400 line-through font-medium ml-1.5">$27</span>
                       </div>
                       <button type="button" onclick="event.stopPropagation(); handleProductAccessClick('aging_well', event);" class="btn-luxury-cta px-3 py-1.5 text-xs font-heading font-bold text-white rounded-xl shadow-md inline-flex items-center gap-1.5 cursor-pointer shrink-0">
                         <span>Get Instant Access</span>
@@ -787,7 +787,7 @@
                       <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase bg-slate-100 text-slate-500 border border-slate-200/60 leading-none shrink-0">DE</span>
                     </div>
                     <div class="mt-3 flex items-center justify-between gap-2 w-full pt-2 border-t border-slate-100 sm:border-0 sm:pt-0">
-                      <span class="font-heading font-black text-xl text-slate-900 shrink-0">$39</span>
+                      <span id="heroCard2Price" class="font-heading font-black text-xl text-slate-900 shrink-0">$39</span>
                       <button type="button" onclick="event.stopPropagation(); handleProductAccessClick('finance', event);" class="btn-luxury-cta px-3 py-1.5 text-xs font-heading font-bold text-white rounded-xl shadow-md inline-flex items-center gap-1.5 cursor-pointer shrink-0">
                         <span>Get Instant Access</span>
                         <svg class="w-3.5 h-3.5 text-white fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -2667,40 +2667,55 @@
       return true;
     }
 
-    // --- 2. GLOBAL CLIENT STATE ---
+    // --- 2. GLOBAL CLIENT STATE & CURRENCY CONVERSION ENGINE ---
     let currentUser = null; // null or { name, email, avatar, hasContributed }
     let activeCheckoutItem = null;
     let pendingAction = null; // callback to run after successful login
     let appliedCoupon = null;
 
-    // Country flags dictionary
+    // Exchange rate: static fallback for INR (83.50) as requested, updated dynamically via live API
+    let USD_TO_INR_RATE = 83.50;
+
+    // Helper functions for Cookie management (prevents UI flicker, persists choice for 1 year)
+    function getCookie(name) {
+      const match = document.cookie.match(new RegExp('(^|;\\s*)' + name + '=([^;]+)'));
+      return match ? decodeURIComponent(match[2]) : null;
+    }
+
+    function setCookie(name, value, days = 365) {
+      const expires = new Date(Date.now() + days * 864e5).toUTCString();
+      document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`;
+    }
+
+    // Country flags & metadata dictionary
     const COUNTRY_DATA = {
-      US: { name: 'United States', flag: '🇺🇸', code: 'US', currency: 'USD ($)' },
-      GB: { name: 'United Kingdom', flag: '🇬🇧', code: 'GB', currency: 'USD ($)' },
-      CA: { name: 'Canada', flag: '🇨🇦', code: 'CA', currency: 'USD ($)' },
-      AU: { name: 'Australia', flag: '🇦🇺', code: 'AU', currency: 'USD ($)' },
-      DE: { name: 'Germany', flag: '🇩🇪', code: 'DE', currency: 'USD ($)' },
-      FR: { name: 'France', flag: '🇫🇷', code: 'FR', currency: 'USD ($)' },
-      IN: { name: 'India', flag: '🇮🇳', code: 'IN', currency: 'USD ($)' },
-      NL: { name: 'Netherlands', flag: '🇳🇱', code: 'NL', currency: 'USD ($)' },
-      ES: { name: 'Spain', flag: '🇪🇸', code: 'ES', currency: 'USD ($)' },
-      IT: { name: 'Italy', flag: '🇮🇹', code: 'IT', currency: 'USD ($)' },
-      BR: { name: 'Brazil', flag: '🇧🇷', code: 'BR', currency: 'USD ($)' },
-      JP: { name: 'Japan', flag: '🇯🇵', code: 'JP', currency: 'USD ($)' },
-      SG: { name: 'Singapore', flag: '🇸🇬', code: 'SG', currency: 'USD ($)' },
-      AE: { name: 'United Arab Emirates', flag: '🇦🇪', code: 'AE', currency: 'USD ($)' },
-      GLOBAL: { name: 'Global Region', flag: '🌐', code: 'GLOBAL', currency: 'USD ($)' }
+      US: { name: 'United States', flag: '🇺🇸', code: 'US', currency: 'USD' },
+      GB: { name: 'United Kingdom', flag: '🇬🇧', code: 'GB', currency: 'USD' },
+      CA: { name: 'Canada', flag: '🇨🇦', code: 'CA', currency: 'USD' },
+      AU: { name: 'Australia', flag: '🇦🇺', code: 'AU', currency: 'USD' },
+      DE: { name: 'Germany', flag: '🇩🇪', code: 'DE', currency: 'USD' },
+      FR: { name: 'France', flag: '🇫🇷', code: 'FR', currency: 'USD' },
+      IN: { name: 'India', flag: '🇮🇳', code: 'IN', currency: 'INR' },
+      NL: { name: 'Netherlands', flag: '🇳🇱', code: 'NL', currency: 'USD' },
+      ES: { name: 'Spain', flag: '🇪🇸', code: 'ES', currency: 'USD' },
+      IT: { name: 'Italy', flag: '🇮🇹', code: 'IT', currency: 'USD' },
+      BR: { name: 'Brazil', flag: '🇧🇷', code: 'BR', currency: 'USD' },
+      JP: { name: 'Japan', flag: '🇯🇵', code: 'JP', currency: 'USD' },
+      SG: { name: 'Singapore', flag: '🇸🇬', code: 'SG', currency: 'USD' },
+      AE: { name: 'United Arab Emirates', flag: '🇦🇪', code: 'AE', currency: 'USD' },
+      GLOBAL: { name: 'Global Region', flag: '🌐', code: 'GLOBAL', currency: 'USD' }
     };
 
     let userLocation = {
       countryCode: 'US',
       countryName: 'United States',
       flag: '🇺🇸',
+      currency: 'USD',
       age: null,
       autoDetected: false
     };
 
-    // Initialize state from localStorage
+    // Initialize state from Cookie, LocalStorage, or Next.js Edge headers
     try {
       const savedUser = localStorage.getItem('webcraftly_user');
       if (savedUser) {
@@ -2710,28 +2725,108 @@
       if (savedLoc) {
         userLocation = JSON.parse(savedLoc);
       }
+      // Check cookie from Edge middleware
+      const cookieCurr = getCookie('webcraftly_currency');
+      const cookieCountry = getCookie('webcraftly_country');
+      if (cookieCurr) {
+        userLocation.currency = cookieCurr;
+      }
+      if (cookieCountry && COUNTRY_DATA[cookieCountry]) {
+        userLocation.countryCode = cookieCountry;
+        userLocation.countryName = COUNTRY_DATA[cookieCountry].name;
+        userLocation.flag = COUNTRY_DATA[cookieCountry].flag;
+      }
     } catch (e) {
       console.error(e);
     }
 
-    // Auto-detect visitor location from browser locale & timezone
+    // Active Currency Getter
+    function getActiveCurrency() {
+      // 1. User's explicit selection in localStorage
+      try {
+        const saved = localStorage.getItem('webcraftly_preferred_currency');
+        if (saved === 'INR' || saved === 'USD') return saved;
+      } catch (e) {}
+
+      // 2. Cookie from Edge middleware (x-vercel-ip-country) or prior session
+      const cookieCurr = getCookie('webcraftly_currency');
+      if (cookieCurr === 'INR' || cookieCurr === 'USD') return cookieCurr;
+
+      // 3. User profile / location state
+      if (currentUser && currentUser.currency) return currentUser.currency;
+      if (userLocation && userLocation.currency) return userLocation.currency;
+
+      return (userLocation && userLocation.countryCode === 'IN') ? 'INR' : 'USD';
+    }
+
+    // Dynamic Price Formatter using Intl.NumberFormat (NO hardcoded $ signs)
+    function formatProductPrice(usdAmount, targetCurrency = getActiveCurrency()) {
+      if (usdAmount === undefined || usdAmount === null) return '';
+      const numUsd = Number(usdAmount);
+      if (isNaN(numUsd)) return '';
+
+      if (targetCurrency === 'INR') {
+        const inrAmount = Math.round(numUsd * USD_TO_INR_RATE);
+        return new Intl.NumberFormat('en-IN', {
+          style: 'currency',
+          currency: 'INR',
+          maximumFractionDigits: 0
+        }).format(inrAmount);
+      } else {
+        return new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+          maximumFractionDigits: 0
+        }).format(numUsd);
+      }
+    }
+
+    // Fetch live USD to INR exchange rate with static fallback
+    async function fetchLiveExchangeRate() {
+      try {
+        const res = await fetch('https://open.er-api.com/v6/latest/USD');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.rates && data.rates.INR) {
+            USD_TO_INR_RATE = Number(data.rates.INR.toFixed(2));
+            updateAllPriceDisplays();
+          }
+        }
+      } catch (e) {
+        // Fallback to static 83.50 as requested
+        console.log('Using static exchange rate fallback ~83.50 for INR');
+      }
+    }
+
+    // Auto-detect visitor location from Edge cookie, timezone, browser locale, & IP API
     async function autoDetectVisitorCountry() {
       try {
+        // 1. Check if user already has an explicit preference or Edge cookie
+        const savedCurrency = localStorage.getItem('webcraftly_preferred_currency') || getCookie('webcraftly_currency');
+        const savedCountry = localStorage.getItem('webcraftly_user_country') || getCookie('webcraftly_country');
+
+        if (savedCurrency && (savedCurrency === 'INR' || savedCurrency === 'USD')) {
+          const targetCode = savedCountry && COUNTRY_DATA[savedCountry] ? savedCountry : (savedCurrency === 'INR' ? 'IN' : 'US');
+          applyDetectedRegion(targetCode, false, savedCurrency);
+          return;
+        }
+
+        // 2. High-speed client heuristic: timezone & browser language (0ms latency, zero flicker)
         const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-        const lang = navigator.language || navigator.userLanguage || '';
+        const lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
 
         let detectedCode = 'US';
-        if (timeZone.includes('Calcutta') || timeZone.includes('Kolkata') || lang.includes('en-IN') || lang.includes('hi')) {
+        if (timeZone.includes('Calcutta') || timeZone.includes('Kolkata') || lang.includes('en-in') || lang.includes('hi')) {
           detectedCode = 'IN';
-        } else if (timeZone.includes('London') || lang.includes('en-GB')) {
+        } else if (timeZone.includes('London') || lang.includes('en-gb')) {
           detectedCode = 'GB';
         } else if (timeZone.includes('Berlin') || lang.includes('de')) {
           detectedCode = 'DE';
         } else if (timeZone.includes('Paris') || lang.includes('fr')) {
           detectedCode = 'FR';
-        } else if (timeZone.includes('Toronto') || timeZone.includes('Vancouver') || lang.includes('en-CA')) {
+        } else if (timeZone.includes('Toronto') || timeZone.includes('Vancouver') || lang.includes('en-ca')) {
           detectedCode = 'CA';
-        } else if (timeZone.includes('Sydney') || timeZone.includes('Melbourne') || lang.includes('en-AU')) {
+        } else if (timeZone.includes('Sydney') || timeZone.includes('Melbourne') || lang.includes('en-au')) {
           detectedCode = 'AU';
         } else if (timeZone.includes('Amsterdam') || lang.includes('nl')) {
           detectedCode = 'NL';
@@ -2745,43 +2840,87 @@
           detectedCode = 'SG';
         } else if (timeZone.includes('Dubai') || timeZone.includes('Asia/Dubai')) {
           detectedCode = 'AE';
-        } else if (timeZone.includes('Sao_Paulo') || lang.includes('pt-BR')) {
+        } else if (timeZone.includes('Sao_Paulo') || lang.includes('pt-br')) {
           detectedCode = 'BR';
-        } else {
-          detectedCode = 'US';
         }
 
-        const data = COUNTRY_DATA[detectedCode] || COUNTRY_DATA['US'];
-        userLocation.countryCode = data.code;
-        userLocation.countryName = data.name;
-        userLocation.flag = data.flag;
-        userLocation.autoDetected = true;
-        saveLocationState();
+        // Apply detected region immediately to avoid UI flickering
+        applyDetectedRegion(detectedCode, true);
 
-        // Tag profile with detected region if user is already logged in
-        if (currentUser) {
-          currentUser.countryCode = data.code;
-          currentUser.countryName = data.name;
-          currentUser.flag = data.flag;
-          currentUser.currency = 'USD';
-          saveUserState();
-          updateAuthUI();
-        }
+        // 3. Background asynchronous IP geolocation check (with 2.5s timeout)
+        fetchIpCountryAsync();
       } catch (err) {
         console.warn('Geolocation fallback to US:', err);
+        applyDetectedRegion('US', true);
       }
+    }
+
+    async function fetchIpCountryAsync() {
+      // If user has already made an explicit selection, do not override
+      if (localStorage.getItem('webcraftly_preferred_currency')) return;
+
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2500);
+        const res = await fetch('https://ipapi.co/json/', { signal: controller.signal });
+        clearTimeout(timeoutId);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.country_code) {
+            const ipCountry = data.country_code.toUpperCase();
+            if (ipCountry && ipCountry !== userLocation.countryCode) {
+              applyDetectedRegion(ipCountry, true);
+            }
+          }
+        }
+      } catch (e) {
+        // Fallback stays active
+      }
+    }
+
+    function applyDetectedRegion(code, isAuto = false, explicitCurrency = null) {
+      const data = COUNTRY_DATA[code] || COUNTRY_DATA['US'];
+      const targetCurrency = explicitCurrency || ((data.code === 'IN' || data.currency === 'INR') ? 'INR' : 'USD');
+
+      userLocation.countryCode = data.code;
+      userLocation.countryName = data.name;
+      userLocation.flag = data.flag;
+      userLocation.currency = targetCurrency;
+      userLocation.autoDetected = isAuto;
+      saveLocationState();
+
+      // Persist in Cookie & LocalStorage
+      setCookie('webcraftly_currency', targetCurrency, 365);
+      setCookie('webcraftly_country', data.code, 365);
+      try {
+        localStorage.setItem('webcraftly_preferred_currency', targetCurrency);
+        localStorage.setItem('webcraftly_user_country', data.code);
+      } catch (e) {}
+
+      if (currentUser) {
+        currentUser.countryCode = data.code;
+        currentUser.countryName = data.name;
+        currentUser.flag = data.flag;
+        currentUser.currency = targetCurrency;
+        saveUserState();
+        updateAuthUI();
+      }
+
       updateCountryBadgeUI();
+      updateAllPriceDisplays();
     }
 
     function updateCountryBadgeUI() {
       const flagEl = document.getElementById('navCountryFlag');
       const currCodeEl = document.getElementById('navCurrencyCode');
       const activeCountry = (currentUser && currentUser.countryCode) ? currentUser : userLocation;
+      const currentCurr = getActiveCurrency();
+
       if (flagEl) {
         flagEl.textContent = activeCountry.flag || '🇺🇸';
       }
       if (currCodeEl) {
-        currCodeEl.textContent = (activeCountry.countryCode === 'IN' || activeCountry.currency === 'INR') ? 'INR' : 'USD';
+        currCodeEl.textContent = currentCurr;
       }
 
       // Sync active state in dropdown list
@@ -2789,7 +2928,7 @@
 
       const checkoutBuyerRegion = document.getElementById('checkoutBuyerRegion');
       if (checkoutBuyerRegion) {
-        const isIndia = (activeCountry.countryCode === 'IN' || activeCountry.currency === 'INR');
+        const isIndia = (currentCurr === 'INR');
         checkoutBuyerRegion.innerHTML = `${activeCountry.flag || '🌐'} ${activeCountry.countryName || 'Global'} <span class="text-slate-400 font-normal">· ${isIndia ? 'INR (₹ - UPI Active)' : 'Billed in USD ($)'}</span>`;
       }
     }
@@ -2860,26 +2999,38 @@
 
     function selectMarketRegion(code) {
       const data = COUNTRY_DATA[code] || COUNTRY_DATA['US'];
-      userLocation.countryCode = data.code;
-      userLocation.countryName = data.name;
-      userLocation.flag = data.flag;
-      userLocation.currency = (data.code === 'IN') ? 'INR' : 'USD';
-      userLocation.autoDetected = false;
-      saveLocationState();
+      applyDetectedRegion(code, false);
+      closeMarketDropdown();
+      const currNotice = (getActiveCurrency() === 'INR') ? 'INR (₹ - UPI Enabled)' : 'USD ($ - Cards & Apple Pay)';
+      showToast(`Market region set to ${data.name} · ${currNotice}`);
+    }
 
-      if (currentUser) {
-        currentUser.countryCode = data.code;
-        currentUser.countryName = data.name;
-        currentUser.flag = data.flag;
-        currentUser.currency = userLocation.currency;
-        saveUserState();
-        updateAuthUI();
+    function updateAllPriceDisplays() {
+      const currentCurr = getActiveCurrency();
+
+      // 1. Re-render product grid cards with dynamic currency
+      renderProductGrid();
+
+      // 2. Update Hero preview card 1 ($11 / $27)
+      const heroCard1Price = document.getElementById('heroCard1Price');
+      const heroCard1Orig = document.getElementById('heroCard1OriginalPrice');
+      if (heroCard1Price) heroCard1Price.textContent = formatProductPrice(11, currentCurr);
+      if (heroCard1Orig) heroCard1Orig.textContent = formatProductPrice(27, currentCurr);
+
+      // 3. Update Hero preview card 2 ($39)
+      const heroCard2Price = document.getElementById('heroCard2Price');
+      if (heroCard2Price) heroCard2Price.textContent = formatProductPrice(39, currentCurr);
+
+      // 4. Update PDP if currently active
+      const pdpView = document.getElementById('productDetailView');
+      if (pdpView && !pdpView.classList.contains('hidden') && window._currentPdpProduct) {
+        renderProductDetailContent(window._currentPdpProduct);
       }
 
-      updateCountryBadgeUI();
-      closeMarketDropdown();
-      const currNotice = (userLocation.currency === 'INR') ? 'INR (₹ - UPI Enabled)' : 'USD ($ - Cards & Apple Pay)';
-      showToast(`Market region set to ${data.name} · ${currNotice}`);
+      // 5. Update checkout modal if open
+      if (typeof setCheckoutCurrency === 'function' && typeof currentSheetCurrency !== 'undefined') {
+        setCheckoutCurrency(currentCurr);
+      }
     }
 
     function saveLocationState() {
@@ -2978,8 +3129,8 @@
           <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2 sm:gap-3">
             <div class="min-w-0">
               <div class="flex items-baseline">
-                <span class="font-heading font-black text-xl sm:text-2xl lg:text-[1.75rem] text-slate-900 tracking-tight leading-none">$${prod.price}</span>
-                ${prod.originalPrice ? `<span class="text-xs sm:text-sm text-slate-400 line-through font-medium ml-1.5">$${prod.originalPrice}</span>` : ''}
+                <span class="font-heading font-black text-xl sm:text-2xl lg:text-[1.75rem] text-slate-900 tracking-tight leading-none">${formatProductPrice(prod.price)}</span>
+                ${prod.originalPrice ? `<span class="text-xs sm:text-sm text-slate-400 line-through font-medium ml-1.5">${formatProductPrice(prod.originalPrice)}</span>` : ''}
               </div>
               <div class="flex items-center gap-1 text-amber-500 font-heading font-semibold text-xs mt-0.5 sm:mt-1">
                 <span>★</span>
@@ -3013,6 +3164,7 @@
     function openProductDetail(productId, updateHistory = true) {
       const prod = PRODUCTS[productId];
       if (!prod) return;
+      window._currentPdpProduct = prod;
 
       document.getElementById('homeView').classList.add('hidden');
       document.getElementById('communityView').classList.add('hidden');
@@ -3245,8 +3397,8 @@
                 <div>
                   <div class="text-[11px] sm:text-xs font-heading font-semibold text-slate-500 uppercase tracking-wider">Instant Access Price</div>
                   <div class="flex items-baseline gap-2 mt-0.5">
-                    <span class="font-heading font-extrabold text-2xl sm:text-3xl text-[#003441]">$${prod.price}</span>
-                    ${prod.originalPrice ? `<span class="text-sm sm:text-base text-slate-400 line-through">$${prod.originalPrice}</span>` : ''}
+                    <span id="pdpCurrentPrice" class="font-heading font-extrabold text-2xl sm:text-3xl text-[#003441]">${formatProductPrice(prod.price)}</span>
+                    ${prod.originalPrice ? `<span id="pdpOriginalPrice" class="text-sm sm:text-base text-slate-400 line-through">${formatProductPrice(prod.originalPrice)}</span>` : ''}
                   </div>
                 </div>
                 ${discountPercent > 0 ? `
@@ -3349,7 +3501,7 @@
         <div class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-xl border-t border-slate-200 px-4 py-3 sm:py-3.5 pb-6 sm:pb-3.5 flex items-center justify-between shadow-2xl">
           <div>
             <div class="text-[10px] sm:text-[11px] text-slate-500 font-heading">Total Price</div>
-            <div class="font-heading font-extrabold text-lg sm:text-xl text-[#003441]">$${prod.price}</div>
+            <div id="pdpMobilePrice" class="font-heading font-extrabold text-lg sm:text-xl text-[#003441]">${formatProductPrice(prod.price)}</div>
           </div>
           <button type="button" onclick="handleProductAccessClick('${prod.id}', event);" class="coral-btn px-5 sm:px-6 py-2.5 text-xs sm:text-sm font-semibold flex items-center gap-1.5 shadow-md">
             ${lockIconHtml}
@@ -3376,7 +3528,7 @@
                 <div class="text-[11px] sm:text-xs font-heading font-medium text-slate-500 uppercase tracking-wide mb-1">${p.categoryLabel}</div>
                 <h4 class="font-heading font-black text-sm text-slate-900 truncate mb-3">${p.title}</h4>
                 <div class="flex items-center justify-between gap-2">
-                  <span class="font-heading font-black text-base sm:text-lg text-slate-900 shrink-0">$${p.price}</span>
+                  <span class="font-heading font-black text-base sm:text-lg text-slate-900 shrink-0">${formatProductPrice(p.price)}</span>
                   <button type="button" onclick="event.stopPropagation(); handleProductAccessClick('${p.id}', event);" class="btn-luxury-cta px-3 py-1.5 text-xs font-bold inline-flex items-center gap-1 cursor-pointer shrink-0">
                     <span>Get Instant Access</span>
                     <svg class="w-3 h-3 text-white fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -3782,7 +3934,6 @@
     const HASHED_OFFLINE_COUPON = '14063697603e22d600d336bee6cff12c8be93509ce84a0642918d89b2aef1753';
     let couponAttempts = 0;
     let couponRateLimitReset = 0;
-    const USD_TO_INR_RATE = 85;
     let currentSheetCurrency = 'USD';
     let currentSheetPrice = 11;
 
@@ -3808,6 +3959,7 @@
       currentSheetCurrency = (curr === 'INR') ? 'INR' : 'USD';
       try {
         localStorage.setItem('webcraftly_preferred_currency', currentSheetCurrency);
+        setCookie('webcraftly_currency', currentSheetCurrency, 365);
       } catch (e) {}
 
       if (activeCheckoutItem) {
@@ -3823,14 +3975,13 @@
           ? Math.round((activeCheckoutItem.originalPrice || 27) * USD_TO_INR_RATE)
           : (activeCheckoutItem.originalPrice || 27);
 
-        const pricePrefix = (currentSheetCurrency === 'INR') ? '₹' : '$';
-        const formattedPrice = (currentSheetCurrency === 'INR') 
-          ? `${currentSheetPrice}` 
-          : (appliedCoupon ? `${currentSheetPrice.toFixed(2)}` : `${currentSheetPrice}`);
-
         const currentPriceEl = document.getElementById('sheetCurrentPrice');
         if (currentPriceEl) {
-          currentPriceEl.textContent = `${pricePrefix}${formattedPrice}`;
+          if (appliedCoupon) {
+            currentPriceEl.textContent = (currentSheetCurrency === 'INR') ? '₹10' : '$0.10';
+          } else {
+            currentPriceEl.textContent = formatProductPrice(activeCheckoutItem.price, currentSheetCurrency);
+          }
           currentPriceEl.classList.remove('celebration-pulse');
           void currentPriceEl.offsetWidth; // trigger reflow
           currentPriceEl.classList.add('celebration-pulse');
@@ -3838,7 +3989,7 @@
 
         const origPriceEl = document.getElementById('sheetOriginalPrice');
         if (origPriceEl) {
-          origPriceEl.textContent = `${pricePrefix}${originalDisplayPrice}`;
+          origPriceEl.textContent = formatProductPrice(activeCheckoutItem.originalPrice, currentSheetCurrency);
         }
       }
 
@@ -3950,11 +4101,7 @@
       if (payBtnLabel) payBtnLabel.textContent = 'Pay Securely';
 
       // Auto-detect currency: check stored preference or user country
-      const savedCurrency = localStorage.getItem('webcraftly_preferred_currency');
-      const activeCountryCode = (currentUser && currentUser.countryCode) || (userLocation && userLocation.countryCode) || 'US';
-      const initialCurrency = savedCurrency || (activeCountryCode === 'IN' ? 'INR' : 'USD');
-
-      // Initialize currency display and calculations
+      const initialCurrency = getActiveCurrency();
       setCheckoutCurrency(initialCurrency);
 
       // Reset & prefill email input (frictionless 1-input checkout)
@@ -4889,7 +5036,9 @@
     // DOM Ready Initialization
     document.addEventListener('DOMContentLoaded', () => {
       autoDetectVisitorCountry();
+      fetchLiveExchangeRate();
       renderProductGrid();
+      updateAllPriceDisplays();
       updateAuthUI();
       updateLibraryBadgeUI();
       handleInitialRoute();

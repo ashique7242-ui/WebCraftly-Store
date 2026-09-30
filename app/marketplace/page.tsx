@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { headers, cookies } from "next/headers";
 
 export const metadata: Metadata = {
   title: "Digital Marketplace Vault | WebCraftly",
@@ -89,6 +90,26 @@ const PRODUCTS = [
 ];
 
 export default function MarketplacePage() {
+  const cookieStore = cookies();
+  const headersList = headers();
+  const currency = cookieStore.get("webcraftly_currency")?.value || headersList.get("x-user-currency") || "USD";
+  const USD_TO_INR_RATE = 83.50;
+
+  const formatPrice = (usd: number) => {
+    if (currency === "INR") {
+      return new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+        maximumFractionDigits: 0,
+      }).format(Math.round(usd * USD_TO_INR_RATE));
+    }
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0,
+    }).format(usd);
+  };
+
   return (
     <div className="min-h-screen bg-[#FFFDF9] py-12 sm:py-16 px-4 sm:px-6 lg:px-8 font-body">
       <div className="max-w-7xl mx-auto">
@@ -103,7 +124,7 @@ export default function MarketplacePage() {
             The Digital Vault
           </h1>
           <p className="text-espresso-light text-base sm:text-lg leading-relaxed">
-            Every product in this vault is battle-tested, verified for zero bloatware, and backed by our 7-day risk-free promise. Billed strictly in USD ($) via Razorpay.
+            Every product in this vault is battle-tested, verified for zero bloatware, and backed by our 7-day risk-free promise. Billed seamlessly in {currency === 'INR' ? 'INR (₹) with UPI' : 'USD ($)'} via Razorpay.
           </p>
         </div>
 
@@ -163,8 +184,8 @@ export default function MarketplacePage() {
 
               <div className="pt-4 border-t border-[#E5E2DB] flex items-center justify-between gap-3">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-2xl font-black text-espresso">${prod.price}</span>
-                  <span className="text-sm text-slate-400 line-through">${prod.originalPrice}</span>
+                  <span className="text-2xl font-black text-espresso">{formatPrice(prod.price)}</span>
+                  <span className="text-sm text-slate-400 line-through">{formatPrice(prod.originalPrice)}</span>
                 </div>
 
                 <Link
